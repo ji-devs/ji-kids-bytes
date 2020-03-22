@@ -2,19 +2,18 @@ use web_sys::window;
 use wasm_bindgen::prelude::*;
 use crate::config;
 
-pub fn get_topic() -> String {
-
-    fn get_pathname() -> Result<String, JsValue> {
-        let pathname = window().unwrap().location().pathname()?;
-
-        let pathname = get_root(pathname.as_str());
-
-        Ok(pathname.to_string())
+pub fn get_uri_parts() -> Vec<String> {
+    match window().unwrap().location().pathname() {
+        Ok(pathname) => {
+            let uri = get_root(pathname.as_str());
+            if uri == "" {
+                vec![]
+            } else {
+                uri.split("/").map(|s| s.to_string()).collect()
+            }
+        },
+        Err(_) => vec![]
     }
-
-    let pathname = get_pathname().unwrap_or("".to_string());
-
-    pathname
 }
 
 //simple stripping of host dir like if deploying to example.com/foo

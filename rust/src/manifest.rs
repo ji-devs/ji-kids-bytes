@@ -6,16 +6,15 @@ pub struct Manifest {
     pub meta: Meta,
     pub videos: Vec<Video>,
     pub games: Vec<Game>,
-    pub look_closers: Vec<LookCloser>,
+    pub discovers: Vec<Discover>,
     pub creates: Vec<Create>,
-    pub hands_ons: Vec<HandsOn>,
+    pub crafts: Vec<Craft>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Meta {
     pub id: String,
     pub title: String,
-    pub color: String
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -29,8 +28,10 @@ pub struct Game {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct LookCloser {
+pub struct Discover {
     pub link: String,
+
+    pub image_filename: String,
 
     pub title: String,
 
@@ -49,7 +50,7 @@ pub struct Create {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct HandsOn {
+pub struct Craft {
     pub link: String,
 
     pub image_filename: String,

@@ -26,7 +26,7 @@ export class LeftMenu extends LitElement {
 
         return html`
             <div class="menu" >
-                <img class="logo" src=${Path.ui("menu-logo.svg")} />
+                <a href="/"><img class="logo" src=${Path.ui("menu-logo.svg")} /></a>
                 ${list(this.section, on_select)}
             </div>
         `;

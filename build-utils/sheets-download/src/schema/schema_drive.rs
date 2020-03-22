@@ -20,8 +20,6 @@ pub struct MetaEntry {
     pub id: TextCell,
     #[serde(rename = "gsx$title")]
     pub title: TextCell,
-    #[serde(rename = "gsx$color")]
-    pub color: TextCell,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -37,9 +35,12 @@ pub struct GamesEntry {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct LookCloserEntry {
+pub struct DiscoverEntry {
     #[serde(rename = "gsx$link")]
     pub link: TextCell,
+
+    #[serde(rename = "gsx$imagefilename")]
+    pub image_filename: TextCell,
 
     #[serde(rename = "gsx$title")]
     pub title: TextCell,
@@ -64,7 +65,7 @@ pub struct CreateEntry {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct HandsOnEntry {
+pub struct CraftEntry {
     #[serde(rename = "gsx$link")]
     pub link: TextCell,
 

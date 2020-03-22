@@ -13,7 +13,7 @@ export class Home extends LitElement {
             <h1>Welcome to Ji Kids Bytes!</h1>
             <h2>Choose a topic:</h2>
             <ul>
-                <li><a href="/moses">Moses</a></li>
+                <li><a href="/topic/moses">Moses</a></li>
             </ul>
             
         `;

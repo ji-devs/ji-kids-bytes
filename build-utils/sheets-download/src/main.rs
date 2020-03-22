@@ -24,11 +24,11 @@ async fn main() {
         let meta = meta.remove(0);
         let watch:Vec<WatchEntry> = load_manifest_sheet(&sheet_id, 2).await;
         let games:Vec<GamesEntry> = load_manifest_sheet(&sheet_id, 3).await;
-        let look_closer:Vec<LookCloserEntry> = load_manifest_sheet(&sheet_id, 4).await;
+        let discovers:Vec<DiscoverEntry> = load_manifest_sheet(&sheet_id, 4).await;
         let create:Vec<CreateEntry> = load_manifest_sheet(&sheet_id, 5).await;
-        let hands_on:Vec<HandsOnEntry> = load_manifest_sheet(&sheet_id, 6).await;
+        let crafts:Vec<CraftEntry> = load_manifest_sheet(&sheet_id, 6).await;
 
-        let app_manifest = Manifest::from((meta, watch, games, look_closer, create, hands_on));
+        let app_manifest = Manifest::from((meta, watch, games, discovers, create, crafts));
 
         let mut manifest_path = config.local_output.clone();
         manifest_path.push(format!("{}.json", app_manifest.meta.id));

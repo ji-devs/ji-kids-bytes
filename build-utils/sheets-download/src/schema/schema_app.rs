@@ -6,16 +6,15 @@ pub struct Manifest {
     pub meta: Meta,
     pub videos: Vec<Video>,
     pub games: Vec<Game>,
-    pub look_closers: Vec<LookCloser>,
+    pub discovers: Vec<Discover>,
     pub creates: Vec<Create>,
-    pub hands_ons: Vec<HandsOn>,
+    pub crafts: Vec<Craft>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Meta {
     pub id: String,
     pub title: String,
-    pub color: String
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -29,8 +28,10 @@ pub struct Game {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct LookCloser {
+pub struct Discover {
     pub link: String,
+
+    pub image_filename: String,
 
     pub title: String,
 
@@ -49,7 +50,7 @@ pub struct Create {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct HandsOn {
+pub struct Craft {
     pub link: String,
 
     pub image_filename: String,
@@ -59,14 +60,13 @@ pub struct HandsOn {
     pub body: String,
 }
 
-type DriveSources = (MetaEntry,Vec<WatchEntry>, Vec<GamesEntry>, Vec<LookCloserEntry>, Vec<CreateEntry>, Vec<HandsOnEntry>);
+type DriveSources = (MetaEntry,Vec<WatchEntry>, Vec<GamesEntry>, Vec<DiscoverEntry>, Vec<CreateEntry>, Vec<CraftEntry>);
 impl From<DriveSources> for Manifest {
     fn from(sources:DriveSources) -> Self {
 
         let meta = Meta {
             id: sources.0.id.text,
             title: sources.0.title.text,
-            color: sources.0.color.text,
         };
 
         let videos:Vec<Video> = sources.1.into_iter().map(|x| Video {
@@ -77,8 +77,9 @@ impl From<DriveSources> for Manifest {
             id: x.jitap_id.text
         }).collect();
 
-        let look_closers:Vec<LookCloser> = sources.3.into_iter().map(|x| LookCloser {
+        let discovers:Vec<Discover> = sources.3.into_iter().map(|x| Discover {
             link: x.link.text,
+            image_filename: x.image_filename.text,
             title: x.title.text,
             desc: x.description.text,
         }).collect();
@@ -90,7 +91,7 @@ impl From<DriveSources> for Manifest {
             body: x.body.text,
         }).collect();
 
-        let hands_ons:Vec<HandsOn> = sources.5.into_iter().map(|x| HandsOn {
+        let crafts:Vec<Craft> = sources.5.into_iter().map(|x| Craft {
             link: x.link.text,
             image_filename: x.image_filename.text,
             header: x.header.text,
@@ -101,9 +102,9 @@ impl From<DriveSources> for Manifest {
             meta,
             videos,
             games,
-            look_closers,
+            discovers,
             creates,
-            hands_ons
+            crafts
         }
     }
 }

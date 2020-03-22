@@ -11,7 +11,8 @@ use crate::manifest::*;
 use crate::path::*;
 
 pub async fn load_manifest(id:&str) -> Result<Manifest, JsValue> {
-    let url = media_url(&format!("manifests/{}.json", id));
+
+    let url = media_url(&format!("manifests/{}.json?cb={}", id, js_sys::Date::now()));
 
     let manifest:Manifest = fetch::json(&url).await?;
     Ok(manifest)
