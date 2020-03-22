@@ -9,16 +9,15 @@ cfg_if! {
     } else {
         mod dom;
         mod events;
-        mod schema;
+        mod manifest;
         mod loader;
         mod config;
         mod path;
         mod enums;
         mod router;
 
+
         use wasm_bindgen::prelude::*;
-        use std::rc::Rc;
-        use dom::root::Root;
 
         #[cfg(feature = "wee_alloc")]
         #[global_allocator]
@@ -39,13 +38,32 @@ cfg_if! {
             }
         }
 
-        #[wasm_bindgen]
-        pub fn init_app() {
+        #[wasm_bindgen(start)]
+        pub async fn main_js() -> Result<(), JsValue> {
+            use std::rc::Rc;
+            use dom::root::{Root, RootPage};
+
             setup_logger();
 
             let root = Rc::new(Root::new());
-            Root::load(Rc::clone(&root), router::get_topic());
-            dominator::append_dom(&dominator::body(), Root::render(root));
+            dominator::append_dom(&dominator::body(), Root::render(Rc::clone(&root)));
+
+            let topic = router::get_topic();
+
+            if topic == "" {
+                root.page.set(RootPage::Home);
+            } else {
+                match loader::load_manifest(&topic).await {
+                    Ok(manifest) => {
+                        root.page.set(RootPage::Main(manifest));
+                    },
+                    Err(err) => {
+                        root.page.set(RootPage::NotFound);
+                    }
+                }
+            }
+
+            Ok(())
 
         }
     }

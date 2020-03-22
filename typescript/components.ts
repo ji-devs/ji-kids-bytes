@@ -1,5 +1,4 @@
-import "@components/main/main";
-import "@components/error/error";
-import "@components/loading/loading";
-import "@components/left-menu/left-menu";
-import "@components/top-header/top-header";
+import "@components/pages/main/main";
+import "@components/pages/not-found/not-found";
+import "@components/pages/loading/loading";
+import "@components/pages/home/home";

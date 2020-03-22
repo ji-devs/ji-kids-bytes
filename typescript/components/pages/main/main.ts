@@ -6,6 +6,10 @@ import main_css from "./main.css";
 import common_css from "@components/common/common.css";
 import {getScale} from "@settings/settings";
 import {Section} from "@events/events";
+import "./left-menu/left-menu";
+import "./top-header/top-header";
+import "./contents/watch/watch";
+import "./contents/games/games";
 
 @customElement("app-main")
 export class Main extends LitElement {
@@ -26,8 +30,8 @@ export class Main extends LitElement {
                 </div>
                 <div class="right">
                     <top-header title=${this["meta-title"]} color=${this["meta-color"]} ></top-header>
-                    <div class="content">
-                        <h1> CONTENT HERE!</h1>
+                    <div class="contents">
+                        <slot name="contents"></slot>
                     </div>
                 </div>
             </div>

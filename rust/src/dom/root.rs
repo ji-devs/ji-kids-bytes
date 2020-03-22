@@ -10,25 +10,25 @@ use crate::events::*;
 use crate::loader::*;
 use super::main::Main;
 use crate::enums::*;
-use crate::schema::*;
+use crate::manifest::*;
+use crate::config;
 
 pub struct Root {
-    page: Mutable<RootPage>,
-    loader_promise: RefCell<Option<js_sys::Promise>>
+    pub page: Mutable<RootPage>,
 }
 
 #[derive(Clone)]
-enum RootPage {
+pub enum RootPage {
     Loading,
-    Ready(Manifest),
-    Error
+    Main(Manifest),
+    Home,
+    NotFound,
 }
 
 impl Root {
     pub fn new() -> Self {
         Self { 
             page: Mutable::new(RootPage::Loading),
-            loader_promise: RefCell::new(None),
         }
     }
 }
@@ -43,31 +43,15 @@ impl Root {
         })
     }
 
-    pub fn load(root: Rc<Self>, topic:String) {
-        let root_clone = Rc::clone(&root);
-        *root_clone.loader_promise.borrow_mut() = Some(future_to_promise(async move {
-            match load_manifest(&topic).await {
-                Ok(manifest) => {
-                    root.page.set(RootPage::Ready(manifest));
-                },
-                Err(err) => {
-                    root.page.set(RootPage::Error)
-                }
-            }
-
-            root.loader_promise.borrow_mut().take();
-            Ok(JsValue::null())
-        }));
-    }
-
     fn page_signal(root: Rc<Self>) -> impl Signal<Item = Dom> {
         root.page.signal_cloned().map(|page| match page {
             RootPage::Loading => html!("app-loading"),
-            RootPage::Ready(manifest) => {
-                let main = Rc::new(Main::new(Section::Watch, manifest));
+            RootPage::Home => html!("app-home"),
+            RootPage::Main(manifest) => {
+                let main = Rc::new(Main::new(config::DEFAULT_SECTION, manifest));
                 Main::render(main)
             },
-            _ => html!("app-error")
+            _ => html!("not-found")
         })
     }
 }

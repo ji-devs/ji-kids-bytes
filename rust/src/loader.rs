@@ -7,7 +7,7 @@ use awsm_web::loaders::fetch;
 use gloo_events::EventListener;
 use std::future::Future;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
-use crate::schema::*;
+use crate::manifest::*;
 use crate::path::*;
 
 pub async fn load_manifest(id:&str) -> Result<Manifest, JsValue> {
