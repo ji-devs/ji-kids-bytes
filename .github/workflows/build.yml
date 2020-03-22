@@ -1,0 +1,161 @@
+name: Test, Build, and Deploy
+
+on: [push]
+    
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract label 
+        shell: bash
+        run: echo "##[set-output name=label;]$(echo \"[${GITHUB_REF#refs/heads/} - ${{github.event.repository.name}} - build]\")"
+        id: extract_label
+
+      - name: Notify slack
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} starting...\"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: checkout repo
+        uses: actions/checkout@v1
+
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache cargo registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Cache cargo index
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: download binaryen release
+        run: curl -u dakom:"$GITHUB_TOKEN" -s https://api.github.com/repos/WebAssembly/binaryen/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | xargs -I {} wget -c https://github.com/WebAssembly/binaryen/releases/latest/download/binaryen-{}-x86_64-linux.tar.gz -O binaryen.tgz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: extract binaryen to folder 
+        run: mkdir binaryen && tar -zxvf ./binaryen.tgz -C binaryen --strip-components 1
+
+      - name: add binaryen to path
+        uses: dakom/actions-path@master
+        with:
+          path: ${{github.workspace}}/binaryen
+
+      - name: install node
+        uses: actions/setup-node@v1
+
+      - name: install npm deps
+        run: npm ci
+
+      - name: install rust nightly
+        run: rustup toolchain install nightly
+
+      - name: make nightly the default
+        run: rustup default nightly
+
+      - name: add rust target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: install wasm-bindgen
+        run: cargo install wasm-bindgen-cli
+      
+      - name: install cargo make 
+        run: cargo install cargo-make 
+
+      - name: test everything
+        run: cargo make test 
+
+      - name: bundle (production)
+        run: cargo make build --profile production 
+        if: github.ref == 'refs/heads/master'
+
+      - name: bundle (dev)
+        run: cargo make build --profile development 
+        if: github.ref == 'refs/heads/dev'
+
+      - name: upload artifacts (if deploy)
+        uses: actions/upload-artifact@master
+        with:
+          name: dist 
+          path: dist 
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
+
+      - name: Notify slack of all status
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} ${{job.status}}\"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: always()
+
+      - name: Notify slack if success and deploy will happen
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} preparing for deploy...\"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: success() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
+
+  deploy:
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    needs: bundle
+    steps:
+      - name: Extract label 
+        shell: bash
+        run: echo "##[set-output name=label;]$(echo \"[${GITHUB_REF#refs/heads/} - ${{github.event.repository.name}} - deploy]\")"
+        id: extract_label
+
+      - name: Notify slack
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} starting...\"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: checkout repo
+        uses: actions/checkout@v1
+
+      - name: download artifacts
+        uses: actions/download-artifact@master
+        with:
+          name: dist 
+          path: dist 
+
+      - name: deploy to firebase
+        uses: w9jds/firebase-action@v1.0.1
+        with:
+          args: deploy --project ji-kids --only hosting:ji-kids-bytes
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        if: github.ref == 'refs/heads/master'
+
+      - name: Notify slack
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} ${{job.status}}\"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: always()

@@ -1,0 +1,50 @@
+header {
+    display: flex;
+    border-bottom: 1px solid #1f313f;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 7em;
+    padding-bottom: .7em;
+}
+.title {
+    text-align: right;
+    font-size: 2rem;
+    margin-left: auto; /* https://medium.com/@iamryanyu/how-to-align-last-flex-item-to-right-73512e4e5912 */
+    margin-right: 2em;
+    align-self: flex-end;
+    margin-bottom: .3em;
+    font-weight: 500;
+
+}
+
+/* left-side is 248px in */
+.buttons {
+    margin-left: 3em;
+    display: flex;
+}
+
+.buttons > * + * {
+    margin-left: 3.4em;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+img.home {
+    width: 5.35em;
+    height: 2.95em;
+}
+
+img.help {
+    width: 2.9em;
+    height: 2.9em;
+}
+
+.button > .label {
+    margin-top: .7em;
+    font-size: 1.3rem;
+}
+
