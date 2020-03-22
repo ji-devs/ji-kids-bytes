@@ -16,6 +16,31 @@
                 font-size: 62.5%;
             }
 
+
+            /* see if these have an effect.... */
+
+            /* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+            /* Portrait and Landscape */
+            @media only screen 
+            and (min-device-width: 414px) 
+            and (max-device-width: 736px) 
+            and (-webkit-min-device-pixel-ratio: 3) { 
+                    :root {
+                        font-size: 40%; 
+                    }
+            }
+            /* ----------- iPhone X ----------- */
+            /* Portrait and Landscape */
+            @media only screen 
+                and (min-device-width: 375px) 
+                and (max-device-width: 812px) 
+                and (-webkit-min-device-pixel-ratio: 3) { 
+                    :root {
+                        font-size: 40%; 
+                    }
+            }
+
             @media only screen and (max-height: 768px), (max-width: 1024px) {
                 :root {
                     font-size: 40%; 
@@ -33,6 +58,8 @@
                     font-size: 20%; 
                 }
             }
+
+
 
         </style>
     </head>
