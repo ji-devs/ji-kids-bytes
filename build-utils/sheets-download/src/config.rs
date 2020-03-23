@@ -6,7 +6,7 @@ use url::Url;
 #[structopt(name = "creation pack download", about = "A little util to download and re-parse creation packs")]
 pub struct Config {
     /// Output dir
-    #[structopt(short, long, default_value="D:\\Dropbox (Jewish Interactive)\\Daily_Bytes\\live-media\\manifests", parse(from_os_str))]
+    #[structopt(short, long, default_value="D:\\Dropbox (Jewish Interactive)\\Ji Kids - Bytes - Media\\live-media\\manifests", parse(from_os_str))]
     pub local_output: PathBuf,
     
     /// Manifest Id 

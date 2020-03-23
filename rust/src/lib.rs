@@ -41,37 +41,17 @@ cfg_if! {
         #[wasm_bindgen(start)]
         pub async fn main_js() -> Result<(), JsValue> {
             use std::rc::Rc;
-            use dom::root::{Root, RootPage};
+            use dom::root::Root;
+            use enums::*;
 
             setup_logger();
 
             let root = Rc::new(Root::new());
             dominator::append_dom(&dominator::body(), Root::render(Rc::clone(&root)));
 
-            //TODO - move all this into router and return page or something
-            let uri_parts = router::get_uri_parts();
-            if uri_parts.len() == 0 {
-                root.page.set(RootPage::Home);
-            } else {
-                if uri_parts[0] == "topic" {
-                    if uri_parts.len() > 1 {
-                        match loader::load_manifest(&uri_parts[1]).await {
-                            Ok(manifest) => {
-                                root.page.set(RootPage::Main(manifest));
-                            },
-                            Err(err) => {
-                                log::info!("BAD MANIFEST!");
-                                root.page.set(RootPage::NotFound);
-                            }
-                        }
-                    } else {
-                        root.page.set(RootPage::NotFound);
-                    }
-                } else {
-                    root.page.set(RootPage::NotFound);
-                }
-            }
+            let page = router::get_page().await;
 
+            root.page.set(page.unwrap_or(RootPage::NotFound));
 
             Ok(())
 

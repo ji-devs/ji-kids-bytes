@@ -1,3 +1,14 @@
+use std::rc::Rc;
+use crate::manifest::{AppManifest, TopicManifest};
+
+#[derive(Clone)]
+pub enum RootPage {
+    Loading,
+    Topic(Rc<TopicManifest>),
+    Home(Rc<AppManifest>),
+    NotFound,
+}
+
 #[derive(Clone, Copy, PartialEq)]
 pub enum Section {
     Watch,

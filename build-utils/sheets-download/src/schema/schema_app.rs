@@ -2,8 +2,13 @@ use super::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Manifest {
-    pub meta: Meta,
+pub struct AppManifest {
+    pub topics: Vec<TopicMeta>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct TopicManifest {
+    pub meta: TopicMeta,
     pub videos: Vec<Video>,
     pub games: Vec<Game>,
     pub discovers: Vec<Discover>,
@@ -12,7 +17,7 @@ pub struct Manifest {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Meta {
+pub struct TopicMeta {
     pub id: String,
     pub title: String,
 }
@@ -61,10 +66,10 @@ pub struct Craft {
 }
 
 type DriveSources = (MetaEntry,Vec<WatchEntry>, Vec<GamesEntry>, Vec<DiscoverEntry>, Vec<CreateEntry>, Vec<CraftEntry>);
-impl From<DriveSources> for Manifest {
+impl From<DriveSources> for TopicManifest {
     fn from(sources:DriveSources) -> Self {
 
-        let meta = Meta {
+        let meta = TopicMeta {
             id: sources.0.id.text,
             title: sources.0.title.text,
         };

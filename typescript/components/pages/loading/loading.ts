@@ -3,7 +3,7 @@ import {nothing, html} from "lit-html";
 import {repeat} from 'lit-html/directives/repeat';
 import loading_css from "./loading.css";
 
-@customElement("app-loading")
+@customElement("loading-landing")
 export class Loading extends LitElement {
     static styles = loading_css;
     render() {

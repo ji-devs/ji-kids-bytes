@@ -10,9 +10,11 @@ export const MEDIA_URL = isLocal
 export const Path = (() => {
     const MEDIA_APP = `${MEDIA_URL}/app`;
     const MEDIA_APP_UI = `${MEDIA_APP}/ui`;
+    const MEDIA_TOPIC = `${MEDIA_URL}/topics`;
 
     return {
-        ui: (path:string) => `${MEDIA_APP_UI}/${path}`
+        ui: (path:string) => `${MEDIA_APP_UI}/${path}`,
+        topic: (topic:string) => (path:string) => `${MEDIA_TOPIC}/${topic}/${path}`
     }
 })();
 

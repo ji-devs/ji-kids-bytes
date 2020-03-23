@@ -8,7 +8,7 @@ if(!process.env.DEVELOPER || process.env.DEVELOPER === "") {
 const paths = {
     david: (osPlatform) => {
         switch(osPlatform) {
-            default: return `D:\\Dropbox (Jewish Interactive)\\Daily_Bytes\\live-media`
+            default: return `D:\\Dropbox (Jewish Interactive)\\Ji Kids - Bytes - Media\\live-media`
         }
     },
 	

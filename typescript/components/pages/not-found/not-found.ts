@@ -4,7 +4,7 @@ import {repeat} from 'lit-html/directives/repeat';
 import common_css from "@components/common/common.css";
 import not_found_css from "./not-found.css";
 
-@customElement("not-found")
+@customElement("not-found-landing")
 export class NotFound extends LitElement {
     static styles = [common_css, not_found_css];
 

@@ -10,7 +10,7 @@ const CloudStorageMedia = `gs://bytes-ji-kids-eu/`;
 let localPath = (() => {
     switch(os.platform()) {
         case "linux": return `/dropbox/container/Dropbox (Jewish Interactive)/ji-tap-cdn`;
-        default: return `D:\\Dropbox (Jewish Interactive)\\Daily_Bytes\\live-media`;
+        default: return `D:\\Dropbox (Jewish Interactive)\\Ji Kids - Bytes - Media\\live-media`;
     }
 })();
 

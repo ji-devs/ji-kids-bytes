@@ -1,19 +1,21 @@
-use std::rc::{Rc};
-use std::cell::{RefCell};
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use wasm_bindgen_futures::future_to_promise;
 use awsm_web::loaders::fetch;
-use gloo_events::EventListener;
-use std::future::Future;
-use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use crate::manifest::*;
 use crate::path::*;
 
-pub async fn load_manifest(id:&str) -> Result<Manifest, JsValue> {
+pub async fn load_topic_manifest(id:&str) -> Result<TopicManifest, JsValue> {
 
-    let url = media_url(&format!("manifests/{}.json?cb={}", id, js_sys::Date::now()));
+    let url = media_url(&format!("manifests/topics/{}.json?cb={}", id, js_sys::Date::now()));
 
-    let manifest:Manifest = fetch::json(&url).await?;
+    let manifest:TopicManifest = fetch::json(&url).await?;
+    Ok(manifest)
+}
+
+
+pub async fn load_app_manifest() -> Result<AppManifest, JsValue> {
+
+    let url = media_url(&format!("manifests/app.json?cb={}", js_sys::Date::now()));
+
+    let manifest:AppManifest = fetch::json(&url).await?;
     Ok(manifest)
 }

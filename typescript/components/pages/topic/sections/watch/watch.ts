@@ -11,8 +11,8 @@ import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
-@customElement("contents-watch")
-export class Contents extends LitElement {
+@customElement("section-watch")
+export class _ extends LitElement {
     static styles = [common_css, watch_css];
 
     @property( { type : String }  ) ids = "";

@@ -1,8 +1,34 @@
 use web_sys::window;
-use wasm_bindgen::prelude::*;
+use std::rc::Rc;
 use crate::config;
+use crate::enums::*;
+use crate::loader::*;
+use crate::manifest::*;
 
-pub fn get_uri_parts() -> Vec<String> {
+pub async fn get_page() -> Option<RootPage> {
+    let uri_parts = get_uri_parts();
+    if uri_parts.len() == 0 {
+        let app_manifest = load_app_manifest().await.expect("unable to load app manifest!!");
+        Some(RootPage::Home(Rc::new(app_manifest)))
+
+    } else if uri_parts[0] == "topic" {
+        get_topic(&uri_parts)
+            .await
+            .map(|manifest| RootPage::Topic(Rc::new(manifest)))
+    } else {
+        None
+    }
+}
+
+async fn get_topic(uri_parts:&Vec<String>) -> Option<TopicManifest> {
+    if uri_parts.len() > 1 {
+        load_topic_manifest(&uri_parts[1]).await.ok()
+    } else {
+        None 
+    }
+}
+
+fn get_uri_parts() -> Vec<String> {
     match window().unwrap().location().pathname() {
         Ok(pathname) => {
             let uri = get_root(pathname.as_str());

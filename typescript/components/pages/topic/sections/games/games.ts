@@ -11,8 +11,8 @@ import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
-@customElement("contents-games")
-export class Games extends LitElement {
+@customElement("section-games")
+export class _ extends LitElement {
     static styles = [common_css, games_css];
 
     @property( { type : String }  ) ids = "";
