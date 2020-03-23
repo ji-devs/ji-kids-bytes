@@ -29,6 +29,7 @@ export class TopHeader extends LitElement {
                         <div class="label">Help for<br/>parents</div>
                     </div>
                 </div>
+                <div class="sharethis-inline-share-buttons"></div>
                 <div class="title">${this.title}</div>
             </header>
         `;

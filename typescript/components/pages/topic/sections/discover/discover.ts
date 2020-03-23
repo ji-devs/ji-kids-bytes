@@ -58,9 +58,7 @@ const link_li= (topic:string) => ({link, image_filename, title, desc}:LinkItem) 
     const src = Path.topic(topic) (`discover/${image_filename}`);
     return html`
     <li>
-        <div class="img-left">
-            <img src=${src}>
-        </div>
+        <img src=${src}>
         <div class="info">
             <header>${title}</header>
             <div class="desc">${desc}</div>

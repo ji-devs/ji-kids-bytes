@@ -5,31 +5,29 @@ ul {
     display: flex;
 }
 li {
-
-    width: 90%; 
-    height: 61.519em;
-    border-radius: 1.133em;
+    width: 90%;
+    max-width: 120rem;
+    height: 61.519rem;
+    border-radius: 1.133rem;
     border: 0.94px solid #000;
 
     flex-shrink: 0;
     background: transparent;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-right: 2em;
+    display: flex;
+    margin-right: 2rem;
 }
 
 li img {
     max-height: 100%;
     border-top-left-radius: 1.133em;
     border-bottom-left-radius: 1.133em;
-}
-
-.img-left {
     border-right: 1px solid #1f313f;
 }
 
+li .info{
+}
 li header {
-    font-size: 4.932em;
+    font-size: 4.932rem;
     color: #1f313f;
     padding: 0;
     margin: 0;
