@@ -39,9 +39,9 @@ const list = (current_section:Section, on_select:SelectHandler) => {
         <ul>
             ${item("Watch", "watch", on_select, current_section)}
             ${item("Games", "games", on_select, current_section)}
-            ${item("Discover", "look", on_select, current_section)}
-            ${item("Make", "create", on_select, current_section)}
-            ${item("Craft", "hands-on", on_select, current_section)}
+            ${item("Discover", "discover", on_select, current_section)}
+            ${item("Create", "create", on_select, current_section)}
+            ${item("Craft", "craft", on_select, current_section)}
         </ul>
     `;
 }

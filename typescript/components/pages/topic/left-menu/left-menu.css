@@ -1,12 +1,17 @@
+:host {
+}
 .menu {
-    width: 17.3em;
+    --vert-margin: 2em;
+    --height: calc(100% - var(--vert-margin) * 2);
+    height: var(--height);
+    width: 17.3em; 
     border-radius: 3.5em;
     background: #1f313f;
 
     /*position: fixed;*/
 
-    margin-top: 2em;
-    margin-left: 3.2em;
+    margin-top: var(--vert-margin);
+    margin-left: 3.2rem;
 }
 
 .logo {
@@ -17,8 +22,10 @@
 }
 
 ul {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    height: calc(var(--height) - 18em);
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    margin-top: 2em;
 }
 
 li {
@@ -62,7 +69,7 @@ li img {
     height: 4.6em; 
 }
 .text {
-    font-size: 2.2rem; 
+    font-size: 2.2em; 
     color: #fff;
     margin-left: 2em; 
     z-index: 1;
@@ -75,12 +82,12 @@ li img {
 .games-selected {
     background-color: #38c5c1;
 }
-.look-selected {
+.discover-selected {
     background-color: #eebe48;
 }
 .create-selected {
     background-color: #c488d0;
 }
-.hands-on-selected {
+.craft-selected {
     background-color: #488df3;
 }

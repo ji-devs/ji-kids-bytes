@@ -1,4 +1,4 @@
-export type Section = "watch" | "games" | "create" | "look" | "hands-on";
+export type Section = "watch" | "games" | "discover" | "create" | "craft";
 
 export class SelectSectionEvent extends CustomEvent<{section: Section}> {
     constructor(section: Section) {

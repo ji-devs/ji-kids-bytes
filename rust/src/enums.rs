@@ -13,9 +13,9 @@ pub enum RootPage {
 pub enum Section {
     Watch,
     Games,
+    Discover,
     Create,
-    Look,
-    HandsOn
+    Craft 
 }
 
 impl From<Section> for String {
@@ -23,9 +23,9 @@ impl From<Section> for String {
         match section {
             Section::Watch => "watch".to_string(),
             Section::Games => "games".to_string(),
-            Section::Create => "create".to_string(),
-            Section::Look => "look".to_string(),
-            Section::HandsOn => "hands-on".to_string(),
+            Section::Discover=> "discover".to_string(),
+            Section::Create=> "create".to_string(),
+            Section::Craft=> "craft".to_string(),
         }
     }
 }
@@ -35,9 +35,9 @@ impl <T: AsRef<str>> From<T> for Section {
         match section.as_ref() {
             "watch" => Section::Watch,
             "games" => Section::Games,
+            "discover" => Section::Discover,
             "create" => Section::Create,
-            "look" => Section::Look,
-            "hands-on" => Section::HandsOn,
+            "craft" => Section::Craft,
             _ => panic!("unsupported section string!")
         }
     }

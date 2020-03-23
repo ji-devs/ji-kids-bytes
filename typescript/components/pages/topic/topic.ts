@@ -10,31 +10,32 @@ import "./left-menu/left-menu";
 import "./top-header/top-header";
 import "./sections/watch/watch";
 import "./sections/games/games";
+import "./sections/discover/discover";
 
 @customElement("topic-landing")
 export class Main extends LitElement {
     static styles = [common_css, topic_css];
 
-    @property( { type : String }  ) section = "watch" as Section;
-    @property( { type : String }  ) "meta-color" = "" as Section;
-    @property( { type : String }  ) "meta-title" = "" as Section;
+    @property( { type : String }  ) section = "";
+    @property( { type : String }  ) title = "";
+    @property( { type : String }  ) id = "";
 
     firstUpdated(changedProperties) {
         window.onresize = () => this.requestUpdate();
     }
     render() {
         return html`
-            <div class="main">
+            <main>
                 <div class="left">
                     <left-menu section=${this.section}></left-menu>
                 </div>
                 <div class="right">
-                    <top-header title=${this["meta-title"]} color=${this["meta-color"]} ></top-header>
-                    <div class="contents">
-                        <slot name="contents"></slot>
+                    <top-header title=${this.title} ></top-header>
+                    <div class="section">
+                        <slot name="section"></slot>
                     </div>
                 </div>
-            </div>
+            </main>
         `;
     }
 }

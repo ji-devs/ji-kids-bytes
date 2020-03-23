@@ -25,12 +25,8 @@ export class TopHeader extends LitElement {
             <header>
                 <div class="buttons">
                     <div class="button">
-                        <img class="home" src=${Path.ui("top-header-home.svg")} />
-                        <div class="label">Home</div>
-                    </div>
-                    <div class="button">
                         <img class="help" src=${Path.ui("top-header-help.svg")} />
-                        <div class="label">Help</div>
+                        <div class="label">Help for<br/>parents</div>
                     </div>
                 </div>
                 <div class="title">${this.title}</div>
