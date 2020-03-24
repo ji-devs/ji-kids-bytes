@@ -11,24 +11,25 @@ import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
-@customElement("section-discover")
+@customElement("section-crafts")
 export class _ extends LitElement {
     static styles = [common_css,list_css];
 
     @property( { type : String }  ) topic = "";
-    @property( { type : String }  ) discovers_json = "";
+    @property( { type : String }  ) crafts_json = "";
     @property( { type : String }  ) topic_id = "";
 
-    @property( { type : Array }  ) discovers  = [] as Array<Discover>; 
+    @property( { type : Array }  ) crafts = [] as Array<Craft>; 
 
     firstUpdated() {
-        this.discovers = JSON.parse(this.discovers_json);
+        this.crafts = JSON.parse(this.crafts_json);
     }
 
     render() {
 
-        let discovers = this.discovers;
+        let crafts = this.crafts;
 
+        console.log(crafts);
         //for testing scrolling
         //discovers = [...discovers, ...discovers, ...discovers, ...discovers, ...discovers, ...discovers];
 
@@ -36,24 +37,22 @@ export class _ extends LitElement {
         return html`
             <section>
                 <ul>
-                    ${discovers.map(link_li(this.topic_id))}
+                    ${crafts.map(link_li(this.topic_id))}
                 </ul>
             </section>
         `;
     }
 }
 
-
-
-const link_li= (topic:string) => ({link, image_filename, link_label, title}:Discover) => {
-    const src = Path.topic(topic) (`discover/${image_filename}`);
+const link_li= (topic:string) => ({link, image_filename, header, body}:Craft) => {
+    const src = Path.topic(topic) (`crafts/${image_filename}`);
     return html`
     <li>
         <img src=${src}>
         <div class="info">
-            <header>${title}</header>
+            <header>${header}</header>
             <a href=${link} target="_blank" >
-                <div class="link">${link_label}</div>
+                <div class="link">Show me how</div>
             </a>
         </div>
     </li>

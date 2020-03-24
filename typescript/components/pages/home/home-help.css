@@ -1,0 +1,25 @@
+.help-contents {
+    margin: 0 auto;
+    width: 80%;
+    font-size: 3em;
+}
+
+.H1 {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.Subheading {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.normal, .subsubheading {
+    font-size: 1em;
+}
+
+.subsubheading {
+    font-style: inherit;
+    font-weight: 600;
+    text-indent: 15;
+}

@@ -23,3 +23,24 @@ img{
 a {
     text-decoration: none;
 }
+
+
+main {
+    position: absolute;
+    top: 2.4em;
+    left: 4.3em;
+    --main-height: calc(100vh - 4.8em);
+    --main-width: calc(100vw - 8.6em);
+    width: var(--main-width);
+    height: var(--main-height);
+    border-radius: 4em;
+    background: #efefef;
+    box-shadow: 3.88px 3.88px 11.09px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    position: absolute;
+    bottom: 2.4em;
+    right: 4.3em;
+    text-align: right;
+}

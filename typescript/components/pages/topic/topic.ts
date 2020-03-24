@@ -11,6 +11,9 @@ import "./top-header/top-header";
 import "./sections/watch/watch";
 import "./sections/games/games";
 import "./sections/discover/discover";
+import "./sections/create/create";
+import "./sections/crafts/crafts";
+import "./sections/help/help";
 
 @customElement("topic-landing")
 export class Main extends LitElement {
@@ -30,11 +33,16 @@ export class Main extends LitElement {
                     <left-menu section=${this.section}></left-menu>
                 </div>
                 <div class="right">
-                    <top-header title=${this.title} ></top-header>
+                    <top-header title=${this.title} section=${this.section} ></top-header>
                     <div class="section">
                         <slot name="section"></slot>
                     </div>
                 </div>
+                <!--
+                <footer>
+                    FOR BEST EXPERIENCE PLEASE USE DESKTOP
+                </footer>
+                -->
             </main>
         `;
     }

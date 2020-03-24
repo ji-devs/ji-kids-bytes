@@ -3,7 +3,7 @@ type TopicManifest = {
   videos: Array<Video>,
   games: Array<Game>,
   discovers: Array<Discover>,
-  creates: Array<Create>,
+  create: Create,
   crafts: Array<Craft>,
 }
 
@@ -22,6 +22,7 @@ type Game = {
 
 type Discover = {
   link: string,
+  link_label: string,
 
   image_filename: string,
 
@@ -30,8 +31,13 @@ type Discover = {
   desc: string,
 }
 
+declare enum CreationTool {
+  JiTap = "jitap",
+  JiStudio = "jistudio"
+}
+
 type Create = {
-  link: string,
+  tool: CreationTool,
 
   image_filename: string,
 

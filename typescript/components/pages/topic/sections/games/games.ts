@@ -9,6 +9,7 @@ import player_css from "@components/pages/topic/sections/player-section.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
 import {getScale} from "@settings/settings";
+import {gameIdToAlbumId} from "@utils/jitap";
 
 type SelectHandler = (section:Section) => any;
 
@@ -43,7 +44,7 @@ export class _ extends LitElement {
 
 
         return html`
-            <main>
+            <section>
                 <div class="left">
                     <div class="left-contents standard">
                         ${game(this.current_id)}
@@ -54,16 +55,22 @@ export class _ extends LitElement {
                         ${ids.map(id => thumb(this.topic_id, id, this.current_id, on_select))}
                     </ul>
                 </div>
-            </main>
+            </section>
         `;
     }
 }
 
-const thumb = (topic: string, id:string, current_id: string, on_select: (id:string) => any) => html`
-    <li @click=${() => on_select(id)}>
-        <img class=${classMap({selected: current_id === id})} src=${Path.topic(topic) (`watch/${id}.jpg`)} />
-    </li>
-`
+const thumb = (topic: string, id:string, current_id: string, on_select: (id:string) => any) => {
+    const album_id = gameIdToAlbumId(id);
+    const img_src = () => 
+        `https://jitap.net/store/album/${album_id}/cover_image/`;
+
+    return html`
+        <li @click=${() => on_select(id)}>
+            <img class=${classMap({selected: current_id === id})} src=${img_src()} />
+        </li>
+    `;
+}
 
 
 const game = (id:string) => html`

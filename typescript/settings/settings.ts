@@ -13,6 +13,7 @@ export const Path = (() => {
     const MEDIA_TOPIC = `${MEDIA_URL}/topics`;
 
     return {
+        help: (path:string) => `${MEDIA_APP}/help/${path}`,
         ui: (path:string) => `${MEDIA_APP_UI}/${path}`,
         topic: (topic:string) => (path:string) => `${MEDIA_TOPIC}/${topic}/${path}`
     }

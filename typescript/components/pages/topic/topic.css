@@ -9,7 +9,6 @@ main {
     box-shadow: 3.88px 3.88px 11.09px rgba(0, 0, 0, 0.3);
     display: flex;
 }
-
 .right {
     flex-grow: 1;
     overflow: hidden;

@@ -15,21 +15,26 @@ type SelectHandler = (section:Section) => any;
 export class TopHeader extends LitElement {
     static styles = [common_css, top_header_css];
 
-    @property( { type : String }  ) "title" = "" as Section;
-    @property( { type : String }  ) "color" = "" as Section;
+    @property( { type : String }  ) title = "";
+    @property( { type : String }  ) color = "";
+    @property( { type : String }  ) section = "" as Section;
     render() {
 
+        console.log(this.section);
         const on_select = (section:Section) => (evt:any) => this.dispatchEvent(new SelectSectionEvent(section));
+
+        const help_selected = this.section === "help";
 
         return html`
             <header>
                 <div class="buttons">
-                    <div class="button">
-                        <img class="help" src=${Path.ui("top-header-help.svg")} />
+                    <div class=${classMap({button: true, selected: help_selected})} @click=${on_select("help")}>
+                        <div class="circle">
+                            <img class="help" src=${Path.ui("top-header-help.svg")} />
+                        </div>
                         <div class="label">Help for<br/>parents</div>
                     </div>
                 </div>
-                <div class="sharethis-inline-share-buttons"></div>
                 <div class="title">${this.title}</div>
             </header>
         `;

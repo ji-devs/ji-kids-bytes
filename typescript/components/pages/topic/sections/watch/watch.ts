@@ -42,7 +42,7 @@ export class _ extends LitElement {
 
 
         return html`
-            <main>
+            <section>
                 <div class="left">
                     <div class="left-contents widescreen">
                         ${video(this.current_id)}
@@ -53,7 +53,7 @@ export class _ extends LitElement {
                         ${ids.map(id => thumb(this.topic_id, id, this.current_id, on_select))}
                     </ul>
                 </div>
-            </main>
+            </section>
         `;
     }
 }

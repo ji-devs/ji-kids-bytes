@@ -42,6 +42,9 @@ pub struct DiscoverEntry {
     #[serde(rename = "gsx$imagefilename")]
     pub image_filename: TextCell,
 
+    #[serde(rename = "gsx$linklabel")]
+    pub link_label: TextCell,
+
     #[serde(rename = "gsx$title")]
     pub title: TextCell,
 
@@ -51,8 +54,8 @@ pub struct DiscoverEntry {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CreateEntry {
-    #[serde(rename = "gsx$link")]
-    pub link: TextCell,
+    #[serde(rename = "gsx$tool")]
+    pub tool: TextCell,
 
     #[serde(rename = "gsx$imagefilename")]
     pub image_filename: TextCell,

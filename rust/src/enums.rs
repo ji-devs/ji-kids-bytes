@@ -15,7 +15,8 @@ pub enum Section {
     Games,
     Discover,
     Create,
-    Craft 
+    Craft,
+    Help
 }
 
 impl From<Section> for String {
@@ -26,6 +27,7 @@ impl From<Section> for String {
             Section::Discover=> "discover".to_string(),
             Section::Create=> "create".to_string(),
             Section::Craft=> "craft".to_string(),
+            Section::Help => "help".to_string(),
         }
     }
 }
@@ -38,6 +40,7 @@ impl <T: AsRef<str>> From<T> for Section {
             "discover" => Section::Discover,
             "create" => Section::Create,
             "craft" => Section::Craft,
+            "help" => Section::Help,
             _ => panic!("unsupported section string!")
         }
     }

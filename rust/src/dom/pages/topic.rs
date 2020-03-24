@@ -68,6 +68,27 @@ impl TopicLanding {
                         .attribute("topic_id", topic_id) 
                     }))
                 },
+                Section::Create=> {
+                    let create = serde_json::to_string(&self_clone.manifest.create).unwrap();
+
+                    Some(html_at_slot!("section-create", "section", {
+                        .attribute("create_json", &create) 
+                        .attribute("topic_id", topic_id) 
+                    }))
+                },
+                Section::Craft=> {
+                    let crafts = serde_json::to_string(&self_clone.manifest.crafts).unwrap();
+
+                    Some(html_at_slot!("section-crafts", "section", {
+                        .attribute("crafts_json", &crafts) 
+                        .attribute("topic_id", topic_id) 
+                    }))
+                },
+                Section::Help=> {
+                    Some(html_at_slot!("section-help", "section", {
+                        .attribute("topic_id", topic_id) 
+                    }))
+                },
                 _ => None
             }
         })

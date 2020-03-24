@@ -1,47 +1,37 @@
-main {
-}
-
-ul {
+section {
     display: flex;
-}
-li {
-    width: 90%;
-    max-width: 120rem;
-    height: 61.519rem;
     border-radius: 1.133rem;
     border: 0.94px solid #000;
-
-    flex-shrink: 0;
-    background: transparent;
-    display: flex;
-    margin-right: 2rem;
+    justify-content: left;
+    overflow-y: scroll;
 }
 
-li img {
-    max-height: 100%;
+img {
     border-top-left-radius: 1.133em;
     border-bottom-left-radius: 1.133em;
     border-right: 1px solid #1f313f;
+
+    width: 72.7em; 
+    height: 73.6em;
+
 }
 
-li .info{
-}
-li header {
-    font-size: 4.932rem;
+header {
+    font-size: 5.9rem;
     color: #1f313f;
     padding: 0;
     margin: 0;
 }
 
-.desc {
+.description {
     margin-top: 2.1rem;
     margin-left: 1rem;
-    font-size: 2.936rem;
+    font-size: 2.7rem;
     color: #000;
 
 }
 
-li .link {
+.button {
     text-align: center;
 
     margin-top: 2.7rem;

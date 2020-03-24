@@ -12,7 +12,7 @@ pub struct TopicManifest {
     pub videos: Vec<Video>,
     pub games: Vec<Game>,
     pub discovers: Vec<Discover>,
-    pub creates: Vec<Create>,
+    pub create: Create,
     pub crafts: Vec<Craft>,
 }
 
@@ -38,6 +38,8 @@ pub struct Discover {
 
     pub image_filename: String,
 
+    pub link_label: String,
+
     pub title: String,
 
     pub desc: String,
@@ -45,13 +47,20 @@ pub struct Discover {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Create {
-    pub link: String,
+    pub tool: CreationTool,
 
     pub image_filename: String,
 
     pub header: String,
 
     pub body: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "lowercase")]
+pub enum CreationTool {
+    JiTap,
+    JiStudio,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -85,16 +94,27 @@ impl From<DriveSources> for TopicManifest {
         let discovers:Vec<Discover> = sources.3.into_iter().map(|x| Discover {
             link: x.link.text,
             image_filename: x.image_filename.text,
+            link_label: x.link_label.text,
             title: x.title.text,
             desc: x.description.text,
         }).collect();
 
-        let creates:Vec<Create> = sources.4.into_iter().map(|x| Create {
-            link: x.link.text,
-            image_filename: x.image_filename.text,
-            header: x.header.text,
-            body: x.body.text,
-        }).collect();
+        let x = sources.4.get(0).unwrap();
+        let tool = match x.tool.text.as_ref() {
+            "jitap" => Some(CreationTool::JiTap),
+            "jistudio" =>  Some(CreationTool::JiStudio),
+            _ => None
+        }.expect(&format!("{} is unknown creation tool!", x.tool.text));
+
+
+        let create:Create = Create {
+            tool,
+            image_filename: x.image_filename.text.clone(),
+            header: x.header.text.clone(),
+            body: x.body.text.clone(),
+        };
+
+
 
         let crafts:Vec<Craft> = sources.5.into_iter().map(|x| Craft {
             link: x.link.text,
@@ -108,7 +128,7 @@ impl From<DriveSources> for TopicManifest {
             videos,
             games,
             discovers,
-            creates,
+            create,
             crafts
         }
     }

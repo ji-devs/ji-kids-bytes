@@ -1,3 +1,4 @@
+use super::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -11,7 +12,7 @@ pub struct TopicManifest {
     pub videos: Vec<Video>,
     pub games: Vec<Game>,
     pub discovers: Vec<Discover>,
-    pub creates: Vec<Create>,
+    pub create: Create,
     pub crafts: Vec<Craft>,
 }
 
@@ -37,6 +38,8 @@ pub struct Discover {
 
     pub image_filename: String,
 
+    pub link_label: String,
+
     pub title: String,
 
     pub desc: String,
@@ -44,13 +47,20 @@ pub struct Discover {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Create {
-    pub link: String,
+    pub tool: CreationTool,
 
     pub image_filename: String,
 
     pub header: String,
 
     pub body: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all="lowercase")]
+pub enum CreationTool {
+    JiTap,
+    JiStudio,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
