@@ -8,6 +8,7 @@ import all_css from "./home-all.css";
 import body_css from "./home-body.css";
 import header_css from "./home-header.css";
 import {Path, MEDIA_URL} from "@settings/settings";
+import {startResizer} from "@utils/scale";
 
 @customElement("home-landing")
 export class Home extends LitElement {
@@ -16,6 +17,9 @@ export class Home extends LitElement {
     @property( { type : Object }  ) topics = [] as Array<TopicMeta>;
     @property( { type : Boolean }  ) help_selected = false; 
 
+    firstUpdated() {
+        startResizer("normal");
+    }
     render() {
 
         const on_select_help = () => this.help_selected = !this.help_selected; 

@@ -7,16 +7,12 @@ import left_menu_css from "./left-menu.css";
 import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
-import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
 @customElement("left-menu")
 export class LeftMenu extends LitElement {
     static styles = [common_css, left_menu_css];
-
-    @property( { type : Number}  ) amount = 0;
-    @property( { type : Number}  ) scale = getScale();
 
     @property( { type : String }  ) section = "watch" as Section;
 

@@ -21,12 +21,3 @@ export const Path = (() => {
 
 export const STAGE_WIDTH = 1920;
 export const STAGE_HEIGHT = 1080;
-
-export function getScale() {
-    const scaleHeight = window.innerHeight / STAGE_HEIGHT;
-    const scaleWidth = window.innerWidth / STAGE_WIDTH;
-    const scaleMax = scaleWidth > scaleHeight ? scaleWidth : scaleHeight;
-    const scaleMin = scaleWidth < scaleHeight ? scaleWidth : scaleHeight;
-
-    return {scaleHeight, scaleWidth, scaleMax, scaleMin};
-}

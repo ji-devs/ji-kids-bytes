@@ -1,55 +1,29 @@
 /* https://flaviocopes.com/responsive-youtube-videos/ */
 section {
-    display: grid;
-    grid-template-columns: .8fr .2fr;
-    height: 100%;
-    width: 100%;
+    --widescreen-player-width: 112.8rem;
+    --standard-player-width: 108.4rem;
+    --thumbnail-width: 24.2rem;
+    --widescreen-scale: calc(9/16);
+    --standard-scale: calc(3/4);
 }
 
-.left {
-    overflow-y: scroll;
+.player, .thumbnails {
+    position: absolute;
+    top: 17.2rem;
+}
+.player {
+    left: 31.4rem;
 }
 
-.right {
-    overflow-y: scroll;
-    margin-left: 1em;
+.player.widescreen {
+    width: var(--widescreen-player-width);
+    height: calc(var(--widescreen-player-width) * var(--widescreen-scale));
 }
-li:last-child {
-    margin-bottom: 0;
-}
-
-li {
-    margin: 0 auto 4em auto;
-
-    width: 100%;
-    height: 100%;
-
-    cursor: pointer;
+.player.standard {
+    width: var(--standard-player-width);
+    height: calc(var(--standard-player-width) * var(--standard-scale));
 }
 
-li img.selected {
-    border: 3px solid #fe3263;
-}
-
-li img {
-    width: 100%;
-    height: 100%;
-    border-radius: 1.2em;
-    background: transparent;
-    border: 1px solid #1f313f;
-}
-
-
-.left-contents {
-    border-radius: 1.2em;
-    position: relative;
-}
-.widescreen {
-    padding-top: 56.25%;
-}
-.standard {
-    padding-top: 75%;
-}
 iframe {
 
     position: absolute;
@@ -58,4 +32,38 @@ iframe {
     width: 100%;
     height: 100%;
     border: 0;
+}
+
+.thumbnails {
+    right: 8.82rem;
+    overflow-y: auto;
+    height: 81.3rem;
+    padding-right: 1rem; /* TODO - remove if no scrollbar... */
+}
+
+.thumbnails li {
+    margin: 0 auto 4rem auto;
+    width: var(--thumbnail-width);
+    cursor: pointer;
+}
+
+.thumbnails li.widescreen {
+    height: calc(var(--thumbnail-width) * var(--widescreen-scale));
+}
+.thumbnails li.standard {
+    height: calc(var(--thumbnail-width) * var(--standard-scale));
+}
+
+.thumbnails li:last-child {
+    margin-bottom: 0;
+}
+.thumbnails li img.selected {
+    border: 3px solid #fe3263;
+}
+
+.thumbnails li img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.2rem;
+    border: 1px solid #1f313f;
 }

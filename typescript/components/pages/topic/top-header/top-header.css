@@ -1,31 +1,28 @@
 header {
     display: flex;
     border-bottom: 1px solid #1f313f;
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-top: 3em;
-    padding-bottom: .7em;
+    position: absolute;
+    top: 6rem;
+    left: 21.5rem;
+    width: 155.2rem;
+
 }
 .title {
     text-align: right;
     font-size: 2rem;
     margin-left: auto; /* https://medium.com/@iamryanyu/how-to-align-last-flex-item-to-right-73512e4e5912 */
-    margin-right: 2em;
+    margin-right: 2rem;
     align-self: flex-end;
-    margin-bottom: .3em;
+    margin-bottom: 1.82rem;
     font-weight: 500;
 
 }
 
-/* left-side is 248px in */
 .buttons {
-    margin-left: 3em;
-    display: flex;
+    margin-left: 3rem;
+    margin-bottom: .54rem;
 }
 
-.buttons > * + * {
-    margin-left: 3.4em;
-}
 .button {
     display: flex;
     flex-direction: column;
@@ -56,7 +53,7 @@ img.help {
 }
 
 .button > .label {
-    margin-top: .7em;
+    margin-top: .7rem;
     font-size: 1.3rem;
 }
 

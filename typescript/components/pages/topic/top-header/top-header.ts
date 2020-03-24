@@ -7,7 +7,6 @@ import top_header_css from "./top-header.css";
 import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
-import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 

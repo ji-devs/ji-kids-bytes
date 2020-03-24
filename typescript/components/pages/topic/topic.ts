@@ -4,7 +4,7 @@ import {styleMap} from 'lit-html/directives/style-map';
 import {repeat} from 'lit-html/directives/repeat';
 import topic_css from "./topic.css";
 import common_css from "@components/common/common.css";
-import {getScale} from "@settings/settings";
+import {STAGE_WIDTH, STAGE_HEIGHT} from "@settings/settings";
 import {Section} from "@events/events";
 import "./left-menu/left-menu";
 import "./top-header/top-header";
@@ -14,6 +14,7 @@ import "./sections/discover/discover";
 import "./sections/create/create";
 import "./sections/crafts/crafts";
 import "./sections/help/help";
+import { startResizer } from "@utils/scale";
 
 @customElement("topic-landing")
 export class Main extends LitElement {
@@ -23,27 +24,20 @@ export class Main extends LitElement {
     @property( { type : String }  ) title = "";
     @property( { type : String }  ) id = "";
 
-    firstUpdated(changedProperties) {
-        window.onresize = () => this.requestUpdate();
+    firstUpdated() {
+        startResizer("fit");
     }
     render() {
         return html`
-            <main>
-                <div class="left">
-                    <left-menu section=${this.section}></left-menu>
-                </div>
-                <div class="right">
-                    <top-header title=${this.title} section=${this.section} ></top-header>
-                    <div class="section">
+            <div class="container">
+                <div class="wrapper">
+                    <div class="content">
+                        <left-menu section=${this.section}></left-menu>
+                        <top-header title=${this.title} section=${this.section} ></top-header>
                         <slot name="section"></slot>
                     </div>
                 </div>
-                <!--
-                <footer>
-                    FOR BEST EXPERIENCE PLEASE USE DESKTOP
-                </footer>
-                -->
-            </main>
+            </div>
         `;
     }
 }
