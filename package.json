@@ -9,7 +9,7 @@
 	"build-and-deploy": "cargo make build-and-deploy",
 	"generate-and-sync": "npm-run-all generate-manifests media-sync",
     "media-sync": "node ./build-utils/media-server-sync.js --hard",
-	"generate-manifests": "cd build-utils/sheets-download && cargo run",
+	"generate-manifests": "cd build-utils/manifest-generator && cargo run",
     "media-sync": "node ./build-utils/media-server-sync.js --hard",
     "cors:set": "node ./build-utils/cors.js --app --set",
     "cors:get": "node ./build-utils/cors.js --app --get",

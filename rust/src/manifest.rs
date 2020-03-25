@@ -9,40 +9,54 @@ pub struct AppManifest {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TopicManifest {
     pub meta: TopicMeta,
-    pub videos: Vec<Video>,
-    pub games: Vec<Game>,
-    pub discovers: Vec<Discover>,
+    pub videos: Vec<Media>,
+    pub games: Vec<Media>,
+    pub discovers: Vec<Link>,
     pub create: Create,
-    pub crafts: Vec<Craft>,
+    pub crafts: Vec<Link>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TopicMeta {
     pub id: String,
     pub title: String,
+    pub locked: bool,
 }
 
+//used for both watch and games
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Video {
+pub struct Media {
     pub id: String,
+    pub player: MediaPlayer,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Game {
-    pub id: String,
+#[serde(rename_all = "lowercase")]
+pub enum MediaPlayer {
+    Youtube,
+    JiTap,
 }
 
+impl <T: AsRef<str>> From<T> for MediaPlayer {
+    fn from(text: T) -> Self {
+        match text.as_ref() {
+            "youtube" => Self::Youtube,
+            "jitap" => Self::JiTap,
+            _ => unimplemented!()
+        }
+    }
+}
+
+//Used for both Discover and Craft
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Discover {
+pub struct Link {
     pub link: String,
 
     pub image_filename: String,
 
-    pub link_label: String,
+    pub link_label: Option<String>,
 
     pub title: String,
-
-    pub desc: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -51,25 +65,23 @@ pub struct Create {
 
     pub image_filename: String,
 
-    pub header: String,
+    pub title: String,
 
     pub body: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all="lowercase")]
+#[serde(rename_all = "lowercase")]
 pub enum CreationTool {
     JiTap,
     JiStudio,
 }
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Craft {
-    pub link: String,
-
-    pub image_filename: String,
-
-    pub header: String,
-
-    pub body: String,
+impl <T: AsRef<str>> From<T> for CreationTool {
+    fn from(text: T) -> Self {
+        match text.as_ref() {
+            "youtube" => Self::JiTap,
+            "jitap" => Self::JiStudio,
+            _ => unimplemented!()
+        }
+    }
 }

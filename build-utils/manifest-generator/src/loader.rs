@@ -18,27 +18,26 @@ pub fn sheet_url(id:&str, sheet_num:u32) -> Result<Url, ParseError> {
     Url::parse(&url)
 }
 
-pub async fn load_manifest_list(sheet_id: &str) -> Vec<String> {
-    type ListManifest = DriveManifest<ListEntry>;
+pub async fn load_manifest_list(sheet_id: &str) -> Vec<TopLevelMetaEntry> {
     let manifest = reqwest::get(sheet_url(&sheet_id, 1).unwrap())
         .await.unwrap()
-        .json::<ListManifest>()
+        .json::<DriveManifest<TopLevelMetaEntry>>()
         .await.unwrap();
 
-
     manifest.feed.entries
-        .iter()
-        .map(|entry| entry.sheet_id.text.clone())
+        .into_iter()
+        .filter(|x| !x.is_empty())
         .collect()
 }
 
-pub async fn load_manifest_sheet<T: DeserializeOwned>(sheet_id: &str, sheet_num: u32) -> Vec<T> {
+pub async fn load_manifest_sheet<T: DeserializeOwned + IsEmpty>(sheet_id: &str, sheet_num: u32) -> Vec<T> {
     let manifest:DriveManifest<T> = reqwest::get(sheet_url(&sheet_id, sheet_num).unwrap())
         .await.unwrap()
         .json::<DriveManifest<T>>()
         .await.unwrap();
 
-    let entries = manifest.feed.entries;
-
-    entries
+    manifest.feed.entries
+        .into_iter()
+        .filter(|x| !x.is_empty())
+        .collect()
 }

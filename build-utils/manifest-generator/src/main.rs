@@ -20,15 +20,17 @@ async fn main() {
 
     let mut topics:Vec<TopicMeta> = Vec::new();
 
-    for (index, sheet_id) in manifest_list.iter().enumerate() {
+    for (index, top_level_meta_entry) in manifest_list.iter().enumerate() {
+        let sheet_id = &top_level_meta_entry.sheet_id.text;
         println!("{}", sheet_id);
-        let mut meta:Vec<MetaEntry> = load_manifest_sheet(&sheet_id, 1).await;
+        let mut meta:Vec<TopicMetaEntry> = load_manifest_sheet(&sheet_id, 1).await;
         let meta = meta.remove(0);
 
-        topics.push(TopicMeta {
+        let topic_meta = TopicMeta {
            id: meta.id.text.clone(),
            title: meta.title.text.clone(),
-        });
+           locked: if top_level_meta_entry.locked.text == "true" { true } else { false } 
+        };
 
         let watch:Vec<WatchEntry> = load_manifest_sheet(&sheet_id, 2).await;
         let games:Vec<GamesEntry> = load_manifest_sheet(&sheet_id, 3).await;
@@ -36,7 +38,7 @@ async fn main() {
         let create:Vec<CreateEntry> = load_manifest_sheet(&sheet_id, 5).await;
         let crafts:Vec<CraftEntry> = load_manifest_sheet(&sheet_id, 6).await;
 
-        let topic_manifest = TopicManifest::from((meta, watch, games, discovers, create, crafts));
+        let topic_manifest = TopicManifest::from((topic_meta.clone(), watch, games, discovers, create, crafts));
 
         let mut manifest_path = config.local_output.clone();
         manifest_path.push("topics");
@@ -44,6 +46,9 @@ async fn main() {
 
         write_json(&topic_manifest, &manifest_path, config.dry_run);
         eprintln!("manifest for {} topic written to {:?}", topic_manifest.meta.id, manifest_path);
+
+
+        topics.push(topic_meta);
     }
 
     let app_manifest = AppManifest { topics };

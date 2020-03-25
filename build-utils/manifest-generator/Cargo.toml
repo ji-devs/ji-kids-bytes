@@ -1,5 +1,5 @@
 [package]
-name = "sheets-download"
+name = "manifest-generator"
 version = "0.1.0"
 authors = ["David Komer <david.komer@gmail.com>"]
 edition = "2018"
