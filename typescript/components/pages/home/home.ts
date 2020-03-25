@@ -81,7 +81,7 @@ const main = (topics:Array<TopicMeta>) => html`
         JiBytes gives you a taste of Jewish learning that kids can really chew on (for an hour a day).
         <br/>Come back for frequent updates of new JiBytes.
     </div>
-    ${featured(topics[0])}
+    <!--${featured(topics[0])}-->
     ${list_section(topics)}
 `;
 
