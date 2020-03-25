@@ -5,7 +5,7 @@
 .rpt2_cache
 
 # firebase cache
-.firebase
+.firebase/hosting*
 
 # 
 # rust/wasm
