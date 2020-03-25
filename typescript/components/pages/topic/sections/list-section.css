@@ -1,0 +1,43 @@
+.scroller {
+    position: absolute;
+    --left: 47.3rem;
+    top: 29.3rem;
+    left: var(--left); 
+
+    width: calc(var(--content-width) - var(--left) - var(--header-gap));
+
+
+}
+
+.scroller img, .scroller li {
+    width: 89.55rem;
+}
+
+.scroller img {
+    height: 47.369rem;
+}
+
+.scroller ul {
+    display: flex;
+    overflow-x: auto;
+}
+
+.scroller ul > *:not(:last-child) {
+    margin-right: 6.55rem;
+}
+
+.scroller li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.scroller li .button {
+    margin-top: 1.89rem;
+    margin-bottom: 1rem;
+}
+
+.scroller li .title {
+    font-size: 3.996rem;
+    color: #1f313f;
+    margin-top: .85rem;
+}

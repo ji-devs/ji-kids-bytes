@@ -26,7 +26,7 @@ export class Home extends LitElement {
 
         let topics = this.topics;
         //Just for testing overflow
-        topics = new Array(12).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
+        //topics = new Array(12).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
 
         return html`
             <main>
@@ -36,11 +36,15 @@ export class Home extends LitElement {
                     </a>
                     <div class="header-line"></div>
                     <div class="right">
-                        <div class=${classMap({button: true, selected: this.help_selected})} @click=${on_select_help.bind(this)}>
+                        <div class=${classMap({top_home_button: true, selected: this.help_selected})} @click=${on_select_help.bind(this)}>
                             <div class="circle">
                                 <img class="help" src=${Path.ui("top-header-help.svg")} />
                             </div>
                             <div class="label">Help</div>
+                        </div>
+                        <div>
+                            <img class="partners" src=${Path.ui("top-header-partners.svg")} />
+                            <div class="label">Partners</div>
                         </div>
                         <a href="https://www.jewishinteractive.org/kids-learning-at-home">
                             <img class="home" src=${Path.ui("top-header-home.svg")} />

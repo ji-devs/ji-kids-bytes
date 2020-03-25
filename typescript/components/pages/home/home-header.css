@@ -58,6 +58,11 @@ header img.home {
     width: 5.345em;
     height: 2.88em;
 }
+header img.partners{
+
+    width: 3.753em;
+    height: 2.697em;
+}
 
 header .circle {
     transition: background-color .5s;

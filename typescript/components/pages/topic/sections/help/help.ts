@@ -7,7 +7,6 @@ import help_css from "./help.css";
 import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
-import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
@@ -19,7 +18,6 @@ export class _ extends LitElement {
     @property( { type : String }  ) topic_id = "";
 
     render() {
-
 
         return html`
             <section>

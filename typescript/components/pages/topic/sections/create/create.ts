@@ -7,7 +7,6 @@ import create_css from "./create.css";
 import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
-import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
@@ -32,15 +31,14 @@ export class _ extends LitElement {
 
         return html`
             <section>
-                <div class="left">
-                    <img src=${src} />
-                </div>
+                <img src=${src} />
                 <div class="right">
                     <header>${header}</header>
-                    <div class="description">
+                    <div class="body-text">
                         ${body}
                     </div>
                     ${tool_link(tool)}
+                </div>
             </section>
         `;
     }
@@ -60,30 +58,5 @@ const tool_link = (tool:CreationTool) => {
         <a href=${links[tool]} target="_blank">
             <div class="button">Create Here</div>
         </a>
-    `;
-}
-
-type LinkItem = {
-  link: string,
-
-  image_filename: string,
-
-  title: string,
-
-  desc: string,
-}
-const link_li= (topic:string) => ({link, image_filename, title, desc}:LinkItem) => {
-    const src = Path.topic(topic) (`discover/${image_filename}`);
-    return html`
-    <li>
-        <img src=${src}>
-        <div class="info">
-            <header>${title}</header>
-            <div class="desc">${desc}</div>
-            <a href=${link} target="_blank" >
-                <div class="link">Link Here</div>
-            </a>
-        </div>
-    </li>
     `;
 }

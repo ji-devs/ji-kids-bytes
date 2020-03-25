@@ -27,7 +27,7 @@ export class TopHeader extends LitElement {
         return html`
             <header>
                 <div class="buttons">
-                    <div class=${classMap({button: true, selected: help_selected})} @click=${on_select("help")}>
+                    <div class=${classMap({header_button: true, selected: help_selected})} @click=${on_select("help")}>
                         <div class="circle">
                             <img class="help" src=${Path.ui("top-header-help.svg")} />
                         </div>

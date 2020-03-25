@@ -1,11 +1,13 @@
 section {
-    margin: 0 auto;
-    width: 80%;
-    height: 80%;
-
-    border-radius: 1.133rem;
-    border: 0.94px solid #000;
-    justify-content: left;
+    position: absolute;
+    top: 21.8rem;
+    left: 33rem;
+    width: 139.05rem;
+    height: 74.682rem;
+    border-radius: 3.131rem;
+    border: 1.7px solid #1f313f;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 iframe {

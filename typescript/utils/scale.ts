@@ -1,4 +1,4 @@
-import {STAGE_HEIGHT,STAGE_WIDTH} from "@settings/settings";
+import {STAGE_HEIGHT,STAGE_WIDTH, STAGE_PADDING_X_PERC, STAGE_PADDING_Y_PERC} from "@settings/settings";
 
 export const startResizer = (style:"normal" | "fit") => {
     const resizeFit = () => {
@@ -23,6 +23,10 @@ export const startResizer = (style:"normal" | "fit") => {
         document.documentElement.style.setProperty('--y', `${y}px`);
         document.documentElement.style.setProperty('--width', `${width}px`);
         document.documentElement.style.setProperty('--height', `${height}px`);
+        document.documentElement.style.setProperty('--content-x', `${(STAGE_PADDING_X_PERC/2) * width}px`);
+        document.documentElement.style.setProperty('--content-y', `${(STAGE_PADDING_Y_PERC/2) * height}px`);
+        document.documentElement.style.setProperty('--content-width', `${width - (STAGE_PADDING_X_PERC * width)}px`);
+        document.documentElement.style.setProperty('--content-height', `${height - (STAGE_PADDING_Y_PERC * height)}px`);
     }
 
     const resizeNormal = () => {

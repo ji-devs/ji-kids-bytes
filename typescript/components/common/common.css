@@ -46,3 +46,17 @@ footer {
     right: 4.3em;
     text-align: right;
 }
+
+
+.button {
+    display: inline-block;
+    text-align: center;
+
+    padding: .93rem 5rem 1.37rem 5rem;
+
+    border-radius: .887rem;
+    background: #1f313f;
+
+    font-size: 2.352rem;
+    color: #fff;
+}

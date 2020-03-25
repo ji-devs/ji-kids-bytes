@@ -3,11 +3,10 @@ import {nothing, html, svg} from "lit-html";
 import {styleMap} from 'lit-html/directives/style-map';
 import {classMap} from 'lit-html/directives/class-map';
 import {repeat} from 'lit-html/directives/repeat';
-import list_css from "../link-list-section.css";
+import list_css from "../list-section.css";
 import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
-import {getScale} from "@settings/settings";
 
 type SelectHandler = (section:Section) => any;
 
@@ -34,11 +33,11 @@ export class _ extends LitElement {
 
 
         return html`
-            <section>
+            <div class="scroller">
                 <ul>
                     ${discovers.map(link_li(this.topic_id))}
                 </ul>
-            </section>
+            </div>
         `;
     }
 }
@@ -50,12 +49,10 @@ const link_li= (topic:string) => ({link, image_filename, link_label, title}:Disc
     return html`
     <li>
         <img src=${src}>
-        <div class="info">
-            <header>${title}</header>
-            <a href=${link} target="_blank" >
-                <div class="link">${link_label}</div>
-            </a>
-        </div>
+        <div class="title">${title}</div>
+        <a href=${link} target="_blank" >
+            <div class="button">${link_label}</div>
+        </a>
     </li>
     `;
 }
