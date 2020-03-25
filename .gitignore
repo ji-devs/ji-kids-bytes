@@ -4,6 +4,9 @@
 # rollup-plugin-typescript2
 .rpt2_cache
 
+# firebase cache
+.firebase
+
 # 
 # rust/wasm
 .wasm
