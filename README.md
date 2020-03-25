@@ -2,6 +2,27 @@
 
 ## [LIVE SITE](https://bytes.jikids.org)
 
+# Configuration
+
+## Manifest
+
+The starting point is the "manifest list" at this Google sheet: https://docs.google.com/spreadsheets/d/1kugXziYFFDwiJmIxQ-T_8cckOc4qSfHoFw9KoM56Hvs/edit#gid=0
+
+This sheet lists the topic manifest id's as well as top-level metadata (currently only `lock` status)
+
+The listed topic sheet ids become the URL for each manifest on Google Drive. For example if the sheet id is `1B5qEuf4pXq0bhfRN7mDrR_opzUqArI7JYFq1NqF7hTg` it becomes https://docs.google.com/spreadsheets/d/1B5qEuf4pXq0bhfRN7mDrR_opzUqArI7JYFq1NqF7hTg/edit#gid=0
+
+In each sheet there is a vertical divider. Everything to the *left* is very precise and becomes the actual data for the website. Everything to the *right* is just commentary and a free-for-all
+
+## Media
+
+Media is stored in dropbox. The manifest sometimes lists filenames that point to filenames in the respective dropbox folder. For example, `Passover_Mashup.jpg` in the `discover` topic of the `moses` manifest will translate to `live-media/topics/moses/discover/Passover_Mashup` in the Dropbox folder
+
+## Syncing
+
+Note that re-generating manifests as well as syncing all media changes to the live site both require running a manual command. It's a simple one-liner but does not happen automatically (currently only David is setup to do this - so ping him if it needs an update).
+
+----
 
 # Development
 
