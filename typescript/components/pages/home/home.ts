@@ -66,6 +66,9 @@ export class Home extends LitElement {
                         : main(topics)
                     }
                 </section>
+                <div class="footer">
+                    <ji-footer></ji-footer>
+                </div>
             </main>
             
         `;

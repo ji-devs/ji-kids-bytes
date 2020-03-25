@@ -35,6 +35,10 @@ export class Main extends LitElement {
                         <left-menu section=${this.section}></left-menu>
                         <top-header title=${this.title} section=${this.section} ></top-header>
                         <slot name="section"></slot>
+
+                        <div class="footer">
+                            <ji-footer></ji-footer>
+                        </div>
                     </div>
                 </div>
             </div>
