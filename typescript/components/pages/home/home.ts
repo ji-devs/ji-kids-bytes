@@ -75,9 +75,8 @@ export class Home extends LitElement {
 /* MAIN */
 const main = (topics:Array<TopicMeta>) => html`
     <div class="intro-text">
-        Carefully curated for you at this time of need. 
-        <br/>Below you will find a daily independent online activity that should take about an hour. 
-        <br/>A brand new activity will be released daily ! 
+        JiBytes gives you a taste of Jewish learning that kids can really chew on (for an hour a day).
+        <br/>Come back for frequent updates of new JiBytes.
     </div>
     ${featured(topics[0])}
     ${list_section(topics)}
