@@ -10,23 +10,29 @@ import header_css from "./home-header.css";
 import {Path, MEDIA_URL} from "@settings/settings";
 import {startResizer} from "@utils/scale";
 
+enum InnerPage {
+    Main,
+    Help,
+    Partners
+}
 @customElement("home-landing")
 export class Home extends LitElement {
     static styles = [common_css, all_css, header_css, body_css];
 
     @property( { type : Object }  ) topics = [] as Array<TopicMeta>;
-    @property( { type : Boolean }  ) help_selected = false; 
+    @property( { type : Number }  ) inner_page = InnerPage.Main; 
 
     firstUpdated() {
         startResizer("normal");
     }
     render() {
 
-        const on_select_help = () => this.help_selected = !this.help_selected; 
+        const on_select_help = () => this.inner_page = this.inner_page === InnerPage.Help ? InnerPage.Main : InnerPage.Help; 
+        const on_select_partners = () => this.inner_page = this.inner_page === InnerPage.Partners ? InnerPage.Main : InnerPage.Partners; 
 
         let topics = this.topics;
         //Just for testing overflow
-        //topics = new Array(12).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
+        topics = new Array(4).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
 
         return html`
             <main>
@@ -36,15 +42,17 @@ export class Home extends LitElement {
                     </a>
                     <div class="header-line"></div>
                     <div class="right">
-                        <div class=${classMap({top_home_button: true, selected: this.help_selected})} @click=${on_select_help.bind(this)}>
+                        <div class=${classMap({top_header_button: true, selected: this.inner_page === InnerPage.Help})} @click=${on_select_help.bind(this)}>
                             <div class="circle">
                                 <img class="help" src=${Path.ui("top-header-help.svg")} />
                             </div>
                             <div class="label">Help</div>
                         </div>
-                        <div>
-                            <img class="partners" src=${Path.ui("top-header-partners.svg")} />
-                            <div class="label">Partners</div>
+                        <div class=${classMap({top_header_button: true, selected: this.inner_page === InnerPage.Partners})} @click=${on_select_partners.bind(this)}>
+                            <div>
+                                <img class="partners" src=${Path.ui("top-header-partners.svg")} />
+                                <div class="label">Partners</div>
+                            </div>
                         </div>
                         <a href="https://www.jewishinteractive.org/kids-learning-at-home">
                             <img class="home" src=${Path.ui("top-header-home.svg")} />
@@ -53,7 +61,10 @@ export class Home extends LitElement {
                     </div>
                 </header>
                 <section>
-                    ${this.help_selected ? html`<home-help></home-help>` : list_section(topics)}
+                    ${  this.inner_page === InnerPage.Help ? html`<home-help></home-help>` 
+                        : this.inner_page === InnerPage.Partners ? partners()
+                        : main(topics)
+                    }
                 </section>
             </main>
             
@@ -61,28 +72,27 @@ export class Home extends LitElement {
     }
 }
 
-import help_css from "./home-help.css";
-@customElement("home-help")
-export class _ extends LitElement {
-    static styles = [common_css, all_css, help_css];
-    @property( { type : String }  ) contents = ""; 
+/* MAIN */
+const main = (topics:Array<TopicMeta>) => html`
+    <div class="intro-text">
+        Carefully curated for you at this time of need. 
+        <br/>Below you will find a daily independent online activity that should take about an hour. 
+        <br/>A brand new activity will be released daily ! 
+    </div>
+    ${featured(topics[0])}
+    ${list_section(topics)}
+`;
 
-    firstUpdated() {
-        fetch(Path.help("help-main-snippet.html"))
-            .then(contents => contents.text())
-            .then(contents => {
-                this.contents = contents.replace(/%HELP_MEDIA_URL%/g, Path.help(""));
-            })
-    }
-    render() {
-        return html`
-            <div class="help-contents" >
-                ${unsafeHTML(this.contents)}
+const featured = (topic:TopicMeta) => html`
+    <a href="/topic/${topic.id}">
+        <div class="featured-container">
+            <div class="featured">
+            <img src=${Path.topic(topic.id)(`${topic.id}.svg`)} />
+            <div class="text">FEATURED!</div>
             </div>
-            `;
-    }
-}
-
+        </div>
+    </a>
+`
 const list_section = (topics:Array<TopicMeta>) => html`
     <ul>
         ${topics.map(topic_cell)}
@@ -100,4 +110,34 @@ const topic_cell = (topic:TopicMeta) => {
                 </a>
             </li>
     `
+}
+
+/* MAIN */
+const partners = () => html`
+    <div class="intro-text">
+    PARTNERS HERE!
+    </div>
+`;
+
+/* HELP */
+import help_css from "./home-help.css";
+@customElement("home-help")
+export class _ extends LitElement {
+    static styles = [common_css, all_css, help_css];
+    @property( { type : String }  ) contents = ""; 
+
+    firstUpdated() {
+        fetch(Path.help("help-main-snippet.html"))
+            .then(contents => contents.text())
+            .then(contents => {
+                this.contents = contents.replace(/%HELP_MEDIA_URL%/g, Path.MEDIA_APP_HELP)
+            })
+    }
+    render() {
+        return html`
+            <div class="help-contents" >
+                ${unsafeHTML(this.contents)}
+            </div>
+            `;
+    }
 }
