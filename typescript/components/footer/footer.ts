@@ -21,13 +21,13 @@ export class Home extends LitElement {
                         Copyright ${new Date().getFullYear()} Jewish Interactive Inc | All Rights Reserved
                     </div>
                     <div>
-                        <a href="https://www.jewishinteractive.org/privacy-policy/">Privacy Policy</a>
+                        <a href="https://www.jewishinteractive.org/privacy-policy/" target="_blank">Privacy Policy</a>
                     </div>
                     <div>
-                        <a href="https://www.jewishinteractive.org/terms-and-conditions/">Terms & Conditions</a> 
+                        <a href="https://www.jewishinteractive.org/terms-and-conditions/" target="_blank">Terms & Conditions</a> 
                     </div>
                     <div>
-                        <a href="https://www.jewishinteractive.org/jewish-interactive-child-protection-policy/">Child Protection Policy</a>
+                        <a href="https://www.jewishinteractive.org/jewish-interactive-child-protection-policy/" target="_blank">Child Protection Policy</a>
                     </div>
                 </footer>
         `;

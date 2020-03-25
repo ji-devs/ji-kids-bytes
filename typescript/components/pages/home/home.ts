@@ -54,7 +54,7 @@ export class Home extends LitElement {
                                 <div class="label">Partners</div>
                             </div>
                         </div>
-                        <a href="https://www.jewishinteractive.org/kids-learning-at-home">
+                        <a href="https://www.jewishinteractive.org/kids-learning-at-home" target="_blank">
                             <img class="home" src=${Path.ui("top-header-home.svg")} />
                             <div class="label">Home Learning</div>
                         </a>
