@@ -78,8 +78,9 @@ export class Home extends LitElement {
 /* MAIN */
 const main = (topics:Array<TopicMeta>) => html`
     <div class="intro-text">
-        JiBytes gives you a taste of Jewish learning that kids can really chew on (for an hour a day).
-        <br/>Come back for frequent updates of new JiBytes.
+        Ji Bytes gives you a taste of Jewish learning
+        <br/>that kids can really chew on (for an hour a day). 
+        <br/>Come back for frequent updates of new Ji Bytes.
     </div>
     <!--${featured(topics[0])}-->
     ${list_section(topics)}
