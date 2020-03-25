@@ -6,7 +6,7 @@
 
 ## Manifest
 
-The starting point is the "manifest list" at this Google sheet: https://docs.google.com/spreadsheets/d/1B5qEuf4pXq0bhfRN7mDrR_opzUqArI7JYFq1NqF7hTg/edit#gid=0
+The starting point is the "manifest list" at this Google sheet: https://docs.google.com/spreadsheets/d/1kugXziYFFDwiJmIxQ-T_8cckOc4qSfHoFw9KoM56Hvs/edit#gid=0
 
 This sheet lists the topic manifest id's as well as top-level metadata (currently only `lock` status)
 
