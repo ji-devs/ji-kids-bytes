@@ -2,11 +2,13 @@ section {
     position: absolute;
     top: 27.6rem;
     left: 31.2rem;
-    width: 141.842rem;
-    height: 56.846rem;
+    --image-width: 75.167rem;
+    --image-height: 56.375rem;
 
+    width: calc(var(--image-width) + 56.803rem);
+    height: var(--image-height);
     display: grid;
-    grid-template-columns: 1fr 66.741rem;
+    grid-template-columns: var(--image-width) 1fr;
     border: 1.01px solid #000;
     --border-radius: 1.133rem;
     border-radius: var(--border-radius);
@@ -14,9 +16,10 @@ section {
 }
 
 section img {
+    width: var(--image-width); 
+    height: var(--image-height); 
     border-top-left-radius: var(--border-radius);
     border-bottom-left-radius: var(--border-radius);
-    height: 100%;
     border-right: 1px solid var(--theme-color);
 }
 
