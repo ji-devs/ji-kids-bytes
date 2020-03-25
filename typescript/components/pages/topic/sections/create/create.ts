@@ -3,6 +3,7 @@ import {nothing, html, svg} from "lit-html";
 import {styleMap} from 'lit-html/directives/style-map';
 import {classMap} from 'lit-html/directives/class-map';
 import {repeat} from 'lit-html/directives/repeat';
+import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import create_css from "./create.css";
 import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
@@ -35,7 +36,7 @@ export class _ extends LitElement {
                 <div class="right">
                     <header>${header}</header>
                     <div class="body-text">
-                        ${body}
+                        ${unsafeHTML(body)}
                     </div>
                     ${tool_link(tool)}
                 </div>
