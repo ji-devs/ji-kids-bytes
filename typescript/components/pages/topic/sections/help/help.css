@@ -5,7 +5,7 @@ section {
     width: 139.05rem;
     height: 74.682rem;
     border-radius: 3.131rem;
-    border: 1.7px solid #1f313f;
+    border: 1.7px solid var(--theme-color);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }

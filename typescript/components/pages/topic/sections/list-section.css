@@ -38,6 +38,6 @@
 
 .scroller li .title {
     font-size: 3.996rem;
-    color: #1f313f;
+    color: var(--theme-color);
     margin-top: .85rem;
 }

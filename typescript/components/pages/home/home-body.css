@@ -30,11 +30,11 @@ li img {
 
 li .label {
     font-size: 2.309em;
-    color: #1f313f;
+    color: var(--theme-color);
 }
 
 A {
-    color: #1f313f;
+    color: var(--theme-color);
 }
 .featured-container {
     display: flex;

@@ -11,7 +11,7 @@ header .header-line {
     width: calc(100% - 11.86em - var(--margin-right));
     height: 0px;
     margin: 0px;
-    border-bottom: 1px solid #1f313f;
+    border-bottom: 1px solid var(--theme-color);
 }
 
 header .right {
@@ -49,7 +49,7 @@ header .right .label {
     text-align: center;
 
     font-size: 1.388em;
-    color: #1f313f;
+    color: var(--theme-color);
     margin-top: .33em;
 }
 
@@ -79,7 +79,7 @@ header .circle {
     width: 2.9em;
     height: 2.9em;
     border-radius: 50%;
-    background: #1f313f;
+    background: var(--theme-color);
 }
 header .selected .circle {
     background-color: var(--help-color);

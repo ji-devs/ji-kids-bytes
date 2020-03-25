@@ -1,6 +1,6 @@
 header {
     display: flex;
-    border-bottom: 1px solid #1f313f;
+    border-bottom: 1px solid var(--theme-color);
     position: absolute;
     top: 6rem;
     left: 21.5rem;
@@ -46,7 +46,7 @@ img.help {
     width: 2.9rem;
     height: 2.9rem;
     border-radius: 50%;
-    background: #1f313f;
+    background: var(--theme-color);
 }
 .selected .circle {
     background-color: var(--help-color);
