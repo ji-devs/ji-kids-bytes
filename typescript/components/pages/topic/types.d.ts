@@ -1,39 +1,35 @@
 type TopicManifest = {
   meta: TopicMeta,
-  videos: Array<Video>,
-  games: Array<Game>,
-  discovers: Array<Discover>,
+  videos: Array<Media>,
+  games: Array<Media>,
+  discovers: Array<Link>,
   create: Create,
-  crafts: Array<Craft>,
+  crafts: Array<Link>,
 }
 
 type TopicMeta = {
   id: string,
   title: string,
+  locked: boolean,
 }
 
-type Video = {
-  id: string,
+type Media = {
+  id: String,
+  player: MediaPlayer
 }
 
-type Game = {
-  id: string,
+declare enum MediaPlayer {
+  Youtube = "youtube",
+  JiTap = "jitap"
 }
 
-type Discover = {
+type Link = {
   link: string,
-  link_label: string,
+  link_label?: string,
 
   image_filename: string,
 
   title: string,
-
-  desc: string,
-}
-
-declare enum CreationTool {
-  JiTap = "jitap",
-  JiStudio = "jistudio"
 }
 
 type Create = {
@@ -41,17 +37,11 @@ type Create = {
 
   image_filename: string,
 
-  header: string,
+  title: string,
 
   body: string,
 }
-
-type Craft = {
-  link: string,
-
-  image_filename: string,
-
-  header: string,
-
-  body: string,
+declare enum CreationTool {
+  JiTap = "jitap",
+  JiStudio = "jistudio"
 }

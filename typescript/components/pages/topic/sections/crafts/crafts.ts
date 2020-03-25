@@ -18,7 +18,7 @@ export class _ extends LitElement {
     @property( { type : String }  ) crafts_json = "";
     @property( { type : String }  ) topic_id = "";
 
-    @property( { type : Array }  ) crafts = [] as Array<Craft>; 
+    @property( { type : Array }  ) crafts = [] as Array<Link>; 
 
     firstUpdated() {
         this.crafts = JSON.parse(this.crafts_json);
@@ -43,12 +43,12 @@ export class _ extends LitElement {
     }
 }
 
-const link_li= (topic:string) => ({link, image_filename, header}:Craft) => {
+const link_li= (topic:string) => ({link, image_filename, title}:Link) => {
     const src = Path.topic(topic) (`crafts/${image_filename}`);
     return html`
     <li>
         <img src=${src}>
-        <div class="title">${header}</div>
+        <div class="title">${title}</div>
         <a href=${link} target="_blank" >
             <div class="button">Show me how</div>
         </a>

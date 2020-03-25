@@ -34,7 +34,8 @@ section header {
 
 section .body-text {
     font-weight: 300;
-    font-size: 2.824rem;
+    /*font-size: 2.824rem;*/
+    font-size: 1.4rem;
     color: #000;
 }
 

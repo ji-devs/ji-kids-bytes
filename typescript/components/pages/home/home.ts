@@ -32,7 +32,7 @@ export class Home extends LitElement {
 
         let topics = this.topics;
         //Just for testing overflow
-        topics = new Array(4).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
+        //topics = new Array(4).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
 
         return html`
             <main>

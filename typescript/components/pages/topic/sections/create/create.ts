@@ -26,7 +26,7 @@ export class _ extends LitElement {
 
     render() {
 
-        const {tool, image_filename, header, body} = this.create;
+        const {tool, image_filename, title, body} = this.create;
 
         const src = Path.topic(this.topic_id) (`create/${image_filename}`);
 
@@ -34,7 +34,7 @@ export class _ extends LitElement {
             <section>
                 <img src=${src} />
                 <div class="right">
-                    <header>${header}</header>
+                    <header>${title}</header>
                     <div class="body-text">
                         ${unsafeHTML(body)}
                     </div>

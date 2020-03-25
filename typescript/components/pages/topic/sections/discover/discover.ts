@@ -18,7 +18,7 @@ export class _ extends LitElement {
     @property( { type : String }  ) discovers_json = "";
     @property( { type : String }  ) topic_id = "";
 
-    @property( { type : Array }  ) discovers  = [] as Array<Discover>; 
+    @property( { type : Array }  ) discovers  = [] as Array<Link>; 
 
     firstUpdated() {
         this.discovers = JSON.parse(this.discovers_json);
@@ -44,7 +44,7 @@ export class _ extends LitElement {
 
 
 
-const link_li= (topic:string) => ({link, image_filename, link_label, title}:Discover) => {
+const link_li= (topic:string) => ({link, image_filename, link_label, title}:Link) => {
     const src = Path.topic(topic) (`discover/${image_filename}`);
     return html`
     <li>
