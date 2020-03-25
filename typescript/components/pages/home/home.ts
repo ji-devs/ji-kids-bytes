@@ -20,7 +20,7 @@ export class Home extends LitElement {
     static styles = [common_css, all_css, header_css, body_css];
 
     @property( { type : Object }  ) topics = [] as Array<TopicMeta>;
-    @property( { type : Number }  ) inner_page = InnerPage.Partners; 
+    @property( { type : Number }  ) inner_page = InnerPage.Main; 
 
     firstUpdated() {
         startResizer("normal");
