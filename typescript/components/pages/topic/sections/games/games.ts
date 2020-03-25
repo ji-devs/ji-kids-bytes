@@ -9,6 +9,7 @@ import player_css from "@components/pages/topic/sections/player-section.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
 import {gameIdToAlbumId} from "@utils/jitap";
+import {is_mobile} from "@utils/user-agent";
 
 type SelectHandler = (section:Section) => any;
 
@@ -27,6 +28,10 @@ export class _ extends LitElement {
         this.ids = JSON.parse(this.ids_json);
 
         this.current_id = this.ids[0];
+
+        if(is_mobile()) {
+            alert(`Games may not play on this device.\nFor best experience - use a regular computer instead`)
+        }
     }
 
     render() {
