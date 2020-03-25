@@ -17,7 +17,10 @@ export const startResizer = (style:"normal" | "fit") => {
         const y = (window.innerHeight- height) / 2;
         const scale = width / STAGE_WIDTH;
 
-        document.documentElement.style.setProperty('font-size', `calc(62.5% * ${scale})`);
+        //document.documentElement.style.setProperty('font-size', `calc(62.5% * ${scale})`);
+
+        //help fix safari, use hard pixel values
+        document.documentElement.style.setProperty('font-size', `calc(10px * ${scale})`);
         document.documentElement.style.setProperty('--scale', `${scale}`);
         document.documentElement.style.setProperty('--x', `${x}px`);
         document.documentElement.style.setProperty('--y', `${y}px`);
@@ -30,7 +33,8 @@ export const startResizer = (style:"normal" | "fit") => {
     }
 
     const resizeNormal = () => {
-        document.documentElement.style.setProperty('font-size', `62.5%`);
+        document.documentElement.style.setProperty('font-size', `10px`);
+        //document.documentElement.style.setProperty('font-size', `62.5%`);
     }
 
     if(style == "fit") {
