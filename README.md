@@ -14,6 +14,8 @@ The listed topic sheet ids become the URL for each manifest on Google Drive. For
 
 In each sheet there is a vertical divider. Everything to the *left* is very precise and becomes the actual data for the website. Everything to the *right* is just commentary and a free-for-all
 
+**Note: The sheets must be Published to work! In Google sheets it's File -> Publish to Web**
+
 ## Media
 
 Media is stored in dropbox. The manifest sometimes lists filenames that point to filenames in the respective dropbox folder. For example, `Passover_Mashup.jpg` in the `discover` topic of the `moses` manifest will translate to `live-media/topics/moses/discover/Passover_Mashup` in the Dropbox folder
