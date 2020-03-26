@@ -18,8 +18,6 @@ export class TopHeader extends LitElement {
     @property( { type : String }  ) color = "";
     @property( { type : String }  ) section = "" as Section;
     render() {
-
-        console.log(this.section);
         const on_select = (section:Section) => (evt:any) => this.dispatchEvent(new SelectSectionEvent(section));
 
         const help_selected = this.section === "help";

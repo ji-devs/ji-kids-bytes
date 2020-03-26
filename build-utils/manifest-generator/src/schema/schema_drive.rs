@@ -5,12 +5,23 @@ use serde::{Deserialize, Serialize};
 use serde_repr::{Serialize_repr, Deserialize_repr};
 use url::Url;
 
+#[derive(Deserialize)]
+pub struct GoogleSheet {
+    pub values: Vec<Vec<String>>
+}
+
+pub struct DriveAppManifestRow {
+    pub doc_id: String,
+    pub locked: bool
+}
+
 // Manifest
 
+
+/*
 pub trait IsEmpty {
     fn is_empty(&self) -> bool;
 }
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TopLevelMetaEntry {
     #[serde(rename = "gsx$sheetids")]
@@ -173,3 +184,4 @@ impl IsEmpty for TextCell {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DriveSheet {
 }
+*/

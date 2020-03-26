@@ -45,19 +45,24 @@ export class _ extends LitElement {
     }
 }
 
-enum CreationTool {
-  JiTap = "jitap",
-  JiStudio = "jistudio"
-}
 const tool_link = (tool:CreationTool) => {
-    const links = {
-        [CreationTool.JiStudio]: "https://jistudio.net",
-        [CreationTool.JiTap]: "https://jitap.net",
-    }
 
     return html`
-        <a href=${links[tool]} target="_blank">
+        <a href=${get_link(tool)} target="_blank">
             <div class="button">Create Here</div>
         </a>
     `;
+}
+
+//eh... enums in declaration don't seem to be usable as strings directly
+//probably a way to make this less verbose but at least it typechecks
+const get_link = (tool:CreationTool) => {
+    switch(tool) {
+        case "jistudio" as CreationTool.JiStudio: return "https://jistudio.net";
+        case "jitap" as CreationTool.JiTap: return "https://jitap.net";
+        case "spark" as CreationTool.Spark: return "https://spark.adobe.com/make/video-maker/";
+        default: 
+            const _unreachable:never = tool;
+            throw new Error("unknown creation tool " + tool);
+    }
 }

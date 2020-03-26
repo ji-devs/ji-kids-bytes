@@ -33,13 +33,12 @@ export class Home extends LitElement {
     }
     render() {
         const on_page_change = (page:InnerPage) => this.inner_page = page;
-            
+        const on_close_footer = () => this.showing_signup = false;
 
-        let topics = this.topics;
+        const [featured_topic, ...topics] = this.topics; 
         //Just for testing overflow
         //topics = new Array(4).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
 
-        const featured_topic = topics.splice(0,1)[0];
 
         return html`
             <main>
@@ -53,7 +52,7 @@ export class Home extends LitElement {
                 <div class="footer">
                     <ji-footer></ji-footer>
                 </div>
-                <home-footer .on_close=${() => this.showing_signup = false} .visible=${this.showing_signup}></home-footer>
+                <home-footer .on_close=${on_close_footer.bind(this)} .visible=${this.showing_signup}></home-footer>
             </main>
             
         `;

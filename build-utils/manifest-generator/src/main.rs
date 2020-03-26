@@ -1,3 +1,6 @@
+// see https://github.com/rust-lang/rust/issues/70070
+#![cfg_attr(feature = "quiet", allow(warnings))]
+
 mod config;
 mod schema;
 mod loader;
@@ -10,39 +13,44 @@ use schema::*;
 use writer::*;
 use tokio::stream::{iter, Stream, StreamExt};
 use std::rc::Rc;
+use dotenv::dotenv;
+use std::env;
 
 #[tokio::main]
 async fn main() {
     let config = Config::from_args();
+    dotenv().ok();
+
+    let api_key = env::var("GOOGLE_API_KEY").expect("requires GOOGLE_API_KEY in env");
 
     //1. Load Sheets 
     eprintln!("----main app manifest----");
-    let manifest_list = load_manifest_list(&config.manifest_list_id).await;
+    let manifest_list:Vec<DriveAppManifestRow> = load_manifest_list(&config.manifest_list_id, &api_key).await;
 
-    let mut topics:Vec<TopicMeta> = Vec::new();
+    let mut topics:Vec<Meta> = Vec::new();
 
-    for (index, top_level_meta_entry) in manifest_list.iter().enumerate() {
-        let sheet_id = &top_level_meta_entry.sheet_id.text;
-        eprintln!("----topic manifest {}----", sheet_id);
-        eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}/edit#gid=0", sheet_id);
-        
-        let mut meta:Vec<TopicMetaEntry> = load_manifest_sheet(&sheet_id, 1).await;
-        let meta = meta.remove(0);
+    for drive_topic_meta in manifest_list.iter() {
+        let DriveAppManifestRow { doc_id, locked} = drive_topic_meta;
+        eprintln!("----topic manifest {}----", doc_id);
+        eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}", doc_id);
+       
+        let meta = load_topic_meta(&drive_topic_meta, &api_key).await;
+        eprintln!("----topic id {}----", meta.id);
+        let videos = load_topic_media(doc_id, "Watch", &api_key).await;
+        let games = load_topic_media(doc_id, "Games", &api_key).await;
+        let discovers = load_topic_links(doc_id, "Discover", true, &api_key).await;
+        let create = load_topic_create(doc_id, &api_key).await;
+        let crafts = load_topic_links(doc_id, "Craft", false, &api_key).await;
 
-        let topic_meta = TopicMeta {
-           id: meta.id.text.clone(),
-           title: meta.title.text.clone(),
-           locked: if top_level_meta_entry.locked.text == "true" { true } else { false } 
+
+        let topic_manifest = TopicManifest {
+            meta: meta.clone(),
+            videos,
+            games,
+            discovers,
+            create,
+            crafts
         };
-        eprintln!("----topic id {}----", topic_meta.id);
-
-        let watch:Vec<WatchEntry> = load_manifest_sheet(&sheet_id, 2).await;
-        let games:Vec<GamesEntry> = load_manifest_sheet(&sheet_id, 3).await;
-        let discovers:Vec<DiscoverEntry> = load_manifest_sheet(&sheet_id, 4).await;
-        let create:Vec<CreateEntry> = load_manifest_sheet(&sheet_id, 5).await;
-        let crafts:Vec<CraftEntry> = load_manifest_sheet(&sheet_id, 6).await;
-
-        let topic_manifest = TopicManifest::from((topic_meta.clone(), watch, games, discovers, create, crafts));
 
         let mut manifest_path = config.local_output.clone();
         manifest_path.push("topics");
@@ -51,8 +59,7 @@ async fn main() {
         write_json(&topic_manifest, &manifest_path, config.dry_run);
         eprintln!("manifest for {} topic written to {:?}", topic_manifest.meta.id, manifest_path);
 
-
-        topics.push(topic_meta);
+        topics.push(meta);
     }
 
     let app_manifest = AppManifest { topics };
@@ -61,6 +68,5 @@ async fn main() {
     manifest_path.push("app.json");
     write_json(&app_manifest, &manifest_path, config.dry_run);
     eprintln!("manifest for {} topics written to {:?}", app_manifest.topics.len(), manifest_path);
-
 
 }

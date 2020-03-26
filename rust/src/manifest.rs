@@ -3,12 +3,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AppManifest {
-    pub topics: Vec<TopicMeta>,
+    pub topics: Vec<Meta>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TopicManifest {
-    pub meta: TopicMeta,
+    pub meta: Meta,
     pub videos: Vec<Media>,
     pub games: Vec<Media>,
     pub discovers: Vec<Link>,
@@ -17,7 +17,7 @@ pub struct TopicManifest {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct TopicMeta {
+pub struct Meta {
     pub id: String,
     pub title: String,
     pub locked: bool,
@@ -42,7 +42,7 @@ impl <T: AsRef<str>> From<T> for MediaPlayer {
         match text.as_ref() {
             "youtube" => Self::Youtube,
             "jitap" => Self::JiTap,
-            _ => unimplemented!()
+            _ => unimplemented!("unknown media player: {}", text.as_ref())
         }
     }
 }
@@ -75,13 +75,15 @@ pub struct Create {
 pub enum CreationTool {
     JiTap,
     JiStudio,
+    Spark,
 }
 impl <T: AsRef<str>> From<T> for CreationTool {
     fn from(text: T) -> Self {
         match text.as_ref() {
-            "youtube" => Self::JiTap,
-            "jitap" => Self::JiStudio,
-            _ => unimplemented!()
+            "jitap" => Self::JiTap,
+            "jistudio" => Self::JiStudio,
+            "spark" => Self::Spark,
+            _ => unimplemented!("unknown creation tool: {}", text.as_ref())
         }
     }
 }
