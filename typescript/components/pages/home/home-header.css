@@ -1,12 +1,13 @@
 header {
     --margin-right: 9.11em;
+    --header-line-y: 8.06em;
     display: flex;
     justify-content: flex-end;
 }
 
 header .header-line {
     position: absolute;
-    top: 8.06em;
+    top: var(--header-line-y);
     left: 11.86em;
     width: calc(100% - 11.86em - var(--margin-right));
     height: 0px;
@@ -24,8 +25,16 @@ header .logo {
     position: absolute;
     top: 1.8em;
     left: 2.5em;
+    display: flex;
+    align-items: center;
+}
+header .logo img {
     width: 17.181em;
     height: 8.7em;
+}
+header .logo .byline{
+    font-size: 2em;
+    margin-left: 1em;
 }
 
 header .right > * {
@@ -61,12 +70,13 @@ header img.help {
     height: 1.8em;
 }
 header img.home {
-    width: 2.984em;
-    height: 3.049em;
+    width: 2.937em;
+    height: 3.0em;
 }
+
 header img.partners{
-    width: 3.753em;
-    height: 2.697em;
+    width: 4.174em;
+    height: 3.0em;
 }
 
 header .circle {
@@ -76,11 +86,35 @@ header .circle {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 2.9em;
-    height: 2.9em;
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
     background: var(--theme-color);
 }
 header .selected .circle {
     background-color: var(--help-color);
+}
+
+
+.header-intro {
+    margin: 0 auto;
+    width: 100%;
+    margin-top: 1.94em;
+}
+
+.header-intro > .container {
+    font-size: 3em;
+    text-align: center;
+}
+
+.updates {
+    width: 100%;
+    text-align: right;
+}
+
+.updates > .text {
+    font-size: 2em;
+    margin-top: 1em;
+    margin-right: 4.5em;
+    color: var(--theme-color);
 }

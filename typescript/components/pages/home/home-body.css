@@ -22,6 +22,7 @@ li {
 }
 
 li img {
+
     width: 31.919em;
     height: 23.939em;
     -webkit-box-shadow: -1px 3px 19px -1px rgba(0,0,0,0.7); 
@@ -41,21 +42,16 @@ A {
     justify-content: center;
 }
 .featured img {
-    width: 50em;
+    width: 52.867em;
+
     margin: 0 auto;
     -webkit-box-shadow: -1px 3px 19px -1px rgba(0,0,0,0.7); 
     box-shadow: -1px 3px 19px -1px rgba(0,0,0,0.7);
 }
 .featured .text {
     margin-top: .3em;
-    margin-bottom: .5em;
+    margin-bottom: 1.5em;
 
     text-align: center;
-    font-size: 5rem;
-}
-
-.intro-text {
-    font-size: 3em;
-    padding: 1em;
-    text-align: center;
+    font-size: 4rem;
 }

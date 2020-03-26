@@ -12,24 +12,24 @@ import {startResizer} from "@utils/scale";
 export class Home extends LitElement {
     static styles = [common_css, footer_css];
 
+
     render() {
 
-
         return html`
-                <footer>
-                    <div>
-                        Copyright ${new Date().getFullYear()} Jewish Interactive Inc | All Rights Reserved
-                    </div>
-                    <div>
-                        <a href="https://www.jewishinteractive.org/privacy-policy/" target="_blank">Privacy Policy</a>
-                    </div>
-                    <div>
-                        <a href="https://www.jewishinteractive.org/terms-and-conditions/" target="_blank">Terms & Conditions</a> 
-                    </div>
-                    <div>
-                        <a href="https://www.jewishinteractive.org/jewish-interactive-child-protection-policy/" target="_blank">Child Protection Policy</a>
-                    </div>
-                </footer>
-        `;
+            <footer>
+                <div>
+                    Copyright ${new Date().getFullYear()} Jewish Interactive Inc | All Rights Reserved
+                </div>
+                <div>
+                    <a href="https://www.jewishinteractive.org/privacy-policy/" target="_blank">Privacy Policy</a>
+                </div>
+                <div>
+                    <a href="https://www.jewishinteractive.org/terms-and-conditions/" target="_blank">Terms & Conditions</a> 
+                </div>
+                <div>
+                    <a href="https://www.jewishinteractive.org/jewish-interactive-child-protection-policy/" target="_blank">Child Protection Policy</a>
+                </div>
+            </footer>
+        `
     }
 }

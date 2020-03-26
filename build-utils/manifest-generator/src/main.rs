@@ -16,13 +16,16 @@ async fn main() {
     let config = Config::from_args();
 
     //1. Load Sheets 
+    eprintln!("----main app manifest----");
     let manifest_list = load_manifest_list(&config.manifest_list_id).await;
 
     let mut topics:Vec<TopicMeta> = Vec::new();
 
     for (index, top_level_meta_entry) in manifest_list.iter().enumerate() {
         let sheet_id = &top_level_meta_entry.sheet_id.text;
-        println!("{}", sheet_id);
+        eprintln!("----topic manifest {}----", sheet_id);
+        eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}/edit#gid=0", sheet_id);
+        
         let mut meta:Vec<TopicMetaEntry> = load_manifest_sheet(&sheet_id, 1).await;
         let meta = meta.remove(0);
 
@@ -31,6 +34,7 @@ async fn main() {
            title: meta.title.text.clone(),
            locked: if top_level_meta_entry.locked.text == "true" { true } else { false } 
         };
+        eprintln!("----topic id {}----", topic_meta.id);
 
         let watch:Vec<WatchEntry> = load_manifest_sheet(&sheet_id, 2).await;
         let games:Vec<GamesEntry> = load_manifest_sheet(&sheet_id, 3).await;

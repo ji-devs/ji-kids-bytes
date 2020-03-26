@@ -33,9 +33,11 @@ section header {
 }
 
 section .body-text {
+    height: 37.8rem;
+    overflow-y: auto;
+
     font-weight: 300;
-    /*font-size: 2.824rem;*/
-    font-size: 1.4rem;
+    font-size: 2.824rem;
     color: #000;
 }
 

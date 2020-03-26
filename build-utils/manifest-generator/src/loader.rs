@@ -13,7 +13,8 @@ pub enum UrlOrPath<'a> {
 
 pub fn sheet_url(id:&str, sheet_num:u32) -> Result<Url, ParseError> {
     let url = format!("https://spreadsheets.google.com/feeds/list/{}/{}/public/values?alt=json", id, sheet_num);
-    eprintln!("loading [sheet {}]: {} (sheet number)", sheet_num, url);
+
+    eprintln!("loading [sheet {}]: {}", sheet_num, url);
 
     Url::parse(&url)
 }

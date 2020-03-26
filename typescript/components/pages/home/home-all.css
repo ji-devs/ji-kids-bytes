@@ -1,36 +1,24 @@
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1150px) {
     :host {
         font-size: 80%;
     }
 }
 
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 750px) {
     :host {
         font-size: 60%;
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     :host {
         font-size: 40%;
     }
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 350px) {
     :host {
         font-size: 30%;
-    }
-}
-
-@media only screen and (max-width: 200px) {
-    :host {
-        font-size: 25%;
-    }
-}
-
-@media only screen and (max-width: 170px) {
-    :host {
-        font-size: 22%;
     }
 }
 
