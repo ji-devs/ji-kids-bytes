@@ -14,7 +14,7 @@ type TopicMeta = {
 }
 
 type Media = {
-  id: String,
+  id: string,
   player: MediaPlayer
 }
 

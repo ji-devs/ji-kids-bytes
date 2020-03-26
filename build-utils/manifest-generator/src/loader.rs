@@ -78,7 +78,7 @@ pub async fn load_topic_create(doc_id:&str, api_key:&str) -> Create {
                 tool: extract_string(&row, 0).into(), 
                 image_filename: extract_string(&row, 1),
                 title: extract_string(&row, 2), 
-                body: extract_string(&row, 2), 
+                body: extract_string(&row, 3), 
             }
         })
         .nth(0)

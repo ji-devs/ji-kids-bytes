@@ -1,11 +1,14 @@
-footer {
+.main-footer {
     display: flex;
     justify-content: center;
-    width: 100%;
     text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+
 }
 
-footer > * + * {
+.main-footer > * + * {
     margin-left: 1em;
 }
 

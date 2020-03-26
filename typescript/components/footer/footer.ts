@@ -16,7 +16,7 @@ export class Home extends LitElement {
     render() {
 
         return html`
-            <footer>
+            <div class="main-footer">
                 <div>
                     Copyright ${new Date().getFullYear()} Jewish Interactive Inc | All Rights Reserved
                 </div>
@@ -29,7 +29,7 @@ export class Home extends LitElement {
                 <div>
                     <a href="https://www.jewishinteractive.org/jewish-interactive-child-protection-policy/" target="_blank">Child Protection Policy</a>
                 </div>
-            </footer>
+            </div>
         `
     }
 }

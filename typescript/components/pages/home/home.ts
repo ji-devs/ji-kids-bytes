@@ -35,7 +35,13 @@ export class Home extends LitElement {
         const on_page_change = (page:InnerPage) => this.inner_page = page;
         const on_close_footer = () => this.showing_signup = false;
 
-        const [featured_topic, ...topics] = this.topics; 
+        const all_unlocked = window.location.hash === "#unlock";
+
+        const filtered_topics = all_unlocked
+            ? this.topics
+            : this.topics.filter(topic => !topic.locked);
+
+        const [featured_topic, ...topics] = filtered_topics; 
         //Just for testing overflow
         //topics = new Array(4).fill(null).reduce((acc, cur) => acc.concat(this.topics), []);
 
@@ -49,10 +55,10 @@ export class Home extends LitElement {
                         : main(featured_topic, topics)
                     }
                 </section>
+                <home-footer .on_close=${on_close_footer.bind(this)} .visible=${this.showing_signup}></home-footer>
                 <div class="footer">
                     <ji-footer></ji-footer>
                 </div>
-                <home-footer .on_close=${on_close_footer.bind(this)} .visible=${this.showing_signup}></home-footer>
             </main>
             
         `;

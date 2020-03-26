@@ -8,11 +8,9 @@ import {STAGE_WIDTH, STAGE_HEIGHT} from "@settings/settings";
 import {Section} from "@events/events";
 import "./left-menu/left-menu";
 import "./top-header/top-header";
-import "./sections/watch/watch";
-import "./sections/games/games";
-import "./sections/discover/discover";
+import "./sections/media/media";
+import "./sections/links/links";
 import "./sections/create/create";
-import "./sections/crafts/crafts";
 import "./sections/help/help";
 import { startResizer } from "@utils/scale";
 
@@ -35,13 +33,10 @@ export class Main extends LitElement {
                         <left-menu section=${this.section}></left-menu>
                         <top-header title=${this.title} section=${this.section} ></top-header>
                         <slot name="section"></slot>
-
-                        <div class="footer">
-                            <ji-footer></ji-footer>
-                        </div>
                     </div>
                 </div>
             </div>
+            <ji-footer></ji-footer>
         `;
     }
 }

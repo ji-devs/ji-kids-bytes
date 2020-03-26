@@ -43,44 +43,44 @@ impl TopicLanding {
 
             match section {
                 Section::Watch => {
-                    let ids:Vec<&str> = self_clone.manifest.videos.iter().map(|vid| vid.id.as_ref()).collect();
-                    let ids = serde_json::to_string(&ids).unwrap();
+                    let videos = serde_wasm_bindgen::to_value(&self_clone.manifest.videos).unwrap();
 
-                    Some(html_at_slot!("section-watch", "section", {
-                        .attribute("ids_json", &ids) 
+                    Some(html_at_slot!("section-media", "section", {
+                        .property("medias", &videos) 
                         .attribute("topic_id", topic_id) 
                     }))
                 },
                 Section::Games=> {
-                    let ids:Vec<&str> = self_clone.manifest.games.iter().map(|vid| vid.id.as_ref()).collect();
-                    let ids = serde_json::to_string(&ids).unwrap();
+                    let games = serde_wasm_bindgen::to_value(&self_clone.manifest.games).unwrap();
 
-                    Some(html_at_slot!("section-games", "section", {
-                        .attribute("ids_json", &ids) 
+                    Some(html_at_slot!("section-media", "section", {
+                        .property("medias", &games) 
                         .attribute("topic_id", topic_id) 
                     }))
                 },
                 Section::Discover=> {
-                    let discovers = serde_json::to_string(&self_clone.manifest.discovers).unwrap();
+                    let discovers = serde_wasm_bindgen::to_value(&self_clone.manifest.discovers).unwrap();
 
-                    Some(html_at_slot!("section-discover", "section", {
-                        .attribute("discovers_json", &discovers) 
+                    Some(html_at_slot!("section-links", "section", {
+                        .attribute("section", "discover") 
+                        .property("links", &discovers) 
                         .attribute("topic_id", topic_id) 
                     }))
                 },
                 Section::Create=> {
-                    let create = serde_json::to_string(&self_clone.manifest.create).unwrap();
+                    let create = serde_wasm_bindgen::to_value(&self_clone.manifest.create).unwrap();
 
                     Some(html_at_slot!("section-create", "section", {
-                        .attribute("create_json", &create) 
+                        .property("create", &create) 
                         .attribute("topic_id", topic_id) 
                     }))
                 },
                 Section::Craft=> {
-                    let crafts = serde_json::to_string(&self_clone.manifest.crafts).unwrap();
+                    let crafts = serde_wasm_bindgen::to_value(&self_clone.manifest.crafts).unwrap();
 
-                    Some(html_at_slot!("section-crafts", "section", {
-                        .attribute("crafts_json", &crafts) 
+                    Some(html_at_slot!("section-links", "section", {
+                        .attribute("section", "crafts") 
+                        .property("links", &crafts) 
                         .attribute("topic_id", topic_id) 
                     }))
                 },

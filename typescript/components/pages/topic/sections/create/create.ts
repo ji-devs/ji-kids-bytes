@@ -18,14 +18,11 @@ export class _ extends LitElement {
     @property( { type : String }  ) create_json = "";
     @property( { type : String }  ) topic_id = "";
 
-    @property( { type : Array }  ) create = {} as Create; 
-
-    firstUpdated() {
-        this.create = JSON.parse(this.create_json);
-    }
+    @property( { type : Object }  ) create = {} as Create; 
 
     render() {
 
+        console.log(this.create);
         const {tool, image_filename, title, body} = this.create;
 
         const src = Path.topic(this.topic_id) (`create/${image_filename}`);

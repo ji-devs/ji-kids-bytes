@@ -14,10 +14,10 @@ impl Home {
     }
 
     pub fn render(self: Rc<Self>) -> Dom {
-        let topics = serde_json::to_string(&self.manifest.topics).unwrap();
+        let topics = serde_wasm_bindgen::to_value(&self.manifest.topics).unwrap();
         
         html!("home-landing", {
-            .attribute("topics", &topics) 
+            .property("topics", &topics) 
         })
     }
 }
