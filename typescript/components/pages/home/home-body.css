@@ -37,14 +37,13 @@ li .label {
 A {
     color: var(--theme-color);
 }
-.featured-container {
-    display: flex;
-    justify-content: center;
-}
+
 .featured img {
+    display: block;
+    margin: 0 auto;
     width: 52.867em;
 
-    margin: 0 auto;
+    background-color: green;
     -webkit-box-shadow: -1px 3px 19px -1px rgba(0,0,0,0.7); 
     box-shadow: -1px 3px 19px -1px rgba(0,0,0,0.7);
 }

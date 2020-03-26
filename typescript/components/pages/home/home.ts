@@ -73,11 +73,9 @@ const main = (featured_topic:TopicMeta, topics:Array<TopicMeta>) => html`
 
 const featured = (topic:TopicMeta) => html`
     <a href="/topic/${topic.id}">
-        <div class="featured-container">
-            <div class="featured">
+        <div class="featured">
             <img src=${Path.topic(topic.id)(`${topic.id}.svg`)} />
             <div class="text">${topic.title}</div>
-            </div>
         </div>
     </a>
 `
