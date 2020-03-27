@@ -42,7 +42,9 @@ export class _ extends LitElement {
 
 
 const link_li= (topic:string, section:string) => ({link, image_filename, link_label, title}:Link) => {
-    const src = Path.topic(topic) (`${section}/${image_filename}`);
+    const image_base = section === "craft" ? "crafts" : section;
+
+    const src = Path.topic(topic) (`${image_base}/${image_filename}`);
     return html`
     <li>
         <img src=${src}>
