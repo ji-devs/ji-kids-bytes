@@ -1,6 +1,6 @@
 use dominator::{Dom, html};
 use std::rc::Rc;
-use crate::manifest::*;
+use manifest::*;
 
 pub struct Home {
     manifest: Rc<AppManifest>

@@ -17,6 +17,7 @@ serde_repr = "0.1.5"
 derivative = "2.0.2"
 futures = "0.3.4"
 dotenv = "0.15.0"
+manifest = {path = "../../shared/rust/manifest" }
 
 [features]
 quiet = []

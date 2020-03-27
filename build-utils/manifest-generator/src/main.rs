@@ -11,10 +11,9 @@ use loader::*;
 use config::*;
 use schema::*;
 use writer::*;
-use tokio::stream::{iter, Stream, StreamExt};
-use std::rc::Rc;
 use dotenv::dotenv;
 use std::env;
+use manifest::*;
 
 #[tokio::main]
 async fn main() {
@@ -30,7 +29,7 @@ async fn main() {
     let mut topics:Vec<Meta> = Vec::new();
 
     for drive_topic_meta in manifest_list.iter() {
-        let DriveAppManifestRow { doc_id, locked} = drive_topic_meta;
+        let DriveAppManifestRow { doc_id, ..} = drive_topic_meta;
         eprintln!("----topic manifest {}----", doc_id);
         eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}", doc_id);
        

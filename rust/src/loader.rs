@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use awsm_web::loaders::fetch;
-use crate::manifest::*;
+use manifest::*;
 use crate::path::*;
 
 pub async fn load_topic_manifest(id:&str) -> Result<TopicManifest, JsValue> {

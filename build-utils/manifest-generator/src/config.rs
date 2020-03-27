@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 use structopt::StructOpt;
-use url::Url;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "creation pack download", about = "A little util to download and re-parse creation packs")]
@@ -17,5 +16,3 @@ pub struct Config {
     #[structopt(long, parse(try_from_str), default_value = "false")]
     pub dry_run: bool,
 }
-
-pub const MAX_SIMULTANEOUS:usize = 20;

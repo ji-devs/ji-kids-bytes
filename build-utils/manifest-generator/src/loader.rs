@@ -1,15 +1,8 @@
 use url::Url;
 use crate::schema::*;
-use std::fs::File;
-use std::path::Path;
 use url::ParseError;
-use serde::{Deserialize, Serialize, de::DeserializeOwned};
+use manifest::*;
 
-#[derive(Debug)]
-pub enum UrlOrPath<'a> {
-    Url(Url),
-    Path(&'a Path)
-}
 
 pub async fn load_manifest_list(doc_id: &str, api_key:&str) -> Vec<DriveAppManifestRow> {
     load_sheet_rows(doc_id, "Topics", api_key)

@@ -9,7 +9,6 @@ cfg_if! {
     } else {
         mod dom;
         mod events;
-        mod manifest;
         mod loader;
         mod config;
         mod path;

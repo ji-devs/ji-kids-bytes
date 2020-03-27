@@ -1,5 +1,5 @@
 use std::rc::Rc;
-use crate::manifest::{AppManifest, TopicManifest};
+use manifest::{AppManifest, TopicManifest};
 
 #[derive(Clone)]
 pub enum RootPage {

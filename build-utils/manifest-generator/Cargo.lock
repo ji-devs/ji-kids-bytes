@@ -447,12 +447,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "manifest"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_repr",
+]
+
+[[package]]
 name = "manifest-generator"
 version = "0.1.0"
 dependencies = [
  "derivative",
  "dotenv",
  "futures",
+ "manifest",
  "reqwest",
  "serde",
  "serde_json",

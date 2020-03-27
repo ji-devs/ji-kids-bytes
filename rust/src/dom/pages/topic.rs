@@ -4,7 +4,7 @@ use dominator_helpers::{html_at_slot};
 use std::rc::Rc;
 use crate::events::*;
 use crate::enums::*;
-use crate::manifest::*;
+use manifest::*;
 
 pub struct TopicLanding {
     section: Mutable<Section>,

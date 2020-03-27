@@ -3,7 +3,7 @@ use std::rc::Rc;
 use crate::config;
 use crate::enums::*;
 use crate::loader::*;
-use crate::manifest::*;
+use manifest::*;
 
 pub async fn get_page() -> Option<RootPage> {
     let uri_parts = get_uri_parts();
