@@ -20,6 +20,14 @@ const PARTNERS:Array<[string, string]> =
         ["Eliana-light.jpg", "https://elianalight.com/"],
         ["Jewish-News.jpg", "https://jewishnews.timesofisrael.com/"],
         ["PaJeS.jpg", "https://www.pajes.org.uk/"],
+        ["ShalomLearning.jpg", "https://www.shalomlearning.org/"],
+        ["Judaism-unbound.jpg", "https://www.judaismunbound.com/"],
+        ["Jewish-Live.jpg", "https://www.jewishlive.org/"],
+        ["ORT-UK.jpg", "https://ortuk.org/"],
+        ["CIJE.jpg", "https://www.thecije.org/"],
+        ["jkidla.jpg", "https://jkidla.com/"],
+        ["JEP.jpg", "https://www.jewishedproject.org/"],
+        ["Olam-Shalem.jpg", "http://www.olamshalem.org/Index.aspx"],
     ];
 
 @customElement("home-partners")
