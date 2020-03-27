@@ -8,6 +8,7 @@ import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
 import {gameIdToAlbumId} from "@utils/jitap";
+import {is_mobile} from "@utils/user-agent";
 
 type SelectHandler = (section:Section) => any;
 
@@ -20,6 +21,12 @@ export class _ extends LitElement {
     @property( { type : Number }  ) current_index = 0; 
     @property( { type : String }  ) topic_id = "";
     @property( { type : Array }  ) medias = [] as Array<Media>; 
+
+    firstUpdated() {
+        if(this.section === "games" && is_mobile()) {
+            alert(`Games may not play on this device.\nFor best experience - use a regular computer instead`)
+        }
+    }
 
     render() {
         const on_select = (index:number) => {

@@ -40,12 +40,14 @@ impl TopicLanding {
         let self_clone = self.clone();
         self.section.signal().map(move |section| {
             let topic_id = &self.manifest.meta.id;
+            let section_string:String = section.into();
 
             match section {
                 Section::Watch => {
                     let videos = serde_wasm_bindgen::to_value(&self_clone.manifest.videos).unwrap();
 
                     Some(html_at_slot!("section-media", "section", {
+                        .attribute("section", &section_string)
                         .property("medias", &videos) 
                         .attribute("topic_id", topic_id) 
                     }))
@@ -54,6 +56,7 @@ impl TopicLanding {
                     let games = serde_wasm_bindgen::to_value(&self_clone.manifest.games).unwrap();
 
                     Some(html_at_slot!("section-media", "section", {
+                        .attribute("section", &section_string)
                         .property("medias", &games) 
                         .attribute("topic_id", topic_id) 
                     }))
@@ -62,7 +65,7 @@ impl TopicLanding {
                     let discovers = serde_wasm_bindgen::to_value(&self_clone.manifest.discovers).unwrap();
 
                     Some(html_at_slot!("section-links", "section", {
-                        .attribute("section", "discover") 
+                        .attribute("section", &section_string)
                         .property("links", &discovers) 
                         .attribute("topic_id", topic_id) 
                     }))
@@ -71,6 +74,7 @@ impl TopicLanding {
                     let create = serde_wasm_bindgen::to_value(&self_clone.manifest.create).unwrap();
 
                     Some(html_at_slot!("section-create", "section", {
+                        .attribute("section", &section_string)
                         .property("create", &create) 
                         .attribute("topic_id", topic_id) 
                     }))
@@ -79,13 +83,14 @@ impl TopicLanding {
                     let crafts = serde_wasm_bindgen::to_value(&self_clone.manifest.crafts).unwrap();
 
                     Some(html_at_slot!("section-links", "section", {
-                        .attribute("section", "crafts") 
+                        .attribute("section", &section_string)
                         .property("links", &crafts) 
                         .attribute("topic_id", topic_id) 
                     }))
                 },
                 Section::Help=> {
                     Some(html_at_slot!("section-help", "section", {
+                        .attribute("section", &section_string)
                         .attribute("topic_id", topic_id) 
                     }))
                 },
