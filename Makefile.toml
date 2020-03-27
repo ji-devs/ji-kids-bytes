@@ -104,6 +104,7 @@ run_task = [{name = [
     "clean",
     "build-production-rust", 
     "build-production-webpack",
+    "social-meta-tags",
     "copy-static"
 ]}]
 
@@ -122,6 +123,15 @@ script = ["npx webpack --env.release_target='production' --progress --color --co
 [tasks.copy-static]
 script_runner = "@shell"
 script = ["cp -R ./_static/* ./dist/"]
+
+###################
+#### Social Tags ##
+###################
+
+[tasks.social-meta-tags]
+command = "cargo"
+args = ["run"]
+cwd = "build-utils/social-meta-tags"
 
 ############### 
 #### Tests ####
