@@ -49,6 +49,7 @@ run_task = [{name = [
 [tasks.clean]
 run_task = [{name = [
     "clean-rust",
+	"clean-dist",
     "clean-artifacts",
 ]}]
 
@@ -58,7 +59,7 @@ run_task = [{name = [
 
 [tasks.build-development]
 run_task = [{name = [
-    "clean",
+    # "clean",
     "build-development-rust", 
     "build-development-webpack", 
     "copy-static"
@@ -102,6 +103,7 @@ cwd = "rust"
 [tasks.build-production]
 run_task = [{name = [
     # "clean",
+	"clean-dist",
 	"manifest-generator",
     "build-production-rust", 
     "build-production-webpack",
@@ -180,10 +182,12 @@ command = "cargo"
 args = ["make", "clean"]
 cwd = "rust"
 
+[tasks.clean-dist]
+script_runner = "@shell"
+ignore_errors = true
+script = ["rm -rf ./dist"]
+
 [tasks.clean-artifacts]
 script_runner = "@shell"
 ignore_errors = true
-script = [ 
-    "rm -rf ./dist",
-    "rm -rf ./_static/wasm/app/pkg",
-]
+script = ["rm -rf ./_static/wasm/app/pkg"]
