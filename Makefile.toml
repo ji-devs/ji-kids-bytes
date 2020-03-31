@@ -101,10 +101,12 @@ cwd = "rust"
 
 [tasks.build-production]
 run_task = [{name = [
-    "clean",
+    # "clean",
+	"manifest-generator",
     "build-production-rust", 
     "build-production-webpack",
     "social-meta-tags",
+	"sitemap-creator",
     "copy-static"
 ]}]
 
@@ -132,6 +134,24 @@ script = ["cp -R ./_static/* ./dist/"]
 command = "cargo"
 args = ["run"]
 cwd = "build-utils/social-meta-tags"
+
+#######################
+#### Sitemap Creator ##
+#######################
+
+[tasks.sitemap-creator]
+command = "cargo"
+args = ["run"]
+cwd = "build-utils/sitemap-creator"
+
+#######################
+#### Sitemap Creator ##
+#######################
+
+[tasks.manifest-generator]
+command = "cargo"
+args = ["run"]
+cwd = "build-utils/manifest-generator"
 
 ############### 
 #### Tests ####
