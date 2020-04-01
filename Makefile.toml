@@ -103,8 +103,9 @@ cwd = "rust"
 [tasks.build-production]
 run_task = [{name = [
     # "clean",
+	# "manifest-generator",
 	"clean-dist",
-	"manifest-generator",
+	
     "build-production-rust", 
     "build-production-webpack",
     "social-meta-tags",
