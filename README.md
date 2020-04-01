@@ -31,7 +31,7 @@
 
 # Special links
 
-https://bytes.jikids.org/#unlock will show the locked topics as well (_note: if appending "#unlock" in the browser url, instead of navigating directly to this link, it requires a reload)
+https://bytes.jikids.org/#unlock will show the locked topics as well (_note: if appending "#unlock" in the browser url, instead of navigating directly to this link, it requires a reload_)
 
 # Configuration
 
