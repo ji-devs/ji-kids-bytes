@@ -29,6 +29,9 @@
 - [ ] social png exists: social/topics/[TOPIC ID].png
 - [ ] social png is at 1200x900px, 72ppi.
 
+# Special links
+
+https://bytes.jikids.org/#unlock will show the locked topics as well (_note: if appending "#unlock" in the browser url, instead of navigating directly to this link, it requires a reload)
 
 # Configuration
 
