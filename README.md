@@ -2,6 +2,34 @@
 
 ## [LIVE SITE](https://bytes.jikids.org)
 
+# New topic checklist
+
+## Main Sheet
+
+- [ ] topic sheet id listed in main area
+- [ ] locked is true if for internal evaluation only, false if meant to be public
+
+## Topic Sheet
+
+- [ ] meta id is all lowercase and no spaces
+- [ ] discover filenames are correct, with extension
+- [ ] create filenames are correct, with extension
+- [ ] craft filenames are correct, with extension
+- [ ] discover title fits on one line
+- [ ] create title fits on one line
+- [ ] craft title fits on one line
+
+## Files (in the Ji Bytes Dropbox `live-media` directory)
+
+- [ ] main svg exists: topics/[TOPIC ID]/[TOPIC ID].svg
+- [ ] main svg is without burned in shadow - just straight artwork, at 4:3 resolution
+- [ ] discover files exists: topics/[TOPIC ID]/discover/[FILENAME]
+- [ ] create files exists: topics/[TOPIC ID]/create/[FILENAME]
+- [ ] craft files exists: topics/[TOPIC ID]/craft/[FILENAME]
+- [ ] social png exists: social/topics/[TOPIC ID].png
+- [ ] social png is at 1200x900px, 72ppi.
+
+
 # Configuration
 
 ## Manifest
