@@ -52,26 +52,22 @@
 
         </style>
     </head>
-    <!-- Google analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90113042-4"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-90113042-4'); </script>
     <body>
+        <!-- Google analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90113042-4"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-90113042-4'); </script>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <!-- Firebase analytics -->
+        <!--
         <script src="/__/firebase/7.11.0/firebase-app.js"></script>
         <script src="/__/firebase/7.11.0/firebase-analytics.js"></script>
         <script src="/__/firebase/init.js"></script>
-        <script type="module">
-            //this allows using --target web via bindgen, and avoiding the need to go through webpack
-            //the callback will get the full wasm module - and can then interpret it by the imported typescript
-            //it will be available to the webpack code since the webpack js is set to "defer"
-            import init,* as wasm from '/wasm/app/pkg/my_app.js';
-            export function load_wasm(cb) {
-                init().then(() => cb(wasm));
-            }
-            window.load_wasm = load_wasm;
-         </script>
+        -->
+
+        <!-- Load polyfills -->
+        <script src="/webcomponentsjs/webcomponents-loader.js"></script>
+
     </body>
 </html>

@@ -32,6 +32,11 @@ module.exports = {
         new ScriptExtHtmlWebpackPlugin({
             defaultAttribute: 'defer'
         }),
+
+        new webpack.ProvidePlugin({
+          TextDecoder: ['text-encoding', 'TextDecoder'],
+          TextEncoder: ['text-encoding', 'TextEncoder'],
+        })
         //new webpack.HotModuleReplacementPlugin()
     ],
     module: {

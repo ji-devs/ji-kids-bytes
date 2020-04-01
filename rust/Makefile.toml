@@ -63,7 +63,7 @@ toolchain = "nightly"
 
 [tasks.bindgen-development]
 command = "wasm-bindgen"
-args = ["./target/wasm32-unknown-unknown/debug/my_app.wasm","--debug", "--keep-debug", "--target","web","--out-dir","../_static/wasm/app/pkg"]
+args = ["./target/wasm32-unknown-unknown/debug/my_app.wasm","--debug", "--keep-debug", "--target","bundler","--out-dir","../_static/wasm/app/pkg"]
 
 
 ################
@@ -84,7 +84,7 @@ toolchain = "nightly"
 
 [tasks.bindgen-production]
 command = "wasm-bindgen"
-args = ["./target/wasm32-unknown-unknown/release/my_app.wasm", "--target","web","--out-dir","../_static/wasm/app/pkg"]
+args = ["./target/wasm32-unknown-unknown/release/my_app.wasm", "--target","bundler","--out-dir","../_static/wasm/app/pkg"]
 
 [tasks.wasmopt-production]
 command = "wasm-opt"
