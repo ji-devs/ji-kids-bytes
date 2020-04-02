@@ -30,6 +30,7 @@ const PARTNERS:Array<[string, string]> =
         ["Olam-Shalem.jpg", "http://www.olamshalem.org/Index.aspx"],
         ["JLGB.jpg","https://www.jlgb.org/"],
         ["HebrewHelpers.jpg","https://www.hebrewhelpers.com/"],
+        ["cojds.jpg","https://www.cojds.org/"],
     ];
 
 @customElement("home-partners")
