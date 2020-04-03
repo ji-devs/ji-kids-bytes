@@ -13,11 +13,11 @@ run_task = [
 
 [tasks.watch]
 command = "watchexec"
-args = ["-w", "./src", "makers", "build-development"]
+args = ["-w", "./src", "-w", "../shared/rust/manifest", "makers", "build-development"]
 
 [tasks.watch-nowarnings]
 command = "watchexec"
-args = ["-w", "./src", "makers", "build-development-nowarnings"]
+args = ["-w", "./src", "-w", "../shared/rust/manifest", "makers", "build-development-nowarnings"]
 
 [tasks.test-unit]
 command = "cargo"
