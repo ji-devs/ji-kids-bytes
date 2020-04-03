@@ -21,10 +21,7 @@ export class _ extends LitElement {
     @property( { type : Object }  ) create = {} as Create; 
 
     render() {
-
-        console.log(this.create);
         const {tool, image_filename, title, body} = this.create;
-
         const src = Path.topic(this.topic_id) (`create/${image_filename}`);
 
         return html`
@@ -51,6 +48,7 @@ const tool_link = (tool:CreationTool) => {
     `;
 }
 
+
 //eh... enums in declaration don't seem to be usable as strings directly
 //probably a way to make this less verbose but at least it typechecks
 const get_link = (tool:CreationTool) => {
@@ -58,6 +56,7 @@ const get_link = (tool:CreationTool) => {
         case "jistudio" as CreationTool.JiStudio: return "https://jistudio.net";
         case "jitap" as CreationTool.JiTap: return "https://jitap.net";
         case "spark" as CreationTool.Spark: return "https://spark.adobe.com/make/video-maker/";
+        case "sketchpad" as CreationTool.Sketchpad: return "https://sketch.io/sketchpad/";
         default: 
             const _unreachable:never = tool;
             throw new Error("unknown creation tool " + tool);

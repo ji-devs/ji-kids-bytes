@@ -75,6 +75,7 @@ pub enum CreationTool {
     JiTap,
     JiStudio,
     Spark,
+    Sketchpad
 }
 impl <T: AsRef<str>> From<T> for CreationTool {
     fn from(text: T) -> Self {
@@ -82,6 +83,7 @@ impl <T: AsRef<str>> From<T> for CreationTool {
             "jitap" => Self::JiTap,
             "jistudio" => Self::JiStudio,
             "spark" => Self::Spark,
+            "sketchpad" => Self::Sketchpad,
             _ => unimplemented!("unknown creation tool: {}", text.as_ref())
         }
     }

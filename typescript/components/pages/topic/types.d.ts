@@ -44,5 +44,6 @@ type Create = {
 declare enum CreationTool {
   JiTap = "jitap",
   JiStudio = "jistudio",
-  Spark = "spark"
+  Spark = "spark",
+  Sketchpad = "sketchpad",
 }
