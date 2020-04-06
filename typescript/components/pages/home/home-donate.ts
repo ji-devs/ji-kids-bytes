@@ -21,7 +21,7 @@ export class _ extends LitElement {
                     Enjoying using Ji? 
                     Help us continue to help you. 
                     We are a nonprofit. 
-                    <a href="https://www.jewishinteractive.org/donate-to-ji-coronavirus/">Please click here to donate.</a>
+                    <a href="https://www.jewishinteractive.org/donate-to-ji-coronavirus/" target="_blank">Please click here to donate.</a>
                 </span>
             </div>
             `;
