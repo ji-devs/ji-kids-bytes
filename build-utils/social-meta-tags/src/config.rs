@@ -13,7 +13,7 @@ pub struct Config {
     pub html_dir: PathBuf,
     
     /// Base title 
-    #[structopt(long, default_value="JiKids Bytes", parse(from_str))]
+    #[structopt(long, default_value="Ji Bytes", parse(from_str))]
     pub base_title: String,
 
     /// Base url 
@@ -24,9 +24,9 @@ pub struct Config {
     #[structopt(long, default_value="https://storage.googleapis.com/bytes-ji-kids-eu", parse(from_str))]
     pub base_media_url: String,
 
-    /// default description 
+    /// base description 
     #[structopt(long, default_value="A taste of Jewish learning for your kids for an hour a day!", parse(from_str))]
-    pub default_description: String,
+    pub base_description: String,
 
     /// default image 
     #[structopt(long, default_value="social/ji-bytes.png", parse(from_str))]

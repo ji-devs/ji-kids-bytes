@@ -13,15 +13,27 @@ impl SocialTags {
     }
     
     pub fn new(config:&Config, title:Option<&str>, description: Option<&str>, image: Option<&str>, uri: Option<&str> ) -> Self {
+
+        let description = match description {
+            None => {
+                match title {
+                    None => config.base_description.to_string(),
+                    Some(title) => format!("{} - {}", title, config.base_description)
+                }
+            },
+            Some(description) => {
+                match title {
+                    None => format!("{} - {}", description, config.base_description),
+                    Some(title) => format!("{} - {} - {}", title, description, config.base_description)
+                }
+            }
+        };
+        
         let title =  match title {
             None => config.base_title.to_string(),
             Some(title) => format!("{} - {}", title, config.base_title)
         };
 
-        let description = match description {
-            None => config.default_description.to_string(), 
-            Some(description) => description.to_string()
-        };
 
         let image= format!("{}/{}", config.base_media_url, match image {
             None => &config.default_image,
