@@ -14,6 +14,7 @@ import "./home-header";
 import "./home-footer";
 import "./home-help";
 import "./home-partners";
+import "./home-donate";
 
 export enum InnerPage {
     Main,
@@ -47,6 +48,7 @@ export class Home extends LitElement {
 
 
         return html`
+            <home-donate></home-donate>
             <main>
                 <home-header .on_page_change=${on_page_change} .page=${this.inner_page}></home-header>
                 <section>

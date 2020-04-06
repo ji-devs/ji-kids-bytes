@@ -1,0 +1,14 @@
+.donate {
+    color: white;
+    background-color: #2F3C63;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.donate span {
+    font-size: 2.0em;
+}
+
+a {
+    color: #00A696;
+}
