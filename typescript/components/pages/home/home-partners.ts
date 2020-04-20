@@ -38,6 +38,8 @@ const PARTNERS:Array<[string, string]> =
         ["beit-issie.jpg","https://en.beitissie.org.il/"],
         ["IAC.jpg","https://www.israeliamerican.org/home/kids"],
         ["Hadassah.jpg","http://hadassahinternational.org/"],
+        ["IAC-home.jpg","https://www.israeliamerican.org/home/kids"],
+        ["TheJewishAgency.jpg","https://www.jewishagency.org/"],
     ];
 
 @customElement("home-partners")
