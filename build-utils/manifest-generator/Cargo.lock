@@ -461,6 +461,7 @@ dependencies = [
  "derivative",
  "dotenv",
  "futures",
+ "lazy_static",
  "manifest",
  "reqwest",
  "serde",

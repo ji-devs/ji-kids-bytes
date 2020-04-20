@@ -2,7 +2,12 @@ use url::Url;
 use crate::schema::*;
 use url::ParseError;
 use manifest::*;
+use std::sync::{Arc, Mutex};
 
+lazy_static::lazy_static! {
+    /// This is an example for using doc comment attributes
+    static ref API_CALLS:Arc<Mutex<usize>> = Arc::new(Mutex::new(1)); 
+}
 
 pub async fn load_manifest_list(doc_id: &str, api_key:&str) -> Vec<DriveAppManifestRow> {
     load_sheet_rows(doc_id, "Topics", api_key)
@@ -79,6 +84,20 @@ pub async fn load_topic_create(doc_id:&str, api_key:&str) -> Create {
 }
 
 async fn load_sheet_rows(doc_id:&str, sheet_id: &str, api_key:&str) -> Vec<Vec<String>> {
+    {
+        let mut n_calls = API_CALLS.lock().unwrap();
+        println!("{} so far", n_calls);
+        //could maybe be up to 99 but... play it safe for now :\
+        if *n_calls == 10 {
+            println!("WAIT!!! need to sleep in order to not exhaust google api!");
+            tokio::time::delay_for(tokio::time::Duration::new(100, 0)).await;
+            *n_calls = 1;
+        } else {
+            *n_calls += 1;
+        }
+
+    }
+
     reqwest::get(sheet_url(doc_id, sheet_id, api_key).unwrap())
         .await.unwrap()
         .json::<GoogleSheet>()
