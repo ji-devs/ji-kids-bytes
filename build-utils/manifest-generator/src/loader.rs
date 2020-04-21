@@ -3,35 +3,43 @@ use crate::schema::*;
 use url::ParseError;
 use manifest::*;
 use std::sync::{Arc, Mutex};
+use crate::config::Config;
 
 lazy_static::lazy_static! {
     /// This is an example for using doc comment attributes
-    static ref API_CALLS:Arc<Mutex<usize>> = Arc::new(Mutex::new(1)); 
+    static ref API_CALLS:Arc<Mutex<usize>> = Arc::new(Mutex::new(0)); 
 }
 
-pub async fn load_manifest_list(doc_id: &str, api_key:&str) -> Vec<DriveAppManifestRow> {
-    load_sheet_rows(doc_id, "Topics", api_key)
+pub async fn load_manifest_list(doc_id: &str, api_key:&str, config:&Config) -> Vec<DriveAppManifestRow> {
+    load_sheet_rows(doc_id, "Topics", api_key, config)
         .await
         .into_iter()
         .map(|row| {
+            let series_id = extract_string(&row, 1).to_lowercase();
+            let series_title = some_kind_of_uppercase_first_letter(&series_id);
             DriveAppManifestRow {
                 doc_id: extract_string(&row, 0), 
-                locked: extract_bool(&row, 1), 
+                series_id,
+                series_title,
+                locked: extract_bool(&row, 2), 
             }
         })
         .collect()
 }
 
-pub async fn load_topic_meta(app_manifest_row:&DriveAppManifestRow, api_key:&str) -> Meta {
-    let DriveAppManifestRow { doc_id, locked} = app_manifest_row;
+pub async fn load_topic_meta(app_manifest_row:&DriveAppManifestRow, api_key:&str, config:&Config) -> TopicMeta {
+    let DriveAppManifestRow { doc_id, series_id, series_title, locked} = app_manifest_row;
 
-    load_sheet_rows(&doc_id, "Meta", api_key)
+    load_sheet_rows(&doc_id, "Meta", api_key, config)
         .await
         .into_iter()
         .map(|row| {
-            Meta {
+
+            TopicMeta {
                 id: extract_string(&row, 0), 
                 title: extract_string(&row, 1), 
+                series_id: series_id.clone(),
+                series_title: series_title.clone(),
                 locked: *locked
             }
         })
@@ -39,8 +47,8 @@ pub async fn load_topic_meta(app_manifest_row:&DriveAppManifestRow, api_key:&str
         .unwrap()
 }
 
-pub async fn load_topic_media(doc_id:&str, sheet_id:&str, api_key:&str) -> Vec<Media> {
-    load_sheet_rows(doc_id, sheet_id, api_key)
+pub async fn load_topic_media(doc_id:&str, sheet_id:&str, api_key:&str, config:&Config) -> Vec<Media> {
+    load_sheet_rows(doc_id, sheet_id, api_key, config)
         .await
         .into_iter()
         .map(|row| {
@@ -52,8 +60,8 @@ pub async fn load_topic_media(doc_id:&str, sheet_id:&str, api_key:&str) -> Vec<M
         .collect()
 }
 
-pub async fn load_topic_links(doc_id:&str, sheet_id:&str, has_link_label: bool, api_key:&str) -> Vec<Link> {
-    load_sheet_rows(doc_id, sheet_id, api_key)
+pub async fn load_topic_links(doc_id:&str, sheet_id:&str, has_link_label: bool, api_key:&str, config:&Config) -> Vec<Link> {
+    load_sheet_rows(doc_id, sheet_id, api_key, config)
         .await
         .into_iter()
         .map(|row| {
@@ -67,8 +75,8 @@ pub async fn load_topic_links(doc_id:&str, sheet_id:&str, has_link_label: bool, 
         .collect()
 }
 
-pub async fn load_topic_create(doc_id:&str, api_key:&str) -> Create {
-    load_sheet_rows(&doc_id, "Create", api_key)
+pub async fn load_topic_create(doc_id:&str, api_key:&str, config:&Config) -> Create {
+    load_sheet_rows(&doc_id, "Create", api_key, config)
         .await
         .into_iter()
         .map(|row| {
@@ -83,15 +91,14 @@ pub async fn load_topic_create(doc_id:&str, api_key:&str) -> Create {
         .unwrap()
 }
 
-async fn load_sheet_rows(doc_id:&str, sheet_id: &str, api_key:&str) -> Vec<Vec<String>> {
+async fn load_sheet_rows(doc_id:&str, sheet_id: &str, api_key:&str, config:&Config) -> Vec<Vec<String>> {
     {
         let mut n_calls = API_CALLS.lock().unwrap();
-        println!("{} so far", n_calls);
         //could maybe be up to 99 but... play it safe for now :\
-        if *n_calls == 10 {
+        if *n_calls >= config.per_batch {
             println!("WAIT!!! need to sleep in order to not exhaust google api!");
-            tokio::time::delay_for(tokio::time::Duration::new(100, 0)).await;
-            *n_calls = 1;
+            tokio::time::delay_for(tokio::time::Duration::new(config.batch_sleep_time, 0)).await;
+            *n_calls = 0;
         } else {
             *n_calls += 1;
         }
@@ -146,16 +153,11 @@ fn sheet_url(doc_id:&str, sheet_name:&str, api_key:&str) -> Result<Url, ParseErr
 }
 
 
-/*
-pub async fn load_manifest_sheet<T: DeserializeOwned + IsEmpty>(sheet_id: &str, sheet_num: u32) -> Vec<T> {
-    let manifest:DriveManifest<T> = reqwest::get(sheet_url(&sheet_id, sheet_num).unwrap())
-        .await.unwrap()
-        .json::<DriveManifest<T>>()
-        .await.unwrap();
-
-    manifest.feed.entries
-        .into_iter()
-        .filter(|x| !x.is_empty())
-        .collect()
+//https://stackoverflow.com/questions/38406793/why-is-capitalizing-the-first-letter-of-a-string-so-convoluted-in-rust
+fn some_kind_of_uppercase_first_letter(s: &str) -> String {
+    let mut c = s.chars();
+    match c.next() {
+        None => String::new(),
+        Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
+    }
 }
-*/

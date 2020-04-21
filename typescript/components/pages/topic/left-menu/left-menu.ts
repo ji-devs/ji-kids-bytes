@@ -8,7 +8,7 @@ import common_css from "@components/common/common.css";
 import {SelectSectionEvent, Section} from "@events/events";
 import {Path} from "@settings/settings";
 
-type SelectHandler = (section:Section) => any;
+type SectionChangeHandler = (section:Section) => any;
 
 @customElement("left-menu")
 export class LeftMenu extends LitElement {
@@ -16,40 +16,39 @@ export class LeftMenu extends LitElement {
 
     @property( { type : String }  ) section = "watch" as Section;
 
-    render() {
+    @property() on_section_change:SectionChangeHandler;
 
-        const on_select = (section:Section) => (evt:any) => this.dispatchEvent(new SelectSectionEvent(section));
+    render() {
 
         return html`
             <div class="menu" >
                 <a href="/"><img class="logo" src=${Path.ui("menu-logo.svg")} /></a>
-                ${list(this.section, on_select)}
+                ${list(this.section, this.on_section_change)}
             </div>
         `;
     }
 }
 
-const list = (current_section:Section, on_select:SelectHandler) => {
+const list = (current_section:Section, on_section_change:SectionChangeHandler) => {
 
     return html`
         <ul>
-            ${item("Watch", "watch", on_select, current_section)}
-            ${item("Games", "games", on_select, current_section)}
-            ${item("Discover", "discover", on_select, current_section)}
-            ${item("Create", "create", on_select, current_section)}
-            ${item("Craft", "craft", on_select, current_section)}
+            ${item("Watch", "watch", on_section_change, current_section)}
+            ${item("Games", "games", on_section_change, current_section)}
+            ${item("Discover", "discover", on_section_change, current_section)}
+            ${item("Create", "create", on_section_change, current_section)}
+            ${item("Craft", "craft", on_section_change, current_section)}
         </ul>
     `;
 }
-/*
-                */
-function item(label:string, section:Section, on_select: SelectHandler, current_section:Section) {
+
+function item(label:string, section:Section, on_section_change: SectionChangeHandler, current_section:Section) {
     const selected = section === current_section 
         ? { [`${section}-selected`]: true }
         : {};
 
     return html`
-        <li @click=${on_select(section)}>
+        <li @click=${() => on_section_change(section)}>
             <div class="item">
                 <div class=${classMap({rect: true, ...selected})}>
                     <div class="text">${label}</div>

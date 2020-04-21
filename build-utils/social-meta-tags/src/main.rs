@@ -36,8 +36,9 @@ async fn main() {
 
     //Load main manifest
     let app_manifest = load_main_mainfest(&config);
-    for topic in app_manifest.topics {
-        let Meta { id, title, locked} = topic;
+    let topics = app_manifest.series.into_iter().flat_map(|series| series.topics);
+    for topic in topics {
+        let TopicMeta { id, title, locked, ..} = topic;
 
         let social_tags = SocialTags::new(
             &config,

@@ -57,6 +57,7 @@ const get_link = (tool:CreationTool) => {
         case "jitap" as CreationTool.JiTap: return "https://jitap.net";
         case "spark" as CreationTool.Spark: return "https://spark.adobe.com/make/video-maker/";
         case "sketchpad" as CreationTool.Sketchpad: return "https://sketch.io/sketchpad/";
+        case "autodraw" as CreationTool.Autodraw: return "https://www.autodraw.com/";
         default: 
             const _unreachable:never = tool;
             throw new Error("unknown creation tool " + tool);

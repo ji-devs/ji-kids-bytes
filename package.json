@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cargo make build-development-rust && npm-run-all -p _start:rust _start:webpack _start:mediaserver",
-    "start:nowarnings": "cargo make build-development-rust-nowarnings && npm-run-all -p _start:rust-nowarnings _start:webpack _start:mediaserver",
+    "start:quiet": "cargo make build-development-rust-quiet && npm-run-all -p _start:rust-quiet _start:webpack _start:mediaserver",
     "deploy:all": "npm-run-all _manifest-generator deploy:nomanifest",
     "deploy:nomanifest": "npm-run-all _build-and-deploy _media-sync",
     "cors:set": "node ./build-utils/cors.js --app --set",
@@ -14,7 +14,7 @@
     "_build-and-deploy": "cargo make build-and-deploy",
     "_media-sync": "node ./build-utils/media-server-sync.js --hard",
     "_start:rust": "makers watch-rust",
-    "_start:rust-nowarnings": "makers watch-rust-nowarnings",
+    "_start:rust-quiet": "makers watch-rust-quiet",
     "_start:webpack": "cross-env release_target=local webpack-dev-server --config webpack.dev.js",
     "_start:mediaserver": "node build-utils/local-media-server.js --hard"
   },

@@ -22,9 +22,9 @@ async fn main() {
 
     let mut urls = vec![config.base_url.to_string()];
 
-
-    for topic in app_manifest.topics.iter().filter(|topic| !topic.locked) {
-        let Meta { id, title, locked} = topic;
+    let topics = app_manifest.series.into_iter().flat_map(|series| series.topics);
+    for topic in topics.into_iter().filter(|topic| !topic.locked) {
+        let TopicMeta { id, title, locked, ..} = topic;
 
         urls.push(format!("{}/topic/{}", config.base_url, id));
     }

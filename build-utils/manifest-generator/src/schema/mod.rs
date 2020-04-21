@@ -7,5 +7,7 @@ pub struct GoogleSheet {
 
 pub struct DriveAppManifestRow {
     pub doc_id: String,
+    pub series_id: String,
+    pub series_title: String, //currently created from id
     pub locked: bool
 }

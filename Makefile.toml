@@ -70,9 +70,9 @@ command = "cargo"
 args = ["make", "build", "--profile", "development"]
 cwd = "rust"
 
-[tasks.build-development-rust-nowarnings]
+[tasks.build-development-rust-quiet]
 command = "cargo"
-args = ["make", "build", "--profile", "development-nowarnings"]
+args = ["make", "build", "--profile", "development-quiet"]
 cwd = "rust"
 
 [tasks.build-development-webpack]
@@ -88,9 +88,9 @@ command = "cargo"
 args = ["make", "watch"]
 cwd = "rust"
 
-[tasks.watch-rust-nowarnings]
+[tasks.watch-rust-quiet]
 command = "cargo"
-args = ["make", "watch-nowarnings"]
+args = ["make", "watch-quiet"]
 cwd = "rust"
 ##See: https://github.com/sagiegurari/cargo-make/issues/355
 # [tasks.serve-webpack]

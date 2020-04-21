@@ -2,12 +2,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AppManifest {
-    pub topics: Vec<Meta>,
+    pub series: Vec<Series>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Series {
+    pub id: String,
+    pub title: String,
+    pub topics: Vec<TopicMeta>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TopicManifest {
-    pub meta: Meta,
+    pub meta: TopicMeta,
     pub videos: Vec<Media>,
     pub games: Vec<Media>,
     pub discovers: Vec<Link>,
@@ -16,9 +23,11 @@ pub struct TopicManifest {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Meta {
+pub struct TopicMeta {
     pub id: String,
     pub title: String,
+    pub series_id: String,
+    pub series_title: String,
     pub locked: bool,
 }
 
@@ -75,7 +84,8 @@ pub enum CreationTool {
     JiTap,
     JiStudio,
     Spark,
-    Sketchpad
+    Sketchpad,
+    Autodraw
 }
 impl <T: AsRef<str>> From<T> for CreationTool {
     fn from(text: T) -> Self {
@@ -84,6 +94,7 @@ impl <T: AsRef<str>> From<T> for CreationTool {
             "jistudio" => Self::JiStudio,
             "spark" => Self::Spark,
             "sketchpad" => Self::Sketchpad,
+            "autodraw" => Self::Autodraw,
             _ => unimplemented!("unknown creation tool: {}", text.as_ref())
         }
     }

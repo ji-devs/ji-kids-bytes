@@ -7,8 +7,6 @@ import common_css from "@components/common/common.css";
 import all_css from "./home-all.css";
 import footer_css from "./home-footer.css";
 import {Path, MEDIA_URL} from "@settings/settings";
-import {startResizer} from "@utils/scale";
-import {InnerPage} from "./home";
 
 @customElement("home-footer")
 export class _ extends LitElement {

@@ -15,4 +15,12 @@ pub struct Config {
     /// dry run 
     #[structopt(long, parse(try_from_str), default_value = "false")]
     pub dry_run: bool,
+
+    /// how many per batch 
+    #[structopt(long, parse(try_from_str), default_value = "10")]
+    pub per_batch: usize,
+
+    /// batch sleep time 
+    #[structopt(long, parse(try_from_str), default_value = "100")]
+    pub batch_sleep_time: u64,
 }

@@ -9,18 +9,18 @@ import body_css from "./home-body.css";
 import header_css from "./home-header.css";
 import {Path, MEDIA_URL} from "@settings/settings";
 import {startResizer} from "@utils/scale";
-import {InnerPage} from "./home";
+import {HomeSection} from "@components/pages/home";
 
 @customElement("home-header")
 export class _ extends LitElement {
     static styles = [common_css, all_css, header_css, body_css];
 
-    @property( { type : Number }  ) page = InnerPage.Main; 
-    @property( { type : Function } ) on_page_change = (page:InnerPage) => {};
+    @property( { type : String }  ) section = HomeSection.Landing; 
+    @property( { type : Function } ) on_section_change = (section:HomeSection) => {};
     render() {
 
-        const on_select_help = () => this.on_page_change(this.page === InnerPage.Help ? InnerPage.Main : InnerPage.Help); 
-        const on_select_partners = () => this.on_page_change(this.page === InnerPage.Partners ? InnerPage.Main : InnerPage.Partners); 
+        const on_select_help = () => this.on_section_change(this.section === HomeSection.Help ? HomeSection.Landing : HomeSection.Help); 
+        const on_select_partners = () => this.on_section_change(this.section === HomeSection.Partners ? HomeSection.Landing : HomeSection.Partners); 
 
         return html`
             <header>
@@ -34,15 +34,15 @@ export class _ extends LitElement {
                 </a>
                 <div class="header-line"></div>
                 <div class="right">
-                    <div class=${classMap({top_header_button: true, selected: this.page === InnerPage.Help})} @click=${on_select_help.bind(this)}>
+                    <div class=${classMap({top_header_button: true, selected: this.section === HomeSection.Help})} @click=${on_select_help.bind(this)}>
                         <div class="circle">
                             <img class="help" src=${Path.ui("top-header-help.svg")} />
                         </div>
                         <div class="label">Help</div>
                     </div>
-                    <div class=${classMap({top_header_button: true, selected: this.page === InnerPage.Partners})} @click=${on_select_partners.bind(this)}>
+                    <div class=${classMap({top_header_button: true, selected: this.section === HomeSection.Partners})} @click=${on_select_partners.bind(this)}>
                         <div>
-                            <img class="partners" src=${Path.ui(this.page === InnerPage.Partners ? "top-header-partners-selected.svg" : "top-header-partners.svg")} />
+                            <img class="partners" src=${Path.ui(this.section === HomeSection.Partners ? "top-header-partners-selected.svg" : "top-header-partners.svg")} />
                             <div class="label">Partners</div>
                         </div>
                     </div>

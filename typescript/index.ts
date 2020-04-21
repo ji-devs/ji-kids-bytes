@@ -1,6 +1,11 @@
-//this will cause all the components to be registered
-//note there is no module name
-import "./components";
-import {STAGE_WIDTH, STAGE_HEIGHT} from "@settings/settings";
+import "@components/root";
+import {load_wasm} from "@utils/wasm";
 
-import("../_static/wasm/app/pkg/my_app");
+(async () => {
+    await load_wasm();
+
+    let root_el = document.createElement('app-root');
+    root_el.id = "root";
+
+    document.body.appendChild(root_el);
+})();

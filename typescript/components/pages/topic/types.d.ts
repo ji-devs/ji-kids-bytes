@@ -1,3 +1,11 @@
+type AppManifest = {
+  series: Array<Series>
+}
+type Series = {
+  id: string,
+  title: string,
+  topics: Array<TopicMeta> 
+}
 type TopicManifest = {
   meta: TopicMeta,
   videos: Array<Media>,
@@ -46,4 +54,5 @@ declare enum CreationTool {
   JiStudio = "jistudio",
   Spark = "spark",
   Sketchpad = "sketchpad",
+  Autodraw = "autodraw",
 }

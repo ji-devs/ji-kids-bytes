@@ -23,8 +23,6 @@ export class _ extends LitElement {
 
     render() {
 
-        console.log(this.links);
-
         //for testing scrolling
         //discovers = [...discovers, ...discovers, ...discovers, ...discovers, ...discovers, ...discovers];
 

@@ -15,9 +15,9 @@ run_task = [
 command = "watchexec"
 args = ["-w", "./src", "-w", "../shared/rust/manifest", "makers", "build-development"]
 
-[tasks.watch-nowarnings]
+[tasks.watch-quiet]
 command = "watchexec"
-args = ["-w", "./src", "-w", "../shared/rust/manifest", "makers", "build-development-nowarnings"]
+args = ["-w", "./src", "-w", "../shared/rust/manifest", "makers", "build-development-quiet"]
 
 [tasks.test-unit]
 command = "cargo"
@@ -42,9 +42,9 @@ run_task = [{name = [
     "bindgen-development"
 ]}]
 
-[tasks.build-development-nowarnings]
+[tasks.build-development-quiet]
 run_task = [{name = [
-    "compile-development-nowarnings", 
+    "compile-development-quiet", 
     "bindgen-development"
 ]}]
 
@@ -53,7 +53,7 @@ command = "cargo"
 args = ["build","--features","dev","--target","wasm32-unknown-unknown"]
 toolchain = "nightly"
 
-[tasks.compile-development-nowarnings]
+[tasks.compile-development-quiet]
 command = "cargo"
 args = ["build","--features","dev quiet","--target","wasm32-unknown-unknown"]
 toolchain = "nightly"
