@@ -41,7 +41,7 @@ const PARTNERS:Array<[string, string]> =
         ["IAC-home.jpg","https://www.israeliamerican.org/home/kids"],
         ["TheJewishAgency.jpg","https://www.jewishagency.org/"],
         ["opendor.jpg","https://opendormedia.org/"],
-        ["unpacked.jpg","https://opendormedia.org/"],
+        ["unpacked.jpg","https://opendormedia.org/unpacked/"],
         ["ujia.jpg","https://ujia.org/"],
         ["icenter.jpg","https://www.theicenter.org/"],
     ];
