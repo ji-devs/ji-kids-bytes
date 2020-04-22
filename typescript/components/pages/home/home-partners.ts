@@ -33,7 +33,7 @@ const PARTNERS:Array<[string, string]> =
         ["cojds.jpg","https://www.cojds.org/"],
         ["LSJS.jpg","https://www.lsjs.ac.uk/"],
         ["mjlogo.jpg","https://masorti.org.uk/"],
-        ["hop.jpg","https://www.hop.co.il/"],
+        //["hop.jpg","https://www.hop.co.il/"],
         ["WZO.jpg","https://www.wzo.org.il/education/"],
         ["beit-issie.jpg","https://en.beitissie.org.il/"],
         ["IAC.jpg","https://www.israeliamerican.org/home/kids"],
