@@ -22,7 +22,7 @@ export class _ extends LitElement {
     @property( { type : String }  ) topic_id = "";
     @property( { type : Array }  ) medias = [] as Array<Media>; 
 
-    firstUpdated() {
+    updated() {
         if(this.section === "games" && is_mobile()) {
             alert(`Games may not play on this device.\nFor best experience - use a regular computer instead`)
         }
