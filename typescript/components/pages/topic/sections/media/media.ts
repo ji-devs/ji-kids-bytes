@@ -24,7 +24,7 @@ export class _ extends LitElement {
 
     updated() {
         if(this.section === "games" && is_mobile()) {
-            alert(`Games may not play on this device.\nFor best experience - use a regular computer instead`)
+            //alert(`Games may not play on this device.\nFor best experience - use a regular computer instead`)
         }
     }
 
