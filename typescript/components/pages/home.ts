@@ -16,6 +16,7 @@ import "@components/pages/home/home-footer";
 import "@components/pages/home/home-help";
 import "@components/pages/home/home-partners";
 import "@components/pages/home/home-donate";
+import "@components/pages/home/home-body-series";
 
 export enum HomeSection {
     Landing = "landing",
@@ -94,23 +95,17 @@ export class _ extends LitElement {
 
             const featured_topic = series[0].topics.splice(0, 1)[0];
 
-            const topics = series.reduce((acc, curr) => acc.concat(curr.topics), []);
+            //const topics = series.reduce((acc, curr) => acc.concat(curr.topics), []);
 
             return html`
                 ${featured(featured_topic)}
-                ${list_section(topics)}
+                ${series.map(series => html`<home-series .series=${series}></home-series>`)}
             `;
                 //TODO!${series.map(series_row)}
         }
     }
 }
 
-const series_row = (series:Series) => html`
-    <div class="row"> 
-        <div class="title">${series.title}</div>
-        <div class="lists">${series.topics.map(topic_cell)}</div>
-    </div>
-`;
 const featured = (topic:TopicMeta) => html`
     <a href="/topic/${topic.id}">
         <div class="featured">
@@ -118,22 +113,4 @@ const featured = (topic:TopicMeta) => html`
             <div class="text">${topic.title}</div>
         </div>
     </a>
-`
-const list_section = (topics:Array<TopicMeta>) => html`
-    <ul class="topics">
-        ${topics.map(topic_cell)}
-    </ul>
 `;
-
-const topic_cell = (topic:TopicMeta) => {
-    const {id, title} = topic;
-
-    return html`
-            <li>
-                <a href="/topic/${id}">
-                    <img class="icon" src=${Path.topic(id)(`${id}_small.png`)} />
-                    <div class="label">${title}</div>
-                </a>
-            </li>
-    `
-}
