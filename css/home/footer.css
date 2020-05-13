@@ -1,0 +1,32 @@
+.footer-home-container {
+    position: absolute;
+    bottom: 0
+}
+.footer-home-contents {
+    position: fixed;
+    bottom: 0px;
+    right: -20em;
+    transition: right 1s;
+
+    &.visible {
+        right: 0px;
+    }
+
+    .bg {
+        width: 18.486em;
+        height: 8.679em;
+    }
+    img.bg {
+        width: 18.486em;
+        height: 8.679em;
+    }
+
+    .close img {
+        position: relative;
+        left: 1em;
+        bottom: 5.5em;
+        cursor: pointer;
+        width: 1.5em;
+        height: 1.5em;
+    }
+}

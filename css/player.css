@@ -1,0 +1,13 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+@import "player/root";
+@import "player/skeleton";
+@import "player/create";
+@import "player/help";
+@import "player/links";
+@import "player/media";
+@import "player/top-header";
+@import "player/left-menu";
+
+@import "tailwindcss/utilities";

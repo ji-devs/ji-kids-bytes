@@ -1,194 +1,77 @@
+###################
+## Dev           ##
+###################
+
+[tasks.dev]
+run_task = [{name = [
+    "local-quiet",
+]}]
+
+###################
+## Config        ##
+###################
+
 [config]
 skip_core_tasks = true
 
+[env]
+DOCKER_BUILDKIT = "1"
+
 ###################
-## Manual Deploy ##
+## Gcloud        ##
 ###################
 
-[tasks.build-and-deploy]
-run_task = [{name = [
-    "build-production",
-    "deploy-local",
-]}]
-
-[tasks.deploy-local]
-script = ["firebase deploy --project ji-kids --only hosting:ji-kids-bytes"]
-
-
-##################
-## Main Entries ##
-##################
-
-[tasks.build]
-run_task = [
-    {name = "build-development", condition = { profiles = [ "development"] } },
-    {name = "build-production", condition = { profiles = [ "production"] } },
-]
-
-
-
-##See: https://github.com/sagiegurari/cargo-make/issues/355
-[tasks.serve]
-script = ['''
-    echo waiting on https://github.com/sagiegurari/cargo-make/issues/355
-    echo in the meantime use npm start
-''']
-
-# [tasks.serve]
-# run_task = [{name = [
-#     "watch-rust",
-#     "serve-webpack",
-# ], parallel = true}]
-
-[tasks.test]
-run_task = [{name = [
-    "test-rust-unit",
-    "test-interop",
-]}]
-
-[tasks.clean]
-run_task = [{name = [
-    "clean-rust",
-	"clean-dist",
-    "clean-artifacts",
-]}]
-
-########################
-## Development Builds ##
-########################
-
-[tasks.build-development]
-run_task = [{name = [
-    # "clean",
-    "build-development-rust", 
-    "build-development-webpack", 
-    "copy-static"
-]}]
-
-[tasks.build-development-rust]
-command = "cargo"
-args = ["make", "build", "--profile", "development"]
-cwd = "rust"
-
-[tasks.build-development-rust-quiet]
-command = "cargo"
-args = ["make", "build", "--profile", "development-quiet"]
-cwd = "rust"
-
-[tasks.build-development-webpack]
-script = ["npx webpack --env.release_target='development' --progress --color --config webpack.release.js"]
-
-
-##########################
-## Watchers and Servers ##
-##########################
-
-[tasks.watch-rust]
-command = "cargo"
-args = ["make", "watch"]
-cwd = "rust"
-
-[tasks.watch-rust-quiet]
-command = "cargo"
-args = ["make", "watch-quiet"]
-cwd = "rust"
-##See: https://github.com/sagiegurari/cargo-make/issues/355
-# [tasks.serve-webpack]
-# script = ["npx webpack-dev-server --config webpack.dev.js"]
-
-#######################
-## Production Builds ##
-#######################
-
-[tasks.build-production]
-run_task = [{name = [
-    # "clean",
-	# "manifest-generator",
-	"clean-dist",
-	
-    "build-production-rust", 
-    "build-production-webpack",
-    "social-meta-tags",
-	"sitemap-creator",
-    "copy-static"
-]}]
-
-[tasks.build-production-rust]
-command = "cargo"
-args = ["make", "build", "--profile", "production"]
-cwd = "rust"
-
-[tasks.build-production-webpack]
-script = ["npx webpack --env.release_target='production' --progress --color --config webpack.release.js"]
-
-##################
-## Copy Static ##
-#################
-
-[tasks.copy-static]
+[tasks.gcloud-configure-docker]
 script_runner = "@shell"
-script = ["cp -R ./_static/* ./dist/"]
+script = ["gcloud auth configure-docker"]
+
+###############################
+## Local (with autoreload)    #
+## see server.rs              #
+###############################
+[tasks.local]
+run_task = { name = [ "node-local", "server-local", ], parallel = true }
+
+[tasks.local-quiet]
+run_task = { name = [ "node-local", "server-local-quiet", ], parallel = true }
+
+[tasks.node-local]
+env = { CARGO_MAKE_SCRIPT_FORCE_PIPE_STDIN = true }
+script = ["npm start"]
+
+[tasks.server-local]
+command = "systemfd"
+args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch", "-w", "../ji-cloud/ji-cloud-shared/rust", "-w", ".", "-x", "run --features local"]
+
+[tasks.server-local-quiet]
+command = "systemfd"
+args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch", "-w", "../ji-cloud/ji-cloud-shared/rust", "-w", ".", "-x", "run --features local-quiet"]
 
 ###################
-#### Social Tags ##
+## Release       ##
 ###################
 
-[tasks.social-meta-tags]
-command = "cargo"
-args = ["run"]
-cwd = "build-utils/social-meta-tags"
+[tasks.release]
+run_task = [{name = [
+    "gcloud-configure-docker",
+    "node-release",
+    "docker-build-release",
+    "docker-publish-release",
+    "gcloud-deploy-release",
+]}]
 
-#######################
-#### Sitemap Creator ##
-#######################
+[tasks.node-release]
+env = { CARGO_MAKE_SCRIPT_FORCE_PIPE_STDIN = true }
+script = ["npm run build"]
 
-[tasks.sitemap-creator]
-command = "cargo"
-args = ["run"]
-cwd = "build-utils/sitemap-creator"
+[tasks.docker-build-release]
+command = "docker"
+args = ["build", "--target", "release", "-t", "gcr.io/ji-kids/ji-kids-bytes:latest", "."]
 
-#######################
-#### Sitemap Creator ##
-#######################
+[tasks.docker-publish-release]
+command = "docker"
+args = ["push", "gcr.io/ji-kids/ji-kids-bytes:latest"]
 
-[tasks.manifest-generator]
-command = "cargo"
-args = ["run"]
-cwd = "build-utils/manifest-generator"
-
-############### 
-#### Tests ####
-###############
-
-[tasks.test-rust-unit]
-command = "cargo"
-args = ["make", "test-unit"]
-cwd = "rust"
-
-[tasks.test-interop]
-dependencies = ["build-rust-test-interop"]
-script = ["npx jest"]
-
-[tasks.build-rust-test-interop]
-command = "cargo"
-args = ["make", "build-test-interop"]
-cwd = "rust"
-
-############### 
-#### Cleanup ##
-###############
-
-[tasks.clean-rust]
-command = "cargo"
-args = ["make", "clean"]
-cwd = "rust"
-
-[tasks.clean-dist]
+[tasks.gcloud-deploy-release]
 script_runner = "@shell"
-ignore_errors = true
-script = ["rm -rf ./dist"]
-
-[tasks.clean-artifacts]
-script_runner = "@shell"
-ignore_errors = true
-script = ["rm -rf ./_static/wasm/app/pkg"]
+script = ["gcloud run deploy ji-kids-bytes --project ji-kids --region europe-west1 --image gcr.io/ji-kids/ji-kids-bytes:latest --platform managed"]

@@ -1,0 +1,36 @@
+.home-help {
+    margin: 0 auto;
+    width: 80%;
+    font-size: 2.3rem;
+
+    p {
+        margin: 1em 0;
+    }
+
+    .H1 {
+        font-size: 1.5em;
+        font-weight: 600;
+    }
+
+    .subheading {
+        font-size: 1.25em;
+        font-weight: 600;
+    }
+
+    .subsubheading {
+        font-style: inherit;
+        font-weight: 600;
+        text-indent: 15;
+    }
+
+    A {
+        color: var(--help-color);
+    }
+
+    ul {
+        list-style-type: disc;
+        margin-top: 1em; 
+        margin-bottom: 1em; 
+        padding-left: 4em;
+    }
+}

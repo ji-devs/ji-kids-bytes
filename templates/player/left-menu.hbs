@@ -1,0 +1,27 @@
+{{#*inline "menuPartial"}}
+    <li onclick="">
+        <div class="item">
+            <div class="rect{{#if (eq section current)}} watch-selected{{/if}}">
+                <div class="text">{{label}}</div>
+            </div>
+            <div class="circle{{#if (eq section current)}} watch-selected{{/if}}">
+                <img class="icon" src="{{PathUi}}/menu-icon-{{section}}.svg" />
+            </div>
+        </div>
+    </li> 
+{{/inline}}
+
+<div class="player-left-menu">
+    <div class="logo-nudge">
+        <a href="/">
+            <img class="logo" src="{{PathUi}}/menu-logo.svg"/>
+        </a>
+    </div>
+    <ul>
+        {{>menuPartial current=section section="watch" label="Watch"}}
+        {{>menuPartial current=section section="games" label="Games"}}
+        {{>menuPartial current=section section="discover" label="Discover"}}
+        {{>menuPartial current=section section="create" label="Create"}}
+        {{>menuPartial current=section section="craft" label="Craft"}}
+    </ul>
+</div>

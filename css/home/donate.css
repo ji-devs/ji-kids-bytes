@@ -1,0 +1,15 @@
+.donate {
+    color: white;
+    background-color: #2F3C63;
+    text-align: center;
+    height: 4.4em;
+    line-height: 4.4em;
+
+    span {
+        font-size: 2.0em;
+    }
+
+    a {
+        color: #00A696;
+    }
+}

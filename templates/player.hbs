@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <!-- Title -->
+        <title>{{social.title}}</title>
+        <link rel="canonical" href="{{social.url}}" />
+        <!-- Search Engine -->
+        <meta name="description" content="{{social.description}}">
+        <meta name="image" content="{{social.image}}">
+        <!-- Schema.org for Google -->
+        <meta itemprop="name" content="{{social.title}}">
+        <meta itemprop="description" content="{{social.description}}">
+        <meta itemprop="image" content="{{social.image}}">
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="{{social.title}}">
+        <meta name="twitter:description" content="{{social.description}}">
+        <meta name="twitter:image:src" content="{{social.image}}">
+        <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+        <meta property="og:title" content="{{social.title}}">
+        <meta property="og:description" content="{{social.description}}">
+        <meta property="og:image" content="{{social.image}}">
+        <meta property="og:url" content="{{social.url}}">
+        <meta property="og:site_name" content="{{social.title}}">
+        <meta property="og:type" content="website">
+
+
+        {{#if local_dev}}
+            <script src="/js/reload.js"></script>
+        {{/if}}
+        <link href="/css/player.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        {{#if (not local_dev)}}
+            {{>facebook-pixel}}
+        {{/if}}
+
+    </head>
+    <body>
+        {{#if (not local_dev)}}
+            {{>google-analytics}}
+        {{/if}}
+
+        {{#with manifest}}
+
+            <div class="player container">
+                <div class="wrapper">
+                    <div class="content">
+                        {{>player-left-menu section=../section PathUi=../PathUi}}
+                        {{>player-top-header section=../section PathUi=../PathUi}}
+                        <div id="watch" {{#if (ne ../section "watch")}}class="invisible" {{/if}}>
+                            {{>player-section-media medias=this.videos section=../section PathUi=../PathUi}}
+                        </div>
+                        <div id="games" {{#if (ne ../section "games")}}class="invisible" {{/if}}>
+                            {{>player-section-media medias=this.games section=../section PathUi=../PathUi}}
+                        </div>
+                        <div id="discover" {{#if (ne ../section "discover")}}class="invisible" {{/if}}>
+                            {{>player-section-links section=../section PathUi=../PathUi}}
+                        </div>
+                        <div id="create" {{#if (ne ../section "create")}}class="invisible" {{/if}}>
+                            {{>player-section-create section=../section PathUi=../PathUi}}
+                        </div>
+                        <div id="craft" {{#if (ne ../section "craft")}}class="invisible" {{/if}}>
+                            {{>player-section-links section=../section PathUi=../PathUi}}
+                        </div>
+                        <div id="help" class="invisible">
+                            {{>player-section-help section=../section PathUi=../PathUi}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/with}}
+
+        <script src="/js/player.js"></script>
+        <script>
+            init_page("{{section}}");
+        </script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+{{#*inline "youtube-player"}}
+    <iframe src="https://www.youtube.com/embed/{{id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{{/inline}}
+
+{{#*inline "jitap-player"}}
+    <iframe src='https://jitap.net/activities/{{id}}/player/' webkitallowfullscreen='' mozallowfullscreen='' allowfullscreen='' style='border:0'>
+    </iframe>
+{{/inline}}
+
+{{#*inline "youtube-thumb"}}
+    <li class="standard" @click=${on_select}>
+        <img src="https://img.youtube.com/vi/{{id}}/0.jpg" />
+    </li>
+{{/inline}}
+
+{{#*inline "jitap-thumb"}}
+    <li class="standard" @click=${on_select}>
+        <img src="https://jitap.net/store/album/{{album_id}}/cover_image/" />
+    </li>
+{{/inline}}
+
+<section class="player-media">
+    <div class="player widescreen">
+        {{#each medias}}
+            <div {{#if (ne @index 0)}}class="invisible"{{/if}}>
+                {{#if (eq this.player "youtube")}}
+                    {{>youtube-player id=this.id index=@index}}
+                {{else}}
+                    {{>jitap-player id=this.id index=@index}}
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+    <div class="thumbnails">
+        <ul>
+            {{#each medias}}
+                <div class="{{#if (ne @index 0)}}not-{{/if}}selected">
+                    {{#if (eq this.player "youtube")}}
+                        {{>youtube-thumb id=this.id index=@index}}
+                    {{else}}
+                        {{>jitap-thumb id=this.id index=@index}}
+                    {{/if}}
+                </div>
+            {{/each}}
+        </ul>
+    </div>
+</section>
+
