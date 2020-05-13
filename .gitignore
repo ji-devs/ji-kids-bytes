@@ -1,3 +1,8 @@
+# build and deploy
+dist
+deploy
+public/css
+
 # Secrets
 secret-keys
 
@@ -97,9 +102,6 @@ npm-debug.log
 node_modules
 bower_components
 
-# build and deploy
-dist
-deploy
 
 # Swap
 [._]*.s[a-v][a-z]
