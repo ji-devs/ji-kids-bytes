@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run clean && npm-run-all -p _media-server _css-watch",
     "build": "npm run clean && npm run _css-bundle-prod",
-    "clean": "rimraf ./public/**/*.css",
+    "clean": "rimraf ./public/css",
     "_css-watch": "npm-run-all -p _css-watch-player _css-watch-home",
     "_css-bundle-prod": "npm-run-all -p _css-bundle-prod-player _css-bundle-prod-home",
     "_css-watch-player": "postcss css/player.css --env development -o public/css/player.css --watch",
