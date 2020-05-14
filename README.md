@@ -31,7 +31,7 @@
 
 # Special links
 
-https://bytes.jikids.org/#unlock will show the locked topics as well (_note: if appending "#unlock" in the browser url, instead of navigating directly to this link, it requires a reload_)
+https://bytes.jikids.org/unlock will show the locked topics as well 
 
 # Configuration
 
@@ -61,12 +61,22 @@ Note that re-generating manifests as well as syncing all media changes to the li
 # Development
 
 1. Install prerequisites like [cargo-make](https://github.com/sagiegurari/cargo-make), and `npm install`
-2. `npm start` (will open a browser and rebuild/reload on source change - either typescript, rust, or static files)
+2. `cargo make dev` (and open browser to localhost:8081
+3. Set LOCAL_CDN_DIR in .env to location on disk to CDN folder. e.g. `"D:\\Dropbox (Jewish Interactive)\\Ji Kids - Bytes - Media\\live-media"` (notice escaping the path)
 
-More commands are available via `cargo make`:
+# Manifest generator
 
-* `cargo make test` (runs all the tests)
-* `cargo make build --profile production` (used in ci/cd - but can check out release builds in `dist/` this way)
-* `cargo make build --profile development` (same but used for seeing how non-optmized builds look)
+1. Make sure GOOGLE_API_KEY is set in .env (need one for google sheets)
+2. npm run generate-sync (well actually _manifest-generator, but this will sync too... see package.json for separate commands)
 
-Boilerplate via [dominator-lit-boilerplate](https://github.com/dakom/dominator-lit-boilerplate)
+# Deployment (manual) 
+
+1. `cargo make release` 
+
+# Deployment (cicd) 
+
+Add these secrets:
+
+* GOOGLE_CLOUD_SERVICE_ACCOUNT_JSON_KEY - the _base64 encoded_ json key. Literally, take the .json and paste it into a base64encoder somewhere
+
+(TODO)

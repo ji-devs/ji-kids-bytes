@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const spawn = require('cross-spawn');
 const fs = require('fs');
 const os = require('os');
@@ -7,15 +9,13 @@ const cmd = process.argv[2];
 
 const CloudStorageMedia = `gs://bytes-ji-kids-eu/`;
 
-let localPath = (() => {
-    switch(os.platform()) {
-        case "linux": return `/dropbox/container/Dropbox (Jewish Interactive)/ji-tap-cdn`;
-        default: return `D:\\Dropbox (Jewish Interactive)\\Ji Kids - Bytes - Media\\live-media`;
-    }
-})();
 
-localPath = path.resolve(localPath);
+if(!process.env.LOCAL_CDN_DIR || process.env.LOCAL_CDN_DIR === "") {
+    console.log("Local CDN: set [LOCAL_CDN_DIR] in .env");
+    process.exit(0);
+}
 
+const localPath = path.resolve(process.env.LOCAL_CDN_DIR);
 
 
 if(cmd === "--hard") {

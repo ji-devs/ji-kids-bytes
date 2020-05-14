@@ -1,0 +1,34 @@
+{{#*inline "tool-link"}}
+    {{#if (eq tool "jistudio")}}
+        https://jistudio.net
+    {{/if}}
+
+    {{#if (eq tool "jitap")}}
+        https://jitap.net
+    {{/if}}
+
+    {{#if (eq tool "spark")}}
+        https://spark.adobe.com/make/video-maker/
+    {{/if}}
+
+    {{#if (eq tool "sketchpad")}}
+        https://sketch.io/sketchpad/
+    {{/if}}
+
+    {{#if (eq tool "autodraw")}}
+        https://www.autodraw.com/
+    {{/if}}
+{{/inline}}
+
+<section class="player-create">
+    <img src="{{PathTopic}}/create/{{create.image_filename}}" />
+    <div class="right">
+        <header>{{create.title}}</header>
+        <div class="body-text">
+            {{{create.body}}}
+        </div>
+        <a href="{{>tool-link tool=create.tool}}" target="_blank">
+            <div class="button">Create Here</div>
+        </a>
+    </div>
+</section>

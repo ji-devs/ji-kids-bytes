@@ -1,0 +1,28 @@
+<div class="home-topics">
+    <a href="/topic/{{featured.id}}">
+        <div class="featured">
+            <img src="{{PathTopics}}/{{featured.id}}/{{featured.id}}_medium.png" />
+            <div class="text">{{featured.title}}</div>
+        </div>
+    </a>
+    {{#each series}}
+        <div class="series">
+            <div class="title">
+                {{this.title}}
+            </div>
+            <div class="separator"> </div>
+            <div class="list">
+                <div class="main-carousel">
+                    {{#each this.topics}}
+                        <div class="carousel-cell">
+                            <a href="/topic/{{this.id}}">
+                                <img class="icon" src="{{../../PathTopics}}/{{this.id}}/{{this.id}}_small.png" alt="{{this.title}}"/>
+                                <div class="label">{{this.title}}</div>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

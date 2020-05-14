@@ -1,0 +1,65 @@
+:root {
+    font-size: 10px;
+    box-sizing: border-box;
+    --help-color: #73a0bf;
+    --theme-color: #1f313f;
+}
+
+html,body,main {
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+    -webkit-text-size-adjust:none;
+    text-size-adjust: none;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+ul {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1150px) {
+    :root {
+        font-size: 8px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    :root {
+        font-size: 6px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    :root {
+        font-size: 4px;
+    }
+}
+
+@media only screen and (max-width: 470px) {
+    :root {
+        font-size: 3px;
+    }
+}
+@media only screen and (max-width: 370px) {
+    :root {
+        font-size: 1px;
+    }
+}

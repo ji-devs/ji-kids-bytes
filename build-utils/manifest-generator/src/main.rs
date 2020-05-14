@@ -5,6 +5,7 @@ mod config;
 mod schema;
 mod loader;
 mod writer;
+mod manifest;
 
 use structopt::StructOpt;
 use loader::*;

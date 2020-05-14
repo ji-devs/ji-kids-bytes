@@ -1,0 +1,88 @@
+.player-left-menu {
+    margin-top: 2rem;
+    margin-left: 3.26rem;
+    width: 17.3rem;
+    height: 98.1rem;
+    border-radius: 3.561rem;
+    background: var(--theme-color);
+
+    .logo {
+        width: 8.966rem;
+        height: 12.3rem;
+        margin-left: 4.01rem;
+    }
+    .logo-nudge {
+        padding-top: 3rem;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-top: 5.61rem;
+    }
+
+    li {
+        display: flex;
+        margin-bottom: 5rem;
+        z-index: 1;
+    }
+
+    .item {
+        display: flex;
+        height: 10rem;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .rect, .circle {
+        transition: background-color .5s;
+    }
+    .rect {
+        background: var(--theme-color);
+        display: flex;
+        height: 4.6rem;
+        width: 17.3rem;
+        align-items: center;
+    }
+
+    .circle {
+        background: var(--theme-color);
+        margin-left: -5rem;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    li img {
+        width: 4.6rem;  
+        height: 4.6rem; 
+    }
+    .text {
+        font-size: 2.2rem; 
+        color: #fff;
+        margin-left: 3.5rem; 
+        z-index: 1;
+    }
+
+
+    .watch-selected {
+        background-color: #fe3263;
+    }
+    .games-selected {
+        background-color: #38c5c1;
+    }
+    .discover-selected {
+        background-color: #eebe48;
+    }
+    .create-selected {
+        background-color: #c488d0;
+    }
+    .craft-selected {
+        background-color: #488df3;
+    }
+}

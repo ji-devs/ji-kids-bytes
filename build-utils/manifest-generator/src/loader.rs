@@ -1,7 +1,7 @@
 use url::Url;
 use crate::schema::*;
 use url::ParseError;
-use manifest::*;
+use crate::manifest::*;
 use std::sync::{Arc, Mutex};
 use crate::config::Config;
 
