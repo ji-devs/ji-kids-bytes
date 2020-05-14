@@ -53,10 +53,10 @@
                         {{>player-top-header section=../section PathUi=../PathUi}}
                         <div id="sections">
                             {{#if (eq ../section "watch")}}
-                                {{>player-section-media medias=this.videos section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                                {{>player-section-media medias=this.videos media=../media topic=../topic index=../index section=../section PathUi=../PathUi PathTopic=../PathTopic}}
                             {{/if}}
                             {{#if (eq ../section "games")}}
-                                {{>player-section-media medias=this.games section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                                {{>player-section-media medias=this.games media=../media topic=../topic index=../index section=../section PathUi=../PathUi PathTopic=../PathTopic}}
                             {{/if}}
                             {{#if (eq ../section "discover")}}
                                 {{>player-section-links links=this.discovers section=../section PathUi=../PathUi PathTopic=../PathTopic}}

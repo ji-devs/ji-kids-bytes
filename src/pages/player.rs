@@ -6,7 +6,7 @@ use futures_util::future::TryFutureExt;
 use serde::{Serialize, Deserialize};
 use crate::settings::{SETTINGS, META_BASE_URL, META_BASE_DESCRIPTION, META_BASE_TITLE};
 use crate::reject::{CustomWarpRejection, RequiredData};
-use crate::data::manifest::{TopicManifest, TopicManifestWithAlbum, Series, TopicMeta};
+use crate::data::manifest::{TopicManifest, TopicManifestWithAlbum, Series, TopicMeta, MediaWithAlbum};
 use crate::loader::{load_string, load_json};
 
 #[derive(Eq, PartialEq, Copy, Clone, strum_macros::Display, strum_macros::EnumString)]
@@ -19,7 +19,7 @@ pub enum TopicSection {
     Craft,
 }
 
-pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, topic_name:String) -> Result<impl warp::Reply, warp::Rejection> {
+pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, topic_name:String, media_index: Option<usize>) -> Result<impl warp::Reply, warp::Rejection> {
 
     let manifest:TopicManifest = load_json(&SETTINGS.path_topic_manifest(&topic_name)).await?;
 
@@ -31,12 +31,35 @@ pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, t
     //playing needs a real section, so default to "watch"
     let section = section.unwrap_or(TopicSection::Watch);
 
+
+    let (media, media_index) = {
+        if section == TopicSection::Watch || section == TopicSection::Games {
+            let media_index = media_index.unwrap_or(0);
+            if section == TopicSection::Watch {
+                if media_index > manifest.videos.len()-1 {
+                    return Err(warp::reject::not_found());
+                }
+                (Some(manifest.videos[media_index].clone()), Some(media_index))
+            } else {
+                if media_index > manifest.games.len()-1 {
+                    return Err(warp::reject::not_found());
+                }
+                (Some(manifest.games[media_index].clone()), Some(media_index))
+            }
+        } else {
+            (None, None)
+        }
+    };
+
     let render = hb
         .render("player", &PlayerData {
             path_ui: SETTINGS.path_ui(),
             path_topic: SETTINGS.path_topic(&topic_name),
+            topic: topic_name,
             social, 
             manifest, 
+            media,
+            index: media_index,
             section: section.to_string(),
             local_dev: SETTINGS.local_dev
         })
@@ -51,6 +74,9 @@ pub struct PlayerData {
     path_ui: String,
     #[serde(rename="PathTopic")]
     path_topic: String,
+    topic: String,
+    media: Option<MediaWithAlbum>,
+    index: Option<usize>,
     social: Social,
     manifest: TopicManifestWithAlbum,
     section: String,
@@ -82,9 +108,9 @@ impl Social {
     }
 }
 
-pub async fn player_page_section_str(hb:Arc<Handlebars<'_>>, section_name:String, topic_name:String) -> Result<impl warp::Reply, warp::Rejection> {
+pub async fn player_page_section_str(hb:Arc<Handlebars<'_>>, section_name:String, topic_name:String, media_index:Option<usize>) -> Result<impl warp::Reply, warp::Rejection> {
     match TopicSection::from_str(&section_name) {
-        Ok(section) => player_page(hb, Some(section), topic_name).await,
+        Ok(section) => player_page(hb, Some(section), topic_name, media_index).await,
         Err(_) => Err(warp::reject::not_found())
     }
 }

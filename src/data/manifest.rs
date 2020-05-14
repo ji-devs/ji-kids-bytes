@@ -56,7 +56,7 @@ pub struct TopicMeta {
 }
 
 //used for both watch and games
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Media {
     pub id: String,
     pub player: MediaPlayer,
@@ -88,14 +88,14 @@ impl From<Media> for MediaWithAlbum {
 }
 
 //used for both watch and games
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MediaWithAlbum {
     pub id: String,
     pub album_id: String,
     pub player: MediaPlayer,
 }
 
-#[derive(Eq, PartialEq, Serialize, Deserialize, Debug)]
+#[derive(Eq, PartialEq, Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum MediaPlayer {
     Youtube,

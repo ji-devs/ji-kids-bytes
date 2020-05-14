@@ -8,37 +8,37 @@
 {{/inline}}
 
 {{#*inline "youtube-thumb"}}
-    <li class="standard" @click=${on_select}>
-        <img src="https://img.youtube.com/vi/{{id}}/0.jpg" />
-    </li>
+    <a href="/topic/{{topic}}/{{section}}/{{index}}">
+        <li class="standard" @click=${on_select}>
+            <img src="https://img.youtube.com/vi/{{id}}/0.jpg" />
+        </li>
+    </a>
 {{/inline}}
 
 {{#*inline "jitap-thumb"}}
-    <li class="standard" @click=${on_select}>
-        <img src="https://jitap.net/store/album/{{album_id}}/cover_image/" />
-    </li>
+    <a href="/topic/{{topic}}/{{section}}/{{index}}">
+        <li class="standard" @click=${on_select}>
+            <img src="https://jitap.net/store/album/{{album_id}}/cover_image/" />
+        </li>
+    </a>
 {{/inline}}
 
 <section class="player-media">
     <div class="player widescreen">
-        {{#each medias}}
-            <div {{#if (ne @index 0)}}class="invisible"{{/if}}>
-                {{#if (eq this.player "youtube")}}
-                    {{>youtube-player id=this.id index=@index}}
-                {{else}}
-                    {{>jitap-player id=this.id index=@index}}
-                {{/if}}
-            </div>
-        {{/each}}
+        {{#if (eq media.player "youtube")}}
+            {{>youtube-player id=media.id}}
+        {{else}}
+            {{>jitap-player id=media.id}}
+        {{/if}}
     </div>
     <div class="thumbnails">
         <ul>
             {{#each medias}}
-                <div class="{{#if (ne @index 0)}}not-{{/if}}selected">
+                <div class="{{#if (ne @index ../index)}}not-{{/if}}selected">
                     {{#if (eq this.player "youtube")}}
-                        {{>youtube-thumb id=this.id index=@index}}
+                        {{>youtube-thumb topic=../topic section=../section id=this.id index=@index}}
                     {{else}}
-                        {{>jitap-thumb id=this.id index=@index}}
+                        {{>jitap-thumb topic=../topic section=../section id=this.id index=@index}}
                     {{/if}}
                 </div>
             {{/each}}

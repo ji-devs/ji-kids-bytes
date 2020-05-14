@@ -47,11 +47,19 @@ pub fn get_routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rej
         }))
         .or(path!("topic" / String).and_then({ 
             let hb = hb.clone(); 
-            move |topic_name| player_page(hb.clone(), None, topic_name)
+            move |topic_name| player_page(hb.clone(), None, topic_name, None)
+        }))
+        .or(path!("topic" / String / "watch" / usize).and_then({ 
+            let hb = hb.clone(); 
+            move |topic_name, media_index| player_page_section_str(hb.clone(), "watch".to_string(), topic_name, Some(media_index))
+        }))
+        .or(path!("topic" / String / "games" / usize).and_then({ 
+            let hb = hb.clone(); 
+            move |topic_name, media_index| player_page_section_str(hb.clone(), "games".to_string(), topic_name, Some(media_index))
         }))
         .or(path!("topic" / String / String).and_then({ 
             let hb = hb.clone(); 
-            move |topic_name, section_name| player_page_section_str(hb.clone(), section_name, topic_name)
+            move |topic_name, section_name| player_page_section_str(hb.clone(), section_name, topic_name, None)
         }))
         .or(warp::fs::dir("./public/"))
         .or(path!("epoch").map(epoch_page))
