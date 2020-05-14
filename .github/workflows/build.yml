@@ -43,10 +43,10 @@ jobs:
           args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} preparing for deploy...\"}'
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        if: success() && (github.ref == 'refs/heads/master')
+        if: success() && (github.ref == 'refs/heads/fix-me')
 
   deploy-production:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/fix-me'
     runs-on: ubuntu-latest
     needs: tests 
     env:
