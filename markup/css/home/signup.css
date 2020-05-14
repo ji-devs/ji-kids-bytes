@@ -1,8 +1,4 @@
-.footer-home-container {
-    position: absolute;
-    bottom: 0
-}
-.footer-home-contents {
+#signup {
     position: fixed;
     bottom: 0px;
     right: -20em;

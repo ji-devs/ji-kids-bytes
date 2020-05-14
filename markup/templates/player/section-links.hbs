@@ -1,0 +1,19 @@
+<div class="player-links">
+    <ul>
+        {{#each links}}
+            <li>
+                <img src="{{../PathTopic}}/{{../section}}/{{this.image_filename}}">
+                <div class="title">{{this.title}}</div>
+                <a href="{{this.link}}" target="_blank" >
+                    <div class="button">
+                        {{#if this.link_label}} 
+                            {{this.link_label}}
+                        {{else}}
+                            Show me how
+                        {{/if}}
+                    </div>
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+</div>

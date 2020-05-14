@@ -16,7 +16,7 @@ pub enum TopicSection {
     Games,
     Discover,
     Create,
-    Craft
+    Craft,
 }
 
 pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, topic_name:String) -> Result<impl warp::Reply, warp::Rejection> {
@@ -34,6 +34,7 @@ pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, t
     let render = hb
         .render("player", &PlayerData {
             path_ui: SETTINGS.path_ui(),
+            path_topic: SETTINGS.path_topic(&topic_name),
             social, 
             manifest, 
             section: section.to_string(),
@@ -48,6 +49,8 @@ pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, t
 pub struct PlayerData {
     #[serde(rename="PathUi")]
     path_ui: String,
+    #[serde(rename="PathTopic")]
+    path_topic: String,
     social: Social,
     manifest: TopicManifestWithAlbum,
     section: String,
@@ -73,7 +76,7 @@ impl Social {
         Self{
             title: format!("{} - {}", topic.title, META_BASE_TITLE),
             url,
-            image: SETTINGS.path_topic(&format!("{}_small.png", topic.id), &topic.id),
+            image: format!("{}/{}_large.png", SETTINGS.path_topic(&topic.id), topic.id),
             description: format!("{} - {}", topic.title, META_BASE_DESCRIPTION)
         }
     }

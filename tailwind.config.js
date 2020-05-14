@@ -1,6 +1,6 @@
 module.exports = {
   purge: [
-    './templates/**/*.hbs',
+    './markup/templates/**/*.hbs',
   ],
   theme: {
     colors: {

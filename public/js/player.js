@@ -3,21 +3,31 @@ const STAGE_HEIGHT = 1080;
 const STAGE_PADDING_Y_PERC = 0.05; // in percentage
 const STAGE_PADDING_X_PERC = 0.05; // in percentage
 
-let _current_section;
+let help_toggled = false;
 
 function init_page(section) {
-    _current_section = section;
-
     startResizer();
 }
 
-function show_section(section) {
-    _current_section = section;
-}
+function toggle_help() {
+    
+    help_toggled = !help_toggled;
 
-function show_help() {
-}
+    const help_button = document.querySelector("#help-button");
+    const help_section = document.querySelector("#help-section");
+    const sections = document.querySelector("#sections");
 
+    if(help_toggled) {
+        help_button.classList.add("selected");
+        help_section.classList.remove("invisible");
+        sections.classList.add("invisible");
+    } else {
+        help_button.classList.remove("selected");
+        help_section.classList.add("invisible");
+        sections.classList.remove("invisible");
+    }
+
+}
 
 function startResizer() {
     const resizeFit = () => {

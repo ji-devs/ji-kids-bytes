@@ -8,5 +8,6 @@
 @import "home/topics";
 @import "home/partners";
 @import "home/footer";
+@import "home/signup";
 
 @import "tailwindcss/utilities";

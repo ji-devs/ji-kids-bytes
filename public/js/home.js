@@ -10,11 +10,11 @@ function init_signup() {
     signup_close_btn_el.onclick = () => {
         signup_el.classList.remove("visible");
 
-        localStorage.setItem(STORAGE_KEY, Date.now());
+        sessionStorage.setItem(STORAGE_KEY, Date.now());
     }
 
 
-    const signupClosed = localStorage.getItem(STORAGE_KEY);
+    const signupClosed = sessionStorage.getItem(STORAGE_KEY);
 
     if(signupClosed != null) {
         try {
@@ -24,7 +24,7 @@ function init_signup() {
             }
         } catch(e) {
             console.error(e);
-            localStorage.removeItem(STORAGE_KEY);
+            sessionStorage.removeItem(STORAGE_KEY);
         }
     }
 }

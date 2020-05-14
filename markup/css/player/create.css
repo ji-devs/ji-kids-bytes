@@ -1,0 +1,71 @@
+section.player-create {
+    position: absolute;
+    top: 27.6rem;
+    left: 31.2rem;
+    --image-width: 75.167rem;
+    --image-height: 56.375rem;
+
+    width: calc(var(--image-width) + 56.803rem);
+    height: var(--image-height);
+    display: grid;
+    grid-template-columns: var(--image-width) 1fr;
+    border: 1.01px solid #000;
+    --border-radius: 1.133rem;
+    border-radius: var(--border-radius);
+
+
+    img {
+        width: var(--image-width); 
+        height: var(--image-height); 
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+        border-right: 1px solid var(--theme-color);
+    }
+
+    .right {
+        padding: 1.52rem 4.47rem 0 4.4rem;
+    }
+
+    header {
+        font-size: 4.679rem;
+        color: var(--theme-color);
+    }
+
+    .body-text {
+        height: 37.8rem;
+        overflow-y: auto;
+
+        font-weight: 300;
+        font-size: 2.824rem;
+        color: #000;
+
+        p {
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+        }
+
+        ol {
+            display: block;
+            list-style-type: decimal;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+        ul {
+            display: block;
+            list-style-type: disc;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+            
+    }
+
+    .button {
+        margin-top: 2rem;
+    }
+}

@@ -24,6 +24,7 @@ lazy_static = "^1.4"
 log = "^0.4"
 futures-util = "0.3.4"
 handlebars = "3.0.1"
+chrono = "0.4.11"
 
 # TODO
 # ji_cloud_shared = {path = "../ji-cloud/ji-cloud-shared/rust", features=["frontend"]}

@@ -49,24 +49,26 @@
             <div class="player container">
                 <div class="wrapper">
                     <div class="content">
-                        {{>player-left-menu section=../section PathUi=../PathUi}}
+                        {{>player-left-menu id=meta.id section=../section PathUi=../PathUi}}
                         {{>player-top-header section=../section PathUi=../PathUi}}
-                        <div id="watch" {{#if (ne ../section "watch")}}class="invisible" {{/if}}>
-                            {{>player-section-media medias=this.videos section=../section PathUi=../PathUi}}
+                        <div id="sections">
+                            {{#if (eq ../section "watch")}}
+                                {{>player-section-media medias=this.videos section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                            {{/if}}
+                            {{#if (eq ../section "games")}}
+                                {{>player-section-media medias=this.games section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                            {{/if}}
+                            {{#if (eq ../section "discover")}}
+                                {{>player-section-links links=this.discovers section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                            {{/if}}
+                            {{#if (eq ../section "create")}}
+                                {{>player-section-create create=this.create section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                            {{/if}}
+                            {{#if (eq ../section "craft")}}
+                                {{>player-section-links links=this.crafts section=../section PathUi=../PathUi PathTopic=../PathTopic}}
+                            {{/if}}
                         </div>
-                        <div id="games" {{#if (ne ../section "games")}}class="invisible" {{/if}}>
-                            {{>player-section-media medias=this.games section=../section PathUi=../PathUi}}
-                        </div>
-                        <div id="discover" {{#if (ne ../section "discover")}}class="invisible" {{/if}}>
-                            {{>player-section-links section=../section PathUi=../PathUi}}
-                        </div>
-                        <div id="create" {{#if (ne ../section "create")}}class="invisible" {{/if}}>
-                            {{>player-section-create section=../section PathUi=../PathUi}}
-                        </div>
-                        <div id="craft" {{#if (ne ../section "craft")}}class="invisible" {{/if}}>
-                            {{>player-section-links section=../section PathUi=../PathUi}}
-                        </div>
-                        <div id="help" class="invisible">
+                        <div id="help-section" class="invisible">
                             {{>player-section-help section=../section PathUi=../PathUi}}
                         </div>
                     </div>

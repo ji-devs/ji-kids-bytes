@@ -1,0 +1,62 @@
+.player-help {
+
+    position: absolute;
+    top: 21.8rem;
+    left: 33rem;
+    width: 139.05rem;
+    height: 74.682rem;
+    border-radius: 3.131rem;
+    border: 1.7px solid var(--theme-color);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    .help-content {
+        margin-top: 1.7px;
+        padding-left: 2rem;
+        width: calc(139rem - (1.7px * 2));
+        height: calc(74.682rem - (1.7px * 4));
+        overflow-y: scroll;
+        font-family: 'Roboto', sans-serif;
+
+        .H1 {
+            font-size: 4rem;
+            font-weight: 600;
+        }
+        .Subheading {
+            font-size: 3rem;
+            font-weight: 600;
+        }
+        .normal, .subsubheading {
+            font-size: 2rem;
+        }
+        .subsubheading {
+            font-style: inherit;
+            font-weight: 600;
+            text-indent: 15;
+        }
+
+        A {
+            color: var(--help-color);
+        }
+
+
+        ol {
+            display: block;
+            list-style-type: decimal;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+        ul {
+            display: block;
+            list-style-type: disc;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+    }
+
+}

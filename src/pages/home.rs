@@ -3,6 +3,7 @@ use handlebars::Handlebars;
 use serde_json::json;
 use futures_util::future::TryFutureExt;
 use serde::{Serialize, Deserialize};
+use chrono::{Datelike, Timelike, Utc};
 use crate::settings::SETTINGS;
 use crate::reject::{CustomWarpRejection, RequiredData};
 use crate::data::manifest::{AppManifest, Series, TopicMeta};
@@ -16,28 +17,28 @@ pub enum HomeSection {
     Topics
 }
 pub async fn home_page(hb:Arc<Handlebars<'_>>, section:HomeSection) -> Result<impl warp::Reply, warp::Rejection> {
+    let now = Utc::now();
+
+    let year = format!("{}", now.year());
+
     let render = match section {
         HomeSection::Help => {
-            let raw_html_content:String = load_string(&SETTINGS.path_help("help-main-snippet.html")).await?;
-
-            let raw_html_content = raw_html_content.replace("%HELP_MEDIA_URL%/", &SETTINGS.path_help(""));
-
             hb.render("home", &json!({
                 "PathUi": SETTINGS.path_ui(),
-                "PathSocial": SETTINGS.path_social(),
+                "PathHelp": SETTINGS.path_help(),
                 "page": "help",
-                "raw_html_content": raw_html_content,
-                "local_dev": SETTINGS.local_dev
+                "local_dev": SETTINGS.local_dev,
+                "year": year
             }))
         },
 
         HomeSection::Partners => {
-            hb.render("home", &Partners::new())
+            hb.render("home", &Partners::new(year))
         },
 
         HomeSection::Topics  => {
             let manifest:AppManifest = load_json(&SETTINGS.path_app_manifest()).await?;
-            hb.render("home", &Topics::new(manifest))
+            hb.render("home", &Topics::new(manifest, year))
         }
     }.unwrap_or_else(|err| err.to_string());
 
@@ -54,15 +55,17 @@ struct Topics {
     local_dev: bool,
     series: Vec<Series>,
     featured: TopicMeta,
+    year: String
 }
 impl Topics {
-    pub fn new(manifest:AppManifest) -> Self {
+    pub fn new(manifest:AppManifest, year:String) -> Self {
         let featured:TopicMeta = {
             let first = &manifest.series[0].topics[0];
             first.clone()
         };
 
         Self{
+            year,
             path_ui: SETTINGS.path_ui(),
             path_topics: SETTINGS.path_topics(),
             page: "topics".to_string(),
@@ -77,11 +80,10 @@ impl Topics {
 struct Partners {
     #[serde(rename="PathUi")]
     path_ui: String,
-    #[serde(rename="PathSocial")]
-    path_social: String,
     page: String,
     local_dev: bool,
     partners: Vec<Partner>,
+    year: String,
 }
 #[derive(Serialize)]
 struct Partner {
@@ -91,10 +93,10 @@ struct Partner {
 }
 
 impl Partners {
-    pub fn new() -> Self {
+    pub fn new(year: String) -> Self {
         Self{
+            year,
             path_ui: SETTINGS.path_ui(),
-            path_social: SETTINGS.path_social(),
             page: "partners".to_string(),
             local_dev: SETTINGS.local_dev,
             partners:

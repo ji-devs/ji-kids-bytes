@@ -1,0 +1,42 @@
+.player-links {
+    position: absolute;
+    --left: 47.3rem;
+    top: 29.3rem;
+    left: var(--left); 
+
+    width: calc(var(--content-width) - var(--left) - var(--header-gap));
+
+
+    ul {
+        display: flex;
+        overflow-x: auto;
+    }
+
+    ul > *:not(:last-child) {
+        margin-right: 6.55rem;
+    }
+
+    li, img {
+        width: 89.55rem;
+    }
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img {
+            height: 47.369rem;
+        }
+        .button {
+            margin-top: 1.89rem;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-size: 3.996rem;
+            color: var(--theme-color);
+            margin-top: .85rem;
+            text-align: center;
+            line-height: 1em;
+        }
+    }
+}

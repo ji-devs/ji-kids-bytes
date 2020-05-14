@@ -1,0 +1,16 @@
+.home-footer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+
+    > * + * {
+        margin-left: 1em;
+    }
+
+    A {
+        color: var(--theme-color);
+    }
+}

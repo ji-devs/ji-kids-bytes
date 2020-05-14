@@ -40,8 +40,8 @@ impl Settings {
     pub fn path_ui(&self) -> String {
         format!("{}/app/ui", self.path_base())
     }
-    pub fn path_help(&self, file:&str) -> String {
-        format!("{}/app/help/{}", self.path_base(), file)
+    pub fn path_help(&self) -> String {
+        format!("{}/app/help", self.path_base())
     }
     pub fn path_partners(&self, file:&str) -> String {
         format!("{}/app/partners/{}", self.path_base(), file)
@@ -55,7 +55,7 @@ impl Settings {
     pub fn path_topics(&self) -> String {
         format!("{}/topics", self.path_base())
     }
-    pub fn path_topic(&self, topic:&str, file:&str) -> String {
+    pub fn path_topic(&self, topic:&str) -> String {
         format!("{}/{}", self.path_topics(), topic)
     }
 }

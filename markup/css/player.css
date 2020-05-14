@@ -1,8 +1,10 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 
+@import "player/overrides";
 @import "player/root";
 @import "player/skeleton";
+@import "player/buttons";
 @import "player/create";
 @import "player/help";
 @import "player/links";

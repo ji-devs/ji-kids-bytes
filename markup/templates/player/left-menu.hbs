@@ -1,14 +1,16 @@
 {{#*inline "menuPartial"}}
-    <li onclick="">
-        <div class="item">
-            <div class="rect{{#if (eq section current)}} watch-selected{{/if}}">
-                <div class="text">{{label}}</div>
+    <a href="/topic/{{id}}/{{section}}">
+        <li class="left-menu-item">
+            <div class="item">
+                <div class="rect{{#if (eq section current)}} {{section}}-selected{{/if}}">
+                    <div class="text">{{label}}</div>
+                </div>
+                <div class="circle{{#if (eq section current)}} {{section}}-selected{{/if}}">
+                    <img class="icon" src="{{PathUi}}/menu-icon-{{section}}.svg" />
+                </div>
             </div>
-            <div class="circle{{#if (eq section current)}} watch-selected{{/if}}">
-                <img class="icon" src="{{PathUi}}/menu-icon-{{section}}.svg" />
-            </div>
-        </div>
-    </li> 
+        </li> 
+    </a>
 {{/inline}}
 
 <div class="player-left-menu">
