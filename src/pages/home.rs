@@ -14,7 +14,8 @@ use crate::loader::{load_string, load_json};
 pub enum HomeSection {
     Help,
     Partners,
-    Topics
+    Topics,
+    TopicsUnlocked
 }
 pub async fn home_page(hb:Arc<Handlebars<'_>>, section:HomeSection) -> Result<impl warp::Reply, warp::Rejection> {
     let now = Utc::now();
@@ -38,7 +39,12 @@ pub async fn home_page(hb:Arc<Handlebars<'_>>, section:HomeSection) -> Result<im
 
         HomeSection::Topics  => {
             let manifest:AppManifest = load_json(&SETTINGS.path_app_manifest()).await?;
-            hb.render("home", &Topics::new(manifest, year))
+            hb.render("home", &Topics::new(manifest, year, false))
+        },
+
+        HomeSection::TopicsUnlocked  => {
+            let manifest:AppManifest = load_json(&SETTINGS.path_app_manifest()).await?;
+            hb.render("home", &Topics::new(manifest, year, true))
         }
     }.unwrap_or_else(|err| err.to_string());
 
@@ -58,9 +64,28 @@ struct Topics {
     year: String
 }
 impl Topics {
-    pub fn new(manifest:AppManifest, year:String) -> Self {
+    pub fn new(manifest:AppManifest, year:String, unlock:bool) -> Self {
+        let series = {
+            if unlock {
+                manifest.series
+            } else {
+                manifest.series
+                    .into_iter()
+                    .map(|s| {
+                        let Series {id, title, topics} = s;
+                        Series {
+                            id,
+                            title,
+                            topics: topics.into_iter().filter(|x| !x.locked).collect()
+                        }
+                    })
+                    .filter(|s| s.topics.len() > 0)
+                    .collect()
+            }
+        };
+
         let featured:TopicMeta = {
-            let first = &manifest.series[0].topics[0];
+            let first = &series[0].topics[0];
             first.clone()
         };
 
@@ -70,7 +95,7 @@ impl Topics {
             path_topics: SETTINGS.path_topics(),
             page: "topics".to_string(),
             local_dev: SETTINGS.local_dev,
-            series: manifest.series,
+            series,
             featured
         }
     }

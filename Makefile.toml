@@ -7,6 +7,7 @@ run_task = [{name = [
     "local-quiet",
 ]}]
 
+
 ###################
 ## Config        ##
 ###################
@@ -46,6 +47,7 @@ args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch", "-w", "../ji-clo
 [tasks.server-local-quiet]
 command = "systemfd"
 args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch", "-w", "../ji-cloud/ji-cloud-shared/rust", "-w", ".", "-x", "run --features local-quiet"]
+
 
 ###################
 ## Release       ##

@@ -47,8 +47,8 @@ COPY --from=release-builder \
     /usr/local/bin/cloud-run-app/public
 
 COPY --from=release-builder \
-    /home/rust/src/templates \
-    /usr/local/bin/cloud-run-app/templates
+    /home/rust/src/markup \
+    /usr/local/bin/cloud-run-app/markup
 
 WORKDIR /usr/local/bin/cloud-run-app/
 

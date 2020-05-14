@@ -29,6 +29,10 @@ pub fn get_routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rej
             let hb = hb.clone(); 
             move || home_page(hb.clone(), HomeSection::Topics)
         })
+        .or(path!("unlock").and_then({ 
+            let hb = hb.clone(); 
+            move || home_page(hb.clone(), HomeSection::TopicsUnlocked)
+        }))
         .or(path!("sitemap.xml").and_then({ 
             let hb = hb.clone(); 
             move || sitemap_page(hb.clone())
