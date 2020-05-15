@@ -52,7 +52,7 @@ jobs:
     needs: tests 
     env:
       PROJECT: "ji-kids" 
-      SERVICE: "ji-kids-bytes-temp" 
+      SERVICE: "ji-kids-bytes" 
       CONTAINER_IMAGE: "ji-kids-bytes"
       REGION: "europe-west1" 
     steps:
