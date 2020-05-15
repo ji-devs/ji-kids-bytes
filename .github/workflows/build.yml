@@ -44,12 +44,12 @@ jobs:
           args: '{\"channel\":\"CFYR62BRC\",\"text\":\"${{steps.extract_label.outputs.label}} preparing for deploy...\"}'
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        if: success() && (github.ref == 'refs/heads/fix-me')
+        if: success() && (github.ref == 'refs/heads/master')
 
   deploy-production:
-    if: github.ref == 'refs/heads/fix-me'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    # needs: tests 
+    needs: tests 
     env:
       PROJECT: "ji-kids" 
       SERVICE: "ji-kids-bytes-temp" 
