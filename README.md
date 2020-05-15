@@ -75,6 +75,8 @@ Note that re-generating manifests as well as syncing all media changes to the li
 
 # Deployment (cicd) 
 
+* Follow this guide: https://github.com/GoogleCloudPlatform/github-actions/blob/master/example-workflows/cloud-run/README.md
+
 Add these secrets:
 
 * GOOGLE_CLOUD_SERVICE_ACCOUNT_JSON_KEY - the _base64 encoded_ json key. Literally, take the .json and paste it into a base64encoder somewhere

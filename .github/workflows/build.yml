@@ -51,7 +51,7 @@ jobs:
     needs: tests 
     env:
       PROJECT: "ji-kids" 
-      SERVICE: "ji-kids-bytes" 
+      SERVICE: "ji-kids-bytes-temp" 
       CONTAINER_IMAGE: "ji-kids-bytes"
       REGION: "europe-west1" 
     steps:
@@ -71,12 +71,12 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v1
 
-      # - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      # WAITING ON https://github.com/GoogleCloudPlatform/github-actions/pull/15 to be merged!
-      - uses: dakom/github-actions/setup-gcloud@patch-new-sdk-url
+      # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: '272.0.0'
+          version: '290.0.1'
           service_account_key: ${{ secrets.GOOGLE_CLOUD_SERVICE_ACCOUNT_JSON_KEY }}
+          project_id: ${{ env.PROJECT }}
 
       # Configure docker to use the gcloud command-line tool as a credential helper
       - run: gcloud auth configure-docker
@@ -85,8 +85,7 @@ jobs:
       - name: Build
         run: |        
           docker build --target release -t gcr.io/"$PROJECT"/"$CONTAINER_IMAGE":"$GITHUB_SHA" \
-            --build-arg GITHUB_SHA="$GITHUB_SHA" \
-            --build-arg GITHUB_REF="$GITHUB_REF" .
+            --build-arg GITHUB_SHA="$GITHUB_SHA" .
         env:
           DOCKER_BUILDKIT: 1
 
