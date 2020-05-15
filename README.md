@@ -81,4 +81,17 @@ Add these secrets:
 
 * GOOGLE_CLOUD_SERVICE_ACCOUNT_JSON_KEY - the _base64 encoded_ json key. Literally, take the .json and paste it into a base64encoder somewhere
 
-(TODO)
+
+And the github actions will take care of the rest
+
+# Depoloyment notes
+
+The project is setup so that the Cloud Run build is stripped to the essentials and that unnecessary dirs are .gitignored
+
+`node_modules` and CSS are installed/built outside of the Docker container, and then it's copied in.
+
+Manual deployment handles all this in the single `cargo make release` command (which then runs the various docker, npm commands) and automatic deployment handles all this in the github actions steps (which does the same thing - using actions to run proprietary commands)
+
+----
+
+# Misc

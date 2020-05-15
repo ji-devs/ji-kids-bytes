@@ -72,6 +72,30 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v1
 
+      # Node section needed to build CSS
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: install node
+        uses: actions/setup-node@v1
+
+      - name: install npm deps
+        run: npm ci --only=production
+
+      # Build CSS
+
+      - name: build CSS
+        run: npm run build
+
       # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
