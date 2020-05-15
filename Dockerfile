@@ -50,6 +50,8 @@ COPY --from=release-builder \
     /home/rust/src/markup \
     /usr/local/bin/cloud-run-app/markup
 
+RUN ls -la /usr/local/bin/cloud-run-app
+
 WORKDIR /usr/local/bin/cloud-run-app/
 
 CMD ["./ji-kids-bytes"]
