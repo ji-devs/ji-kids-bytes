@@ -49,7 +49,7 @@ jobs:
   deploy-production:
     if: github.ref == 'refs/heads/fix-me'
     runs-on: ubuntu-latest
-    needs: tests 
+    # needs: tests 
     env:
       PROJECT: "ji-kids" 
       SERVICE: "ji-kids-bytes-temp" 
