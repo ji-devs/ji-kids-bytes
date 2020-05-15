@@ -1,3 +1,10 @@
+/*
+    The sitemap points to each root page as well as each topic/section
+    It does not point to the indexed videos/games within their sections
+    Since that would require loading each topic's manifest
+    And it's already generated on the page for easy crawling
+*/
+
 use std::sync::Arc;
 use handlebars::Handlebars;
 use serde_json::json;

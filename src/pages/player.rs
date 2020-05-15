@@ -26,7 +26,7 @@ pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, t
     let manifest:TopicManifestWithAlbum = manifest.into();
 
     //social tags are based on real url - i.e. "/" isn't turned to "/watch"
-    let social = Social::new(&manifest.meta, section);
+    let social_section = section.clone();
 
     //playing needs a real section, so default to "watch"
     let section = section.unwrap_or(TopicSection::Watch);
@@ -50,6 +50,8 @@ pub async fn player_page(hb:Arc<Handlebars<'_>>, section:Option<TopicSection>, t
             (None, None)
         }
     };
+
+    let social = Social::new(&manifest.meta, social_section, &media, &media_index);
 
     let render = hb
         .render("player", &PlayerData {
@@ -92,18 +94,41 @@ struct Social {
 }
 
 impl Social {
-    pub fn new(topic: &TopicMeta, section:Option<TopicSection>) -> Self {
+    pub fn new(topic: &TopicMeta, section:Option<TopicSection>, media:&Option<MediaWithAlbum>, media_index:&Option<usize>) -> Self {
 
         let url = match section {
-            Some(section) => format!("{}/topic/{}/{}", META_BASE_URL, topic.id, section.to_string()),
+            Some(section) => {
+                match media_index {
+                    Some(index) => format!("{}/topic/{}/{}/{}", META_BASE_URL, topic.id, section.to_string(), index),
+                    None => format!("{}/topic/{}/{}", META_BASE_URL, topic.id, section.to_string()),
+                }
+            }
             None => format!("{}/topic/{}", META_BASE_URL, topic.id),
         };
 
+        let title = match section {
+            Some(section) => {
+                match media_index {
+                    Some(index) => {
+                        if section == TopicSection::Watch {
+                            format!("{} - video #{} - {}", topic.title, index+1, META_BASE_TITLE)
+                        } else if section == TopicSection::Games {
+                            format!("{} - game #{} - {}", topic.title, index+1, META_BASE_TITLE)
+                        } else {
+                            format!("{} - {} - {}", topic.title, section, META_BASE_TITLE)
+                        }
+                    }
+                    None => format!("{} - {} - {}", topic.title, section, META_BASE_TITLE)
+                }
+            },
+            None => format!("{} - {}", topic.title, META_BASE_TITLE),
+        };
+
         Self{
-            title: format!("{} - {}", topic.title, META_BASE_TITLE),
+            title: title.clone(),
             url,
             image: format!("{}/{}_large.png", SETTINGS.path_topic(&topic.id), topic.id),
-            description: format!("{} - {}", topic.title, META_BASE_DESCRIPTION)
+            description: format!("{}. {}", title, META_BASE_DESCRIPTION)
         }
     }
 }
