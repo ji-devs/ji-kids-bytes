@@ -23,4 +23,8 @@ pub struct Config {
     /// batch sleep time 
     #[structopt(long, parse(try_from_str), default_value = "100")]
     pub batch_sleep_time: u64,
+
+    /// only locked 
+    #[structopt(long, parse(try_from_str), default_value = "true")]
+    pub only_locked: bool,
 }
