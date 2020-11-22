@@ -31,12 +31,16 @@ async fn main() {
     let mut series_lookup = HashMap::<String, Vec<TopicMeta>>::new();
     let mut series_order = Vec::<String>::new();
 
-    eprintln!("{:#?}", &manifest_list);
+    //eprintln!("{:#?}", &manifest_list);
 
     for drive_topic_meta in manifest_list.iter() {
         let DriveAppManifestRow { doc_id, series_id, should_sync, ..} = drive_topic_meta;
-        if !series_lookup.contains_key(series_id) {
+        let should_sync = if config.no_topics { false } else { *should_sync };
+        if !series_order.contains(series_id) {
             series_order.push(series_id.to_string());
+        }
+        if config.list_series_order_only {
+            continue;
         }
 
         let topics = series_lookup.entry(series_id.to_string()).or_insert(Default::default());
@@ -46,8 +50,8 @@ async fn main() {
         eprintln!("----topic manifest {}----", doc_id);
         eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}", doc_id);
 
-        if config.list_only || !should_sync {
-            if config.list_only {
+        if config.list_topic_meta_only || !should_sync {
+            if config.list_topic_meta_only {
                 eprintln!("{:#?}", meta);
             } else {
                 eprintln!("----SKIPPING {}----", meta.id);
@@ -80,7 +84,11 @@ async fn main() {
         }
     }
 
-    if config.list_only {
+    if config.no_topics || config.list_series_order_only {
+        eprintln!("series order: {:#?}", &series_order);
+    }
+
+    if config.list_only() {
         return;
     }
 
@@ -93,7 +101,7 @@ async fn main() {
         series_order
             .into_iter()
             .map(|key| {
-                let topics = series_lookup.get(&key).expect("topic must exist in lookup!").clone();
+                let topics = series_lookup.get(&key).expect(&format!("{} must exist in lookup!", key)).clone();
                 let TopicMeta { series_id, series_title, ..} = &topics[0];
 
                 if &key != series_id {

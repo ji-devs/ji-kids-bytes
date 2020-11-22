@@ -13,7 +13,7 @@ pub struct Config {
     pub manifest_list_id: String,
 
     /// dry run 
-    #[structopt(long, parse(try_from_str), default_value = "true")]
+    #[structopt(long, parse(try_from_str), default_value = "false")]
     pub dry_run: bool,
 
     /// how many per batch 
@@ -26,14 +26,25 @@ pub struct Config {
 
     /// list top-level items only 
     #[structopt(long)]
-    pub list_only: bool,
+    pub list_topic_meta_only: bool,
+
+    /// list top-level items only 
+    #[structopt(long)]
+    pub list_series_order_only: bool,
+
+    #[structopt(long)]
+    pub no_topics: bool,
 }
 
 impl Config {
     pub fn sanitize(mut self) -> Self {
-        if self.list_only {
-            //self.per_batch = 100;
+        if self.list_topic_meta_only || self.list_series_order_only {
+            self.dry_run = true;
         }
         self
+    }
+
+    pub fn list_only(&self) -> bool {
+        self.list_topic_meta_only || self.list_series_order_only
     }
 }
