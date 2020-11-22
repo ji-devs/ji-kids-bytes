@@ -19,7 +19,7 @@ use manifest::*;
 
 #[tokio::main]
 async fn main() {
-    let config = Config::from_args();
+    let config = Config::from_args().sanitize();
     dotenv().ok();
 
     let api_key = env::var("GOOGLE_API_KEY").expect("requires GOOGLE_API_KEY in env");
@@ -31,21 +31,28 @@ async fn main() {
     let mut series_lookup = HashMap::<String, Vec<TopicMeta>>::new();
     let mut series_order = Vec::<String>::new();
 
+    eprintln!("{:#?}", &manifest_list);
+
     for drive_topic_meta in manifest_list.iter() {
-        let DriveAppManifestRow { doc_id, series_id, locked, ..} = drive_topic_meta;
+        let DriveAppManifestRow { doc_id, series_id, should_sync, ..} = drive_topic_meta;
         if !series_lookup.contains_key(series_id) {
             series_order.push(series_id.to_string());
         }
 
-        eprintln!("----topic manifest {}----", doc_id);
-        eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}", doc_id);
         let topics = series_lookup.entry(series_id.to_string()).or_insert(Default::default());
         let meta = load_topic_meta(&drive_topic_meta, &api_key, &config).await;
         topics.push(meta.clone());
       
-        if config.only_locked && !locked {
-            eprintln!("----SKIPPING {} (only locked)----", meta.id);
-        } else {
+        eprintln!("----topic manifest {}----", doc_id);
+        eprintln!("Google doc: https://docs.google.com/spreadsheets/d/{}", doc_id);
+
+        if config.list_only || !should_sync {
+            if config.list_only {
+                eprintln!("{:#?}", meta);
+            } else {
+                eprintln!("----SKIPPING {}----", meta.id);
+            }
+        } else { 
             eprintln!("----LOADING id {}----", meta.id);
             let videos = load_topic_media(doc_id, "Watch", &api_key, &config).await;
             let games = load_topic_media(doc_id, "Games", &api_key, &config).await;
@@ -71,6 +78,10 @@ async fn main() {
             eprintln!("manifest for {} topic written to {:?}", topic_manifest.meta.id, manifest_path);
 
         }
+    }
+
+    if config.list_only {
+        return;
     }
 
     let mut manifest_path = config.local_output.clone();

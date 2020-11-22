@@ -22,13 +22,14 @@ pub async fn load_manifest_list(doc_id: &str, api_key:&str, config:&Config) -> V
                 series_id,
                 series_title,
                 locked: extract_bool(&row, 2), 
+                should_sync: extract_bool(&row, 3), 
             }
         })
         .collect()
 }
 
 pub async fn load_topic_meta(app_manifest_row:&DriveAppManifestRow, api_key:&str, config:&Config) -> TopicMeta {
-    let DriveAppManifestRow { doc_id, series_id, series_title, locked} = app_manifest_row;
+    let DriveAppManifestRow { doc_id, series_id, series_title, locked, should_sync} = app_manifest_row;
 
     load_sheet_rows(&doc_id, "Meta", api_key, config)
         .await

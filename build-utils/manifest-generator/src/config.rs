@@ -13,7 +13,7 @@ pub struct Config {
     pub manifest_list_id: String,
 
     /// dry run 
-    #[structopt(long, parse(try_from_str), default_value = "false")]
+    #[structopt(long, parse(try_from_str), default_value = "true")]
     pub dry_run: bool,
 
     /// how many per batch 
@@ -24,7 +24,16 @@ pub struct Config {
     #[structopt(long, parse(try_from_str), default_value = "100")]
     pub batch_sleep_time: u64,
 
-    /// only locked 
-    #[structopt(long, parse(try_from_str), default_value = "true")]
-    pub only_locked: bool,
+    /// list top-level items only 
+    #[structopt(long)]
+    pub list_only: bool,
+}
+
+impl Config {
+    pub fn sanitize(mut self) -> Self {
+        if self.list_only {
+            //self.per_batch = 100;
+        }
+        self
+    }
 }
