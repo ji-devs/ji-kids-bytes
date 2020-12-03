@@ -22,6 +22,17 @@ async fn main() {
     let config = Config::from_args().sanitize();
     dotenv().ok();
 
+    if config.sync_all {
+        eprintln!("**********************");
+        eprintln!("SYNCING ALL!!!!");
+        eprintln!("**********************");
+    }
+    if config.dry_run {
+        eprintln!("**********************");
+        eprintln!("DRY RUN!!!!");
+        eprintln!("**********************");
+    }
+
     let api_key = env::var("GOOGLE_API_KEY").expect("requires GOOGLE_API_KEY in env");
 
     //1. Load Sheets 
