@@ -34,6 +34,10 @@ pub struct Config {
 
     #[structopt(long)]
     pub no_topics: bool,
+
+    /// Ignore the sync settings in the sheet and sync anyway
+    #[structopt(long)]
+    pub sync_all: bool,
 }
 
 impl Config {

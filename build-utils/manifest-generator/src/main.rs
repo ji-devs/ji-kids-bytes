@@ -35,7 +35,10 @@ async fn main() {
 
     for drive_topic_meta in manifest_list.iter() {
         let DriveAppManifestRow { doc_id, series_id, should_sync, ..} = drive_topic_meta;
-        let should_sync = if config.no_topics { false } else { *should_sync };
+        let mut should_sync = if config.no_topics { false } else { *should_sync };
+        if config.sync_all {
+            should_sync = true;
+        }
         if !series_order.contains(series_id) {
             series_order.push(series_id.to_string());
         }
