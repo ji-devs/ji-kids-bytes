@@ -42,11 +42,11 @@ script = ["npm start"]
 
 [tasks.server-local]
 command = "systemfd"
-args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch", "-w", "../ji-cloud/ji-cloud-shared/rust", "-w", ".", "-x", "run --features local"]
+args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch","-w", ".", "-x", "run --features local"]
 
 [tasks.server-local-quiet]
 command = "systemfd"
-args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch", "-w", "../ji-cloud/ji-cloud-shared/rust", "-w", ".", "-x", "run --features local-quiet"]
+args = ["--no-pid", "-s", "http::8081", "--", "cargo", "watch","-w", ".", "-x", "run --features local-quiet"]
 
 
 ###################
