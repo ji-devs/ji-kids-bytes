@@ -114,5 +114,8 @@
 
         </main>
         <script src="/js/home.js"></script>
+        {{#if (not local_dev)}}
+            {{>hubspot-tracking}}
+        {{/if}}
     </body>
 </html>

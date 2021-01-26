@@ -80,5 +80,9 @@
         <script>
             init_page("{{section}}");
         </script>
+
+        {{#if (not local_dev)}}
+            {{>hubspot-tracking}}
+        {{/if}}
     </body>
 </html>

@@ -5,6 +5,7 @@ pub fn register_templates() -> Arc<Handlebars<'static>> {
     let mut hb = Handlebars::new();
 
     hb.register_template_file("facebook-pixel", "./markup/templates/facebook-pixel.hbs").expect("unable to parse facebook pixel template");
+    hb.register_template_file("hubspot-tracking", "./markup/templates/hubspot-tracking.hbs").expect("unable to parse hubspot tracking template");
     hb.register_template_file("google-analytics", "./markup/templates/google-analytics.hbs").expect("unable to parse google analytics template");
 
     hb.register_template_file("home", "./markup/templates/home.hbs").expect("unable to parse home template");
