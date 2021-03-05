@@ -5,8 +5,6 @@ use structopt::StructOpt;
 #[structopt(name = "creation pack download", about = "A little util to download and re-parse creation packs")]
 pub struct Config {
     /// Output dir
-    #[structopt(short, long, default_value="D:\\Dropbox (Jewish Interactive)\\Ji Kids - Bytes - Media\\live-media\\manifests", parse(from_os_str))]
-    pub local_output: PathBuf,
     
     /// Manifest Id 
     #[structopt(short, long, default_value="1kugXziYFFDwiJmIxQ-T_8cckOc4qSfHoFw9KoM56Hvs", parse(from_str))]

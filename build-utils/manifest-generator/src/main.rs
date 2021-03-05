@@ -16,6 +16,8 @@ use dotenv::dotenv;
 use std::env;
 use std::collections::HashMap;
 use manifest::*;
+use std::path::PathBuf;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() {
@@ -34,6 +36,8 @@ async fn main() {
     }
 
     let api_key = env::var("GOOGLE_API_KEY").expect("requires GOOGLE_API_KEY in env");
+    let output_path = env::var("MANIFEST_WRITE_PATH").expect("requires MANIFEST_WRITE_PATH in env");
+    let output_path = PathBuf::from_str(&output_path).unwrap();
 
     //1. Load Sheets 
     eprintln!("----main app manifest----");
@@ -88,7 +92,7 @@ async fn main() {
                 crafts
             };
 
-            let mut manifest_path = config.local_output.clone();
+            let mut manifest_path = output_path.clone();
             manifest_path.push("topics");
             manifest_path.push(format!("{}.json", topic_manifest.meta.id));
 
@@ -106,7 +110,7 @@ async fn main() {
         return;
     }
 
-    let mut manifest_path = config.local_output.clone();
+    let mut manifest_path = output_path.clone();
     manifest_path.push("app.json");
     
     eprintln!("writing final manifest to {:?}", manifest_path);
