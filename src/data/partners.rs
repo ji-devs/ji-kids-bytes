@@ -1,4 +1,5 @@
-pub static list:[[&'static str;3];35] = [
+pub static list:[[&'static str;3];36] = [
+	["jnf-boruchin.jpg", "https://www.jnf.org/about-jnf/jnf-boruchin-center", "JNF Boruchin Center"],
     ["Behrman-house.jpg", "https://www.behrmanhouse.com/", "Behrman House"],
     ["Jewish-Journeys.jpg", "https://jccmanhattan.org/children-families/jewish-life/jewish-journeys", "Jewish Journeys"],
     ["Leo-Baeck.jpg", "https://lbc.ac.uk/", "Leo Baeck"],
